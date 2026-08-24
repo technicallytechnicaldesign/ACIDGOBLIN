@@ -59,9 +59,17 @@
       -webkit-text-stroke: 1px var(--ink);
     }
     p.lede { font-size: 1.05rem; opacity: 0.85; margin: 0; }
+    .shelf-section { width: 100%; max-width: 46rem; margin-bottom: 2.25rem; }
+    .shelf-section > h2 {
+      font-size: 0.8rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin: 0 0 1rem;
+    }
     .shelf {
       width: 100%;
-      max-width: 46rem;
       display: grid;
       gap: 1.5rem;
       grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
@@ -116,15 +124,34 @@
     <p class="lede">Cute-chaos field guides: tiny goblins, gentle reminders, acid color. One issue at a time, more to come.</p>
   </header>
 
-  <main class="shelf">
-    <a class="issue" href="./wavy-days-issue-01/index.html">
-      <div class="cover" style="background-image:url('./wavy-days-issue-01/assets/wavy-days-cover-riso-v1.png');"></div>
-      <div class="meta">
-        <span class="tag">Issue 01</span>
-        <h2>Wavy Days</h2>
-        <p>The weather is participating. A nine-page Riso field guide for mixed weather and hard weeks.</p>
+  <main>
+    <section class="shelf-section">
+      <h2>Zines</h2>
+      <div class="shelf">
+        <a class="issue" href="./wavy-days-issue-01/index.html">
+          <div class="cover" style="background-image:url('./wavy-days-issue-01/assets/wavy-days-cover-riso-v1.png');"></div>
+          <div class="meta">
+            <span class="tag">Issue 01</span>
+            <h2>Wavy Days</h2>
+            <p>The weather is participating. A nine-page Riso field guide for mixed weather and hard weeks.</p>
+          </div>
+        </a>
       </div>
-    </a>
+    </section>
+
+    <section class="shelf-section">
+      <h2>Prints</h2>
+      <div class="shelf">
+        <a class="issue" href="./solve-the-wave/index.html">
+          <div class="cover" style="background-image:url('./solve-the-wave/assets/solve-the-wave-v1.png'); background-color:#0b0512;"></div>
+          <div class="meta">
+            <span class="tag" style="background:var(--violet);">Cosmic Acid</span>
+            <h2>Solve The Wave</h2>
+            <p>You do not need to solve the wave. A single-plate cosmic acid print, teacup and all.</p>
+          </div>
+        </a>
+      </div>
+    </section>
   </main>
 
   <footer>
