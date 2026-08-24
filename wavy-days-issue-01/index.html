@@ -1,0 +1,1950 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4ead4">
+  <meta name="description" content="Wavy Days Issue 01, a tiny Riso Goblin field guide for mixed weather and hard weeks.">
+  <title>Wavy Days, Issue 01: The Weather Is Participating</title>
+  <script>document.documentElement.classList.add('js');</script>
+  <style>
+    :root {
+      --paper: #f4ead4;
+      --paper-deep: #ead8b7;
+      --ink: #19151e;
+      --pink: #f4479a;
+      --teal: #078c8c;
+      --yellow: #f5c928;
+      --orange: #ef5e2f;
+      --violet: #74439a;
+      --soft-violet: #d8c5e6;
+      --page-shadow: 0 28px 70px rgb(54 35 54 / 25%);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      color-scheme: light;
+      background: #cfd9c5;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--ink);
+      font-family: "Trebuchet MS", "Arial Rounded MT Bold", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgb(244 71 154 / 18%) 0 9%, transparent 10%),
+        radial-gradient(circle at 90% 12%, rgb(245 201 40 / 22%) 0 8%, transparent 9%),
+        radial-gradient(circle at 84% 88%, rgb(7 140 140 / 20%) 0 10%, transparent 11%),
+        linear-gradient(145deg, #d7dfca, #c9d7d4 48%, #ddd0df);
+    }
+
+    button {
+      font: inherit;
+    }
+
+    button:focus-visible,
+    .book:focus-visible {
+      outline: 4px solid var(--yellow);
+      outline-offset: 4px;
+    }
+
+    .stage {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: clamp(18px, 3vw, 36px);
+      isolation: isolate;
+    }
+
+    .ambient-stamp {
+      position: fixed;
+      z-index: -1;
+      color: var(--ink);
+      font-family: Georgia, serif;
+      font-size: clamp(28px, 5vw, 74px);
+      opacity: 0.18;
+      transform: rotate(var(--tilt));
+      user-select: none;
+    }
+
+    .ambient-stamp.one { top: 4%; left: 3%; --tilt: -13deg; color: var(--pink); }
+    .ambient-stamp.two { top: 8%; right: 4%; --tilt: 12deg; color: var(--violet); }
+    .ambient-stamp.three { bottom: 4%; left: 5%; --tilt: 7deg; color: var(--teal); }
+    .ambient-stamp.four { bottom: 3%; right: 6%; --tilt: -9deg; color: var(--orange); }
+
+    .zine-shell {
+      width: min(100%, 980px);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 0 2px 12px;
+      color: rgb(25 21 30 / 72%);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .quiet-toggle {
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      padding: 7px 12px;
+      color: var(--ink);
+      background: rgb(244 234 212 / 82%);
+      box-shadow: 3px 3px 0 var(--ink);
+      cursor: pointer;
+    }
+
+    .quiet-toggle:hover {
+      transform: translateY(-1px);
+    }
+
+    .quiet-control {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .quiet-on { display: none; }
+
+    #quietToggle:checked ~ .topbar .quiet-off { display: none; }
+    #quietToggle:checked ~ .topbar .quiet-on { display: inline; }
+
+    .book {
+      position: relative;
+      width: 100%;
+      height: min(76vh, 720px);
+      height: min(76dvh, 720px);
+      min-height: 600px;
+      overflow-y: auto;
+      border: 3px solid var(--ink);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--page-shadow), 10px 12px 0 var(--ink);
+      touch-action: pan-y;
+      scroll-snap-type: y mandatory;
+    }
+
+    :where(.book, .page, .page-more, .note-pouch) {
+      scrollbar-width: thin;
+      scrollbar-color: var(--pink) rgb(244 234 212 / 42%);
+    }
+
+    :where(.book, .page, .page-more, .note-pouch)::-webkit-scrollbar {
+      width: 9px;
+      height: 9px;
+    }
+
+    :where(.book, .page, .page-more, .note-pouch)::-webkit-scrollbar-track {
+      border-left: 1px dashed rgb(25 21 30 / 24%);
+      background: rgb(244 234 212 / 42%);
+    }
+
+    :where(.book, .page, .page-more, .note-pouch)::-webkit-scrollbar-thumb {
+      border: 2px solid var(--paper);
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 50% 22%, var(--yellow) 0 2px, transparent 2.5px),
+        var(--pink);
+    }
+
+    :where(.book, .page, .page-more, .note-pouch)::-webkit-scrollbar-thumb:hover {
+      background: var(--teal);
+    }
+
+    .book::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 30;
+      pointer-events: none;
+      opacity: 0.22;
+      mix-blend-mode: multiply;
+      background-image:
+        radial-gradient(circle at 21% 31%, #593d2c 0 0.65px, transparent 0.85px),
+        radial-gradient(circle at 71% 62%, #593d2c 0 0.55px, transparent 0.8px),
+        radial-gradient(circle at 42% 84%, #593d2c 0 0.6px, transparent 0.9px);
+      background-size: 8px 8px, 11px 11px, 13px 13px;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      isolation: isolate;
+      visibility: visible;
+      min-height: 100%;
+      overflow: auto;
+      opacity: 1;
+      scroll-snap-align: start;
+      transform: none;
+      background-color: var(--paper);
+      background-image:
+        linear-gradient(90deg, transparent 49.7%, rgb(25 21 30 / 8%) 50%, transparent 50.3%),
+        radial-gradient(circle at 15% 18%, rgb(244 71 154 / 11%) 0 16%, transparent 16.4%),
+        radial-gradient(circle at 86% 84%, rgb(7 140 140 / 12%) 0 18%, transparent 18.4%);
+    }
+
+    .js .book {
+      overflow: hidden;
+      scroll-snap-type: none;
+    }
+
+    .js .page {
+      position: absolute;
+      inset: 0;
+      visibility: hidden;
+      min-height: 0;
+      opacity: 0;
+      transform: translateX(7%) rotate(0.7deg) scale(0.985);
+      transition: opacity 320ms ease, transform 420ms cubic-bezier(.2,.75,.15,1), visibility 0ms linear 430ms;
+    }
+
+    .js .page.is-before {
+      transform: translateX(-7%) rotate(-0.7deg) scale(0.985);
+    }
+
+    .js .page.is-active {
+      z-index: 5;
+      visibility: visible;
+      opacity: 1;
+      transform: none;
+      transition-delay: 0ms;
+    }
+
+    .page-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(180px, 0.72fr) minmax(0, 1.5fr);
+      min-height: 100%;
+    }
+
+    .page-rail {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      padding: clamp(24px, 4vw, 50px);
+      border-right: 3px solid var(--ink);
+      background: var(--rail, var(--yellow));
+    }
+
+    .page-rail::before,
+    .page-rail::after {
+      position: absolute;
+      color: var(--ink);
+      font-size: clamp(64px, 10vw, 142px);
+      line-height: 1;
+      opacity: 0.14;
+    }
+
+    .page-rail::before { content: "✦"; top: -18px; right: -10px; transform: rotate(14deg); }
+    .page-rail::after { content: "≈"; bottom: 24px; left: 20px; transform: rotate(-8deg); }
+
+    .rail-number {
+      position: relative;
+      z-index: 2;
+      width: max-content;
+      border: 3px solid var(--ink);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 900;
+      background: var(--paper);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    .rail-symbol {
+      position: relative;
+      z-index: 2;
+      align-self: center;
+      font-size: clamp(76px, 12vw, 150px);
+      filter: drop-shadow(7px 5px 0 rgb(244 71 154 / 75%));
+      transform: rotate(-5deg);
+    }
+
+    .rail-note {
+      position: relative;
+      z-index: 2;
+      max-width: 22ch;
+      font-family: Georgia, serif;
+      font-size: 0.88rem;
+      font-style: italic;
+      line-height: 1.45;
+    }
+
+    .page-copy {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: clamp(14px, 2.3vh, 24px);
+      padding: clamp(32px, 6vw, 82px);
+      padding-right: clamp(250px, 35%, 350px);
+    }
+
+    .page-art {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      right: clamp(24px, 4vw, 54px);
+      width: min(29%, 252px);
+      aspect-ratio: 3 / 4;
+      margin: 0;
+      overflow: hidden;
+      border: 3px solid var(--ink);
+      border-radius: 48% 52% 46% 54% / 51% 45% 55% 49%;
+      background-color: #f5ead4;
+      background-image: url('./assets/wavy-days-interior-sheet-riso-v1.png');
+      background-repeat: no-repeat;
+      background-size: 400% 200%;
+      box-shadow: 8px 7px 0 var(--accent, var(--pink));
+      transform: translateY(-50%) rotate(1.2deg);
+    }
+
+    .page-art::after {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border: 2px dashed rgb(25 21 30 / 54%);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .art-1 { background-position: 0% 0%; }
+    .art-2 { background-position: 33.333% 0%; }
+    .art-3 { background-position: 66.666% 0%; }
+    .art-4 { background-position: 100% 0%; }
+    .art-5 { background-position: 0% 100%; }
+    .art-6 { background-position: 33.333% 100%; }
+    .art-7 { background-position: 66.666% 100%; }
+    .art-8 { background-position: 100% 100%; }
+
+    .page-turns {
+      position: absolute;
+      right: clamp(24px, 4vw, 54px);
+      bottom: clamp(22px, 4vw, 44px);
+      z-index: 4;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .page-turn {
+      width: max-content;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      padding: 8px 12px;
+      color: var(--ink);
+      background: var(--paper);
+      box-shadow: 3px 3px 0 var(--ink);
+      font-size: 0.76rem;
+      font-weight: 900;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .page-turn.next {
+      background: var(--accent, var(--yellow));
+    }
+
+    .page-copy::after {
+      content: attr(data-stamp);
+      position: absolute;
+      right: 3%;
+      bottom: 2%;
+      color: var(--accent, var(--pink));
+      font-size: clamp(40px, 8vw, 96px);
+      font-weight: 900;
+      opacity: 0.11;
+      transform: rotate(-8deg);
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--accent, var(--pink));
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, .patch-ism {
+      text-wrap: balance;
+    }
+
+    h2 {
+      max-width: 16ch;
+      margin: 0;
+      font-family: "Arial Black", "Trebuchet MS", sans-serif;
+      font-size: clamp(2.1rem, 5.4vw, 5.2rem);
+      line-height: 0.92;
+      letter-spacing: -0.055em;
+      text-transform: uppercase;
+      text-shadow: 3px 2px 0 rgb(244 71 154 / 45%);
+    }
+
+    .patch-ism {
+      max-width: 26ch;
+      margin: 0;
+      font-family: Georgia, serif;
+      font-size: clamp(1.25rem, 2.6vw, 2.05rem);
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .guided {
+      max-width: 60ch;
+      margin: 0;
+      font-family: Georgia, serif;
+      font-size: clamp(1rem, 1.55vw, 1.22rem);
+      line-height: 1.6;
+    }
+
+    .tiny-practice {
+      max-width: 58ch;
+      border: 2px dashed var(--ink);
+      padding: 14px 16px;
+      background: rgb(255 255 255 / 28%);
+      font-size: 0.94rem;
+      font-weight: 800;
+      line-height: 1.45;
+      transform: rotate(-0.35deg);
+    }
+
+    .tiny-practice strong {
+      color: var(--accent, var(--violet));
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .inside-note {
+      max-width: 48ch;
+      margin: -4px 0 0;
+      border-left: 6px solid var(--accent, var(--teal));
+      padding: 8px 12px;
+      font-family: Georgia, serif;
+      font-size: 0.86rem;
+      line-height: 1.4;
+      background: rgb(255 255 255 / 34%);
+    }
+
+    .page-cover {
+      overflow: hidden;
+      background: var(--paper);
+    }
+
+    .cover-art {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 54%;
+      filter: saturate(0.97) contrast(1.03);
+    }
+
+    .cover-shade {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 18% 13%, rgb(244 234 212 / 96%) 0 17%, rgb(244 234 212 / 68%) 27%, transparent 44%);
+    }
+
+    .cover-copy {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      width: min(46%, 440px);
+      min-height: auto;
+      padding: clamp(26px, 5vw, 56px);
+    }
+
+    .issue-stamp {
+      display: inline-block;
+      margin-bottom: 18px;
+      border: 3px solid var(--ink);
+      padding: 8px 12px;
+      background: var(--yellow);
+      box-shadow: 5px 5px 0 var(--ink);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transform: rotate(-2deg);
+    }
+
+    .cover-title {
+      max-width: 7ch;
+      margin: 0;
+      font-family: "Arial Black", "Trebuchet MS", sans-serif;
+      font-size: clamp(3rem, 7.4vw, 6rem);
+      line-height: 0.79;
+      letter-spacing: -0.075em;
+      text-transform: uppercase;
+      text-shadow: 6px 4px 0 var(--pink), 10px 7px 0 rgb(7 140 140 / 72%);
+      transform: rotate(-1.5deg);
+    }
+
+    .cover-subtitle {
+      max-width: 22ch;
+      margin: 28px 0 0;
+      font-family: Georgia, serif;
+      font-size: clamp(1.1rem, 2vw, 1.48rem);
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .cover-note {
+      margin: 12px 0 0;
+      font-size: 0.79rem;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    .open-button,
+    .action-button,
+    .nav-button,
+    .weather-chip,
+    .quest-item {
+      border: 2px solid var(--ink);
+      color: var(--ink);
+      background: var(--paper);
+      box-shadow: 4px 4px 0 var(--ink);
+      cursor: pointer;
+    }
+
+    .open-button {
+      display: inline-block;
+      margin-top: 28px;
+      border-radius: 999px;
+      padding: 13px 18px;
+      color: var(--ink);
+      font-weight: 900;
+      background: var(--pink);
+      text-decoration: none;
+    }
+
+    .open-button:hover,
+    .action-button:hover,
+    .nav-button:hover:not(:disabled),
+    .weather-chip:hover,
+    .quest-item:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 6px 6px 0 var(--ink);
+    }
+
+    .weather-options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+      max-width: 520px;
+      margin: 0;
+      border: 0;
+      padding: 0;
+    }
+
+    .weather-chip {
+      display: block;
+      border-radius: 999px;
+      padding: 9px 13px;
+      font-size: 0.86rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .weather-chip summary {
+      cursor: pointer;
+      list-style: none;
+      text-transform: uppercase;
+    }
+
+    .weather-chip summary::-webkit-details-marker { display: none; }
+
+    .weather-chip p {
+      margin: 9px 0 2px;
+      font-family: Georgia, serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.35;
+      text-transform: none;
+    }
+
+    .weather-chip[open] {
+      border-radius: 18px;
+      background: var(--yellow);
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    .weather-chip[aria-pressed="true"] {
+      background: var(--yellow);
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    .weather-response,
+    .note-output {
+      min-height: 1.6em;
+      margin: 0;
+      color: var(--violet);
+      font-family: Georgia, serif;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .breath-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .breath-orb {
+      display: grid;
+      place-items: center;
+      width: 92px;
+      aspect-ratio: 1;
+      flex: 0 0 auto;
+      border: 3px solid var(--ink);
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 7px 5px 0 var(--pink);
+      font-size: 2rem;
+      transition: transform 3.2s ease-in-out, background 3.2s ease-in-out;
+    }
+
+    .breath-orb.is-breathing {
+      background: var(--yellow);
+      animation: breathe 9.6s ease-in-out 1;
+    }
+
+    .breath-details[open] .breath-orb {
+      background: var(--yellow);
+      animation: breathe 9.6s ease-in-out infinite;
+    }
+
+    .breath-details summary {
+      list-style: none;
+    }
+
+    .breath-details summary::-webkit-details-marker { display: none; }
+
+    .breath-details .breath-row {
+      margin-top: 14px;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(0.82) rotate(-4deg); }
+      36% { transform: scale(1.16) rotate(3deg); }
+      58% { transform: scale(1.16) rotate(3deg); }
+    }
+
+    .action-button {
+      width: max-content;
+      border-radius: 999px;
+      padding: 10px 15px;
+      font-size: 0.88rem;
+      font-weight: 900;
+      background: var(--yellow);
+    }
+
+    .quest-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 600px;
+    }
+
+    .quest-item {
+      position: relative;
+      padding: 13px 14px 13px 42px;
+      text-align: left;
+      font-family: Georgia, serif;
+      font-weight: 700;
+      background: rgb(255 255 255 / 34%);
+    }
+
+    .quest-item input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .quest-item::before {
+      content: "○";
+      position: absolute;
+      left: 14px;
+      top: 9px;
+      color: var(--pink);
+      font-family: Arial, sans-serif;
+      font-size: 1.35rem;
+      font-weight: 900;
+    }
+
+    .quest-item:has(input:checked) {
+      background: var(--soft-violet);
+      transform: rotate(-0.7deg);
+    }
+
+    .quest-item:has(input:checked)::before {
+      content: "●";
+    }
+
+    .pocket-drawer summary {
+      list-style: none;
+    }
+
+    .pocket-drawer summary::-webkit-details-marker { display: none; }
+
+    .pocket-drawer[open] .note-pouch {
+      animation: pouch-open 260ms ease-out both;
+    }
+
+    .note-pouch {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      max-width: 560px;
+      margin-top: 12px;
+    }
+
+    .note-pouch span {
+      border: 2px dashed var(--ink);
+      padding: 9px 10px;
+      font-family: Georgia, serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      line-height: 1.3;
+      background: rgb(255 255 255 / 32%);
+      transform: rotate(var(--note-tilt, -0.5deg));
+    }
+
+    @keyframes pouch-open {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .navigation {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .nav-button {
+      display: inline-block;
+      min-width: 112px;
+      border-radius: 999px;
+      padding: 11px 16px;
+      color: var(--ink);
+      font-weight: 900;
+      background: var(--paper);
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .nav-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.35;
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    .nav-button[aria-disabled="true"] {
+      pointer-events: none;
+      opacity: 0.35;
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    .page-status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .page-dots {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 7px;
+    }
+
+    .page-dot {
+      width: 11px;
+      height: 11px;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .page-dot[aria-current="page"] {
+      background: var(--pink);
+      transform: scale(1.25);
+    }
+
+    .page-count {
+      flex: 0 0 auto;
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+    }
+
+    .instructions {
+      margin: 13px 0 0;
+      color: rgb(25 21 30 / 66%);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .colophon {
+      color: rgb(25 21 30 / 68%);
+      font-size: 0.76rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    body.quiet .ambient-stamp,
+    body.quiet .page-rail::before,
+    body.quiet .page-rail::after,
+    body.quiet .page-copy::after,
+    body.quiet .book::after,
+    #quietToggle:checked ~ .book .page-rail::before,
+    #quietToggle:checked ~ .book .page-rail::after,
+    #quietToggle:checked ~ .book .page-copy::after,
+    #quietToggle:checked ~ .book::after {
+      display: none;
+    }
+
+    body.quiet .book,
+    body.quiet .nav-button,
+    body.quiet .quiet-toggle,
+    #quietToggle:checked ~ .book,
+    #quietToggle:checked ~ .navigation .nav-button,
+    #quietToggle:checked ~ .topbar .quiet-toggle {
+      box-shadow: 5px 6px 0 var(--ink);
+    }
+
+    body.quiet h2,
+    body.quiet .cover-title,
+    #quietToggle:checked ~ .book h2,
+    #quietToggle:checked ~ .book .cover-title {
+      text-shadow: none;
+    }
+
+    .page-more {
+      position: relative;
+      z-index: 8;
+      width: min(100%, 560px);
+      font-family: Georgia, serif;
+    }
+
+    .page-more > summary {
+      width: max-content;
+      max-width: 100%;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      padding: 7px 11px;
+      list-style: none;
+      background: var(--paper);
+      box-shadow: 3px 3px 0 var(--ink);
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .page-more > summary::-webkit-details-marker { display: none; }
+    .page-more > summary::before { content: "+ "; color: var(--accent, var(--pink)); }
+    .page-more[open] > summary::before { content: "× "; }
+
+    .page-more[open] {
+      max-height: min(48vh, 360px);
+      overflow: auto;
+      border: 2px solid var(--ink);
+      border-radius: 18px;
+      padding: 12px;
+      background: rgb(244 234 212 / 96%);
+      box-shadow: 7px 7px 0 var(--accent, var(--pink));
+    }
+
+    .page-more[open] > summary { margin-bottom: 12px; }
+    .page-more .guided { font-size: 0.96rem; line-height: 1.45; }
+    .page-more .inside-note,
+    .page-more .tiny-practice,
+    .page-more .patch-ism,
+    .page-more .colophon { margin-top: 10px; }
+
+    .template-gateway .page-grid,
+    .template-horizon .page-grid,
+    .template-splash .page-grid,
+    .template-sidebar .page-grid,
+    .template-banner .page-grid,
+    .template-sticker .page-grid,
+    .template-totem .page-grid,
+    .template-toolbox .page-grid {
+      display: block;
+    }
+
+    .template-gateway .page-rail,
+    .template-splash .page-rail,
+    .template-sticker .page-rail,
+    .template-toolbox .page-rail {
+      display: none;
+    }
+
+    .template-gateway {
+      background-image:
+        radial-gradient(circle at 24% 48%, rgb(7 140 140 / 24%) 0 31%, transparent 31.5%),
+        radial-gradient(circle at 74% 40%, rgb(244 71 154 / 14%) 0 22%, transparent 22.5%);
+    }
+
+    .template-gateway .page-art {
+      left: 7%;
+      right: auto;
+      width: min(41%, 370px);
+      transform: translateY(-50%) rotate(-2.4deg);
+      box-shadow: 13px 12px 0 var(--teal);
+    }
+
+    .template-gateway .page-copy {
+      position: absolute;
+      top: 50%;
+      right: 4%;
+      width: 49%;
+      padding: 28px;
+      transform: translateY(-50%);
+    }
+
+    .template-gateway h2 { font-size: clamp(2.8rem, 6vw, 5.8rem); }
+
+    .template-horizon .page-art,
+    .template-banner .page-art {
+      top: 0;
+      left: 0;
+      right: auto;
+      width: 100%;
+      aspect-ratio: auto;
+      border-width: 0 0 3px;
+      border-radius: 0 0 46% 8%;
+      transform: none;
+      box-shadow: 0 12px 0 var(--accent, var(--pink));
+    }
+
+    .template-horizon .page-art {
+      height: 43%;
+      background-size: 400% auto;
+      background-position: 33.333% 6%;
+    }
+
+    .template-horizon .page-rail,
+    .template-banner .page-rail {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      z-index: 7;
+      display: block;
+      width: auto;
+      min-height: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    .template-horizon .rail-symbol,
+    .template-horizon .rail-note,
+    .template-banner .rail-symbol,
+    .template-banner .rail-note { display: none; }
+
+    .template-horizon .page-copy {
+      position: absolute;
+      inset: 43% 0 0;
+      display: grid;
+      grid-template-columns: 0.68fr 1.32fr;
+      grid-template-rows: auto auto 1fr;
+      align-content: center;
+      gap: 8px 32px;
+      padding: 30px 5% 54px;
+    }
+
+    .template-horizon .eyebrow { grid-column: 1; grid-row: 1; }
+    .template-horizon h2 { grid-column: 1; grid-row: 2 / 4; font-size: clamp(2.5rem, 5vw, 4.8rem); }
+    .template-horizon .patch-ism { grid-column: 2; grid-row: 1; font-size: clamp(1.05rem, 2vw, 1.6rem); }
+    .template-horizon .weather-options { grid-column: 2; grid-row: 2; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: none; }
+    .template-horizon .page-more { grid-column: 2; grid-row: 3; align-self: start; margin-top: 8px; }
+
+    .template-splash {
+      background:
+        linear-gradient(135deg, rgb(7 140 140 / 28%), transparent 46%),
+        var(--yellow);
+    }
+
+    .template-splash .page-art {
+      top: 50%;
+      left: 50%;
+      right: auto;
+      width: min(54%, 470px);
+      transform: translate(-50%, -50%) rotate(2deg);
+      box-shadow: 18px 15px 0 var(--orange);
+    }
+
+    .template-splash .page-copy,
+    .template-sticker .page-copy,
+    .template-toolbox .page-copy {
+      position: absolute;
+      inset: 0;
+      display: block;
+      padding: 34px;
+      pointer-events: none;
+    }
+
+    .template-splash .page-copy > *,
+    .template-sticker .page-copy > *,
+    .template-toolbox .page-copy > * { pointer-events: auto; }
+
+    .template-splash .eyebrow { position: absolute; top: 5%; left: 4%; }
+    .template-splash h2 {
+      position: absolute;
+      left: 4%;
+      bottom: 15%;
+      max-width: 8ch;
+      border: 3px solid var(--ink);
+      padding: 7px 10px;
+      background: var(--pink);
+      box-shadow: 8px 8px 0 var(--ink);
+      font-size: clamp(3.2rem, 8vw, 7.4rem);
+      transform: rotate(-2deg);
+    }
+
+    .template-splash .page-more { position: absolute; left: 4%; bottom: 6%; width: min(46%, 480px); }
+
+    .template-sidebar .page-rail {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      z-index: 7;
+      width: auto;
+      min-height: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+    }
+
+    .template-sidebar .rail-symbol,
+    .template-sidebar .rail-note { display: none; }
+
+    .template-sidebar .page-art {
+      inset: 0 auto 0 0;
+      width: 39%;
+      aspect-ratio: auto;
+      border-width: 0 3px 0 0;
+      border-radius: 0 46% 46% 0;
+      background-size: auto 200%;
+      background-position: 100% 0%;
+      box-shadow: 12px 0 0 var(--teal);
+      transform: none;
+    }
+
+    .template-sidebar .page-copy {
+      position: absolute;
+      inset: 0 0 0 42%;
+      justify-content: center;
+      padding: 44px 6% 58px 5%;
+    }
+
+    .template-sidebar h2 { font-size: clamp(2.6rem, 5.7vw, 5rem); }
+    .template-sidebar .patch-ism { font-size: clamp(1.1rem, 2vw, 1.6rem); }
+
+    .template-banner .page-art {
+      height: 37%;
+      border-radius: 0 0 10% 52%;
+      background-size: 400% auto;
+      background-position: 0% 100%;
+      box-shadow: 0 12px 0 var(--orange);
+    }
+
+    .template-banner .page-copy {
+      position: absolute;
+      inset: 37% 0 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-content: center;
+      gap: 10px 34px;
+      padding: 36px 6% 56px;
+    }
+
+    .template-banner .eyebrow,
+    .template-banner h2 { grid-column: 1; }
+    .template-banner h2 { grid-row: 2 / 5; }
+    .template-banner .patch-ism,
+    .template-banner .page-more { grid-column: 2; }
+
+    .template-sticker {
+      background:
+        radial-gradient(circle at 50% 50%, rgb(244 71 154 / 20%) 0 29%, transparent 29.5%),
+        radial-gradient(circle at 50% 50%, transparent 0 36%, rgb(107 67 156 / 16%) 36.5% 37.5%, transparent 38%);
+    }
+
+    .template-sticker .page-art {
+      top: 49%;
+      left: 50%;
+      right: auto;
+      width: min(27%, 245px);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotate(-1.4deg);
+      box-shadow: 12px 10px 0 var(--pink), -9px -8px 0 var(--yellow);
+    }
+
+    .template-sticker .eyebrow { position: absolute; top: 7%; left: 5%; }
+    .template-sticker h2 { position: absolute; top: 14%; left: 5%; width: 30%; font-size: clamp(2.6rem, 5.4vw, 5rem); }
+    .template-sticker .patch-ism { position: absolute; top: 16%; right: 5%; width: 28%; }
+    .template-sticker .quest-list { position: absolute; right: 5%; bottom: 14%; left: 5%; grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: none; }
+    .template-sticker .quest-item { padding: 11px 10px 11px 34px; font-size: 0.78rem; }
+    .template-sticker .quest-item::before { left: 10px; top: 7px; }
+    .template-sticker .page-more { position: absolute; left: 5%; bottom: 6%; width: min(44%, 470px); }
+
+    .template-totem {
+      background:
+        linear-gradient(90deg, var(--teal) 0 14%, transparent 14.3%),
+        var(--paper);
+    }
+
+    .template-totem .page-rail { display: none; }
+    .template-totem .page-art {
+      inset: 0 0 0 auto;
+      width: 46%;
+      aspect-ratio: auto;
+      border-width: 0 0 0 3px;
+      border-radius: 48% 0 0 48%;
+      background-size: auto 200%;
+      background-position: 66.666% 100%;
+      box-shadow: -13px 0 0 var(--pink);
+      transform: none;
+    }
+
+    .template-totem .page-copy {
+      position: absolute;
+      inset: 0 50% 0 14%;
+      justify-content: center;
+      padding: 42px 4% 62px 6%;
+    }
+
+    .template-totem h2 { font-size: clamp(3.4rem, 7vw, 7rem); }
+    .template-totem .page-more { width: 100%; }
+
+    .template-toolbox {
+      background:
+        radial-gradient(circle at 48% 51%, rgb(255 220 36 / 34%) 0 38%, transparent 38.5%),
+        linear-gradient(145deg, rgb(244 71 154 / 18%), rgb(7 140 140 / 16%));
+    }
+
+    .template-toolbox .page-art {
+      top: 51%;
+      left: 45%;
+      right: auto;
+      width: min(51%, 455px);
+      transform: translate(-50%, -50%) rotate(-2deg);
+      box-shadow: 15px 13px 0 var(--yellow);
+    }
+
+    .template-toolbox .eyebrow { position: absolute; top: 6%; left: 5%; }
+    .template-toolbox h2 { position: absolute; top: 12%; left: 5%; width: 34%; font-size: clamp(2.8rem, 6vw, 5.8rem); }
+    .template-toolbox .patch-ism {
+      position: absolute;
+      top: 16%;
+      right: 4%;
+      width: 29%;
+      border: 3px solid var(--ink);
+      padding: 12px;
+      background: var(--yellow);
+      box-shadow: 7px 7px 0 var(--ink);
+      transform: rotate(1.5deg);
+    }
+
+    .template-toolbox .pocket-drawer { position: absolute; right: 4%; bottom: 17%; width: min(31%, 300px); }
+    .template-toolbox .note-pouch { position: absolute; right: 0; bottom: 44px; width: min(72vw, 560px); max-height: 48vh; overflow: auto; background: var(--paper); }
+    .template-toolbox .page-more { position: absolute; right: 4%; bottom: 8%; width: min(31%, 300px); }
+
+    @media (max-width: 720px) {
+      .stage {
+        align-items: start;
+        padding:
+          max(10px, env(safe-area-inset-top))
+          max(10px, env(safe-area-inset-right))
+          max(10px, env(safe-area-inset-bottom))
+          max(10px, env(safe-area-inset-left));
+      }
+      .topbar { margin-top: 2px; }
+      .book {
+        height: min(78vh, 740px);
+        height: clamp(500px, calc(100dvh - 158px), 740px);
+        min-height: 0;
+        border-radius: 18px;
+        box-shadow: 6px 7px 0 var(--ink);
+      }
+      .page-grid { grid-template-columns: 1fr; grid-template-rows: 112px auto auto auto; }
+      .page-rail { flex-direction: row; align-items: center; padding: 18px 22px; border-right: 0; border-bottom: 3px solid var(--ink); }
+      .rail-symbol { font-size: 58px; }
+      .rail-note { max-width: 25ch; text-align: right; font-size: 0.74rem; }
+      .page-copy { justify-content: flex-start; padding: 28px 24px 72px; }
+      h2 { font-size: clamp(2rem, 11vw, 3.4rem); }
+      .cover-shade { background: radial-gradient(circle at 20% 12%, rgb(244 234 212 / 96%) 0 16%, rgb(244 234 212 / 64%) 28%, transparent 48%); }
+      .cover-copy { justify-content: flex-start; width: 64%; padding: 22px 18px; }
+      .cover-title { font-size: clamp(2.65rem, 14vw, 4.3rem); }
+      .open-button { margin-top: 14px; padding: 9px 12px; font-size: 0.76rem; }
+      .navigation { grid-template-columns: auto 1fr auto; gap: 8px; }
+      .nav-button { min-width: 0; padding: 10px 14px; }
+      .page-count { display: none; }
+      .quest-list { grid-template-columns: 1fr; }
+      .guided { line-height: 1.5; }
+      .page-art { position: relative; top: auto; right: auto; order: 0; width: min(82%, 310px); margin: 2px auto 8px; transform: rotate(0.8deg); }
+      .page-turns { position: relative; right: auto; bottom: auto; justify-content: center; padding: 4px 20px 28px; }
+      .weather-options { grid-template-columns: 1fr 1fr; }
+      .note-pouch { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 430px) {
+      .topbar > span { max-width: 20ch; }
+      .quiet-toggle { padding: 6px 9px; font-size: 0.7rem; }
+      .book { min-height: 0; }
+      .rail-note { display: none; }
+      .page-copy { gap: 12px; padding: 24px 20px 68px; }
+      .patch-ism { font-size: 1.18rem; }
+      .guided { font-size: 0.96rem; }
+      .tiny-practice { font-size: 0.86rem; }
+      .breath-row { align-items: flex-start; }
+      .breath-orb { width: 72px; }
+      .page-dots { gap: 5px; }
+      .page-dot { width: 9px; height: 9px; }
+      .instructions { font-size: 0.7rem; }
+      .page-art { width: min(76%, 250px); }
+      .weather-options { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      .page.template-gateway,
+      .page.template-horizon,
+      .page.template-splash,
+      .page.template-sidebar,
+      .page.template-banner,
+      .page.template-sticker,
+      .page.template-totem,
+      .page.template-toolbox {
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+
+      .template-gateway .page-grid,
+      .template-horizon .page-grid,
+      .template-splash .page-grid,
+      .template-sidebar .page-grid,
+      .template-banner .page-grid,
+      .template-sticker .page-grid,
+      .template-totem .page-grid,
+      .template-toolbox .page-grid { display: block; min-height: 100%; }
+
+      .template-gateway .page-art,
+      .template-horizon .page-art,
+      .template-splash .page-art,
+      .template-sidebar .page-art,
+      .template-banner .page-art,
+      .template-sticker .page-art,
+      .template-totem .page-art,
+      .template-toolbox .page-art { position: absolute; margin: 0; }
+
+      .template-gateway .page-turns,
+      .template-horizon .page-turns,
+      .template-splash .page-turns,
+      .template-sidebar .page-turns,
+      .template-banner .page-turns,
+      .template-sticker .page-turns,
+      .template-totem .page-turns,
+      .template-toolbox .page-turns {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        bottom: auto;
+        left: auto;
+        z-index: 20;
+        justify-content: flex-end;
+        padding: 0;
+      }
+
+      .template-gateway .page-turn,
+      .template-horizon .page-turn,
+      .template-splash .page-turn,
+      .template-sidebar .page-turn,
+      .template-banner .page-turn,
+      .template-sticker .page-turn,
+      .template-totem .page-turn,
+      .template-toolbox .page-turn { padding: 6px 8px; font-size: 0.62rem; }
+
+      .page-more[open] {
+        position: absolute !important;
+        inset: auto auto 7% 5% !important;
+        z-index: 40;
+        width: 90% !important;
+        max-height: 62%;
+      }
+
+      .template-gateway .page-art {
+        top: 45%;
+        left: 50%;
+        width: min(64%, 230px);
+        transform: translate(-50%, -50%) rotate(-2deg);
+      }
+
+      .template-gateway .page-copy {
+        position: absolute;
+        inset: 0;
+        width: auto;
+        padding: 0;
+        transform: none;
+        pointer-events: none;
+      }
+
+      .template-gateway .page-copy > * { pointer-events: auto; }
+      .template-gateway .eyebrow { position: absolute; top: 6%; left: 5%; }
+      .template-gateway h2 {
+        position: absolute;
+        bottom: 21%;
+        left: 5%;
+        width: 90%;
+        max-width: none;
+        padding: 5px 7px;
+        background: rgb(244 234 212 / 90%);
+        box-shadow: 5px 5px 0 var(--teal);
+        font-size: clamp(2.45rem, 12vw, 3.5rem);
+      }
+      .template-gateway .patch-ism {
+        position: absolute;
+        bottom: 14%;
+        left: 5%;
+        border-left: 5px solid var(--pink);
+        padding: 4px 7px;
+        background: rgb(244 234 212 / 92%);
+        font-size: 1.04rem;
+      }
+      .template-gateway .page-more { position: absolute; bottom: 6%; left: 5%; }
+
+      .template-horizon .page-art { top: 0; left: 0; width: 100%; height: 38%; }
+      .template-horizon .page-rail { top: 12px; left: 12px; }
+      .template-horizon .page-copy {
+        position: absolute;
+        inset: 38% 0 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 8px;
+        padding: 24px 18px 38px;
+      }
+      .template-horizon h2 { font-size: 2.5rem; }
+      .template-horizon .patch-ism { font-size: 1.04rem; }
+      .template-horizon .weather-options { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+      .template-horizon .weather-options { position: relative; }
+      .template-horizon .weather-chip { position: static; padding: 6px 8px; font-size: 0.66rem; }
+      .template-horizon .weather-chip p { font-size: 0.72rem; }
+      .template-horizon .weather-chip[open] p {
+        position: absolute;
+        top: calc(100% + 7px);
+        right: 0;
+        left: 0;
+        z-index: 30;
+        margin: 0;
+        border: 2px solid var(--ink);
+        border-radius: 12px;
+        padding: 9px 11px;
+        background: var(--yellow);
+        box-shadow: 5px 5px 0 var(--ink);
+      }
+      .template-horizon .page-more { margin-top: 2px; }
+
+      .template-splash .page-art {
+        top: 47%;
+        left: 50%;
+        width: min(82%, 285px);
+        transform: translate(-50%, -50%) rotate(2deg);
+      }
+      .template-splash .page-copy { padding: 0; }
+      .template-splash .eyebrow { top: 5%; left: 5%; }
+      .template-splash h2 { bottom: 16%; left: 5%; font-size: clamp(3rem, 14vw, 4.2rem); }
+      .template-splash .page-more { bottom: 6%; left: 5%; width: 90%; }
+
+      .template-sidebar .page-art {
+        inset: 0 auto 0 0;
+        width: 48%;
+        background-size: auto 200%;
+        transform: none;
+      }
+      .template-sidebar .page-rail { top: 12px; left: 12px; }
+      .template-sidebar .page-copy {
+        position: absolute;
+        inset: 0 0 0 47%;
+        justify-content: center;
+        gap: 10px;
+        padding: 54px 13px 46px 18px;
+      }
+      .template-sidebar h2 { font-size: clamp(2rem, 9vw, 2.8rem); }
+      .template-sidebar .patch-ism { font-size: 0.98rem; }
+      .template-sidebar .breath-orb { width: 58px; }
+      .template-sidebar .action-button { max-width: 100%; padding: 7px 9px; font-size: 0.68rem; }
+
+      .template-banner .page-art { top: 0; left: 0; width: 100%; height: 37%; }
+      .template-banner .page-rail { top: 12px; left: 12px; }
+      .template-banner .page-copy {
+        position: absolute;
+        inset: 37% 0 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 9px;
+        padding: 28px 20px 44px;
+      }
+      .template-banner h2 { font-size: clamp(2.45rem, 12vw, 3.6rem); }
+      .template-banner .patch-ism { font-size: 1.04rem; }
+
+      .template-sticker .page-art {
+        top: 49%;
+        left: 50%;
+        width: min(52%, 190px);
+        transform: translate(-50%, -50%) rotate(-1deg);
+      }
+      .template-sticker .page-copy { padding: 0; }
+      .template-sticker .eyebrow { top: 5%; left: 5%; }
+      .template-sticker h2 {
+        top: 10%;
+        left: 5%;
+        width: 43%;
+        padding: 5px;
+        background: rgb(244 234 212 / 90%);
+        box-shadow: 5px 5px 0 var(--pink);
+        font-size: clamp(2.25rem, 11vw, 3.2rem);
+      }
+      .template-sticker .patch-ism {
+        top: 12%;
+        right: 5%;
+        width: 42%;
+        padding: 7px;
+        background: rgb(245 201 40 / 92%);
+        box-shadow: 4px 4px 0 var(--ink);
+        font-size: 1rem;
+      }
+      .template-sticker .quest-list { right: 5%; bottom: 7%; left: 5%; grid-template-columns: 1fr 1fr; gap: 6px; }
+      .template-sticker .quest-item { padding: 7px 7px 7px 29px; font-size: 0.67rem; }
+      .template-sticker .quest-item::before { left: 8px; top: 3px; font-size: 1.1rem; }
+      .template-sticker .page-more { position: absolute; top: 31%; bottom: auto; left: 5%; width: 42%; }
+
+      .template-totem .page-art {
+        inset: 0 0 0 auto;
+        width: 58%;
+        background-size: auto 200%;
+        transform: none;
+      }
+      .template-totem .page-copy {
+        position: absolute;
+        inset: 0 52% 0 8%;
+        justify-content: center;
+        gap: 12px;
+        padding: 56px 10px 46px;
+      }
+      .template-totem h2 { font-size: clamp(3rem, 14vw, 4.5rem); }
+      .template-totem .page-more { width: 100%; }
+
+      .template-toolbox .page-art {
+        top: 51%;
+        left: 47%;
+        width: min(80%, 285px);
+        transform: translate(-50%, -50%) rotate(-2deg);
+      }
+      .template-toolbox .page-copy { padding: 0; }
+      .template-toolbox .eyebrow { top: 5%; left: 5%; }
+      .template-toolbox h2 {
+        top: 10%;
+        left: 5%;
+        width: 55%;
+        padding: 5px;
+        background: rgb(244 234 212 / 90%);
+        box-shadow: 5px 5px 0 var(--teal);
+        font-size: clamp(2.25rem, 11vw, 3.2rem);
+      }
+      .template-toolbox .patch-ism { top: 14%; right: 3%; width: 42%; padding: 8px; font-size: 0.92rem; }
+      .template-toolbox .pocket-drawer { right: 3%; bottom: 9%; width: 47%; }
+      .template-toolbox .action-button { max-width: 100%; padding: 8px 10px; font-size: 0.68rem; }
+      .template-toolbox .note-pouch { right: 0; bottom: 40px; width: 88vw; max-height: 52vh; }
+      .template-toolbox .page-more { top: 32%; right: 3%; bottom: auto; width: 42%; }
+    }
+
+    @media (max-width: 720px) and (max-height: 720px) {
+      .stage { padding-top: max(6px, env(safe-area-inset-top)); }
+      .topbar { margin-bottom: 7px; font-size: 0.68rem; }
+      .book { height: calc(100dvh - 124px); min-height: 430px; }
+      .navigation { margin-top: 9px; }
+      .instructions { display: none; }
+
+      .template-gateway .page-art { width: min(54%, 190px); }
+      .template-gateway h2 { bottom: 20%; font-size: clamp(2.15rem, 10vw, 3rem); }
+      .template-gateway .patch-ism { bottom: 12.5%; font-size: 0.9rem; }
+      .template-gateway .page-more { bottom: 4%; }
+
+      .template-horizon .page-art { height: 34%; }
+      .template-horizon .page-copy { inset: 34% 0 0; gap: 5px; padding: 18px 16px 28px; }
+      .template-horizon h2 { font-size: 2rem; }
+      .template-horizon .patch-ism { font-size: 0.9rem; }
+      .template-horizon .weather-chip { padding: 5px 6px; }
+
+      .template-splash .page-art { width: min(67%, 225px); }
+      .template-splash h2 { bottom: 13%; font-size: clamp(2.5rem, 12vw, 3.5rem); }
+      .template-splash .page-more { bottom: 4%; }
+
+      .template-sidebar .page-copy { gap: 7px; padding-top: 42px; padding-bottom: 28px; }
+      .template-sidebar h2 { font-size: clamp(1.75rem, 8vw, 2.3rem); }
+      .template-sidebar .patch-ism { font-size: 0.84rem; }
+      .template-sidebar .breath-orb { width: 48px; }
+
+      .template-banner .page-art { height: 32%; }
+      .template-banner .page-copy { inset: 32% 0 0; gap: 6px; padding: 20px 18px 30px; }
+      .template-banner h2 { font-size: clamp(2rem, 10vw, 3rem); }
+      .template-banner .patch-ism { font-size: 0.9rem; }
+
+      .template-sticker .page-art { width: min(43%, 150px); }
+      .template-sticker h2 { font-size: clamp(1.9rem, 9vw, 2.6rem); }
+      .template-sticker .patch-ism { font-size: 0.84rem; }
+      .template-sticker .quest-list { bottom: 5%; }
+      .template-sticker .page-more { top: 29%; }
+
+      .template-totem .page-copy { gap: 8px; padding-top: 42px; padding-bottom: 28px; }
+      .template-totem h2 { font-size: clamp(2.5rem, 12vw, 3.6rem); }
+
+      .template-toolbox .page-art { width: min(65%, 230px); }
+      .template-toolbox h2 { font-size: clamp(1.9rem, 9vw, 2.6rem); }
+      .template-toolbox .patch-ism { font-size: 0.8rem; }
+    }
+
+    @media (max-width: 360px) {
+      .topbar > span { font-size: 0.62rem; letter-spacing: 0.08em; }
+      .quiet-toggle { padding: 5px 7px; }
+      .nav-button { padding: 8px 10px; font-size: 0.7rem; }
+      .page-dot { width: 8px; height: 8px; }
+      .template-sidebar .page-copy { padding-right: 8px; padding-left: 13px; }
+      .template-sidebar .page-more > summary,
+      .template-totem .page-more > summary { font-size: 0.61rem; }
+      .template-sticker .quest-item { font-size: 0.61rem; }
+    }
+
+    @media (max-height: 560px) and (orientation: landscape) {
+      .stage { padding: 7px 10px; }
+      .topbar { display: none; }
+      .book { height: calc(100dvh - 60px); min-height: 350px; }
+      .navigation { margin-top: 7px; }
+      .instructions { display: none; }
+      .page-turns { top: 7px !important; right: 7px !important; }
+      .page-more[open] { max-height: 78%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+
+    @media print {
+      body { background: white; }
+      .topbar, .navigation, .instructions, .ambient-stamp { display: none !important; }
+      .book { height: auto; overflow: visible; border: 0; box-shadow: none; }
+      .page { position: relative; visibility: visible; min-height: 100vh; break-after: page; opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage">
+    <span class="ambient-stamp one" aria-hidden="true">✦</span>
+    <span class="ambient-stamp two" aria-hidden="true">☾</span>
+    <span class="ambient-stamp three" aria-hidden="true">≈</span>
+    <span class="ambient-stamp four" aria-hidden="true">✿</span>
+
+    <section class="zine-shell" aria-label="Wavy Days Issue 01">
+      <input class="quiet-control" id="quietToggle" type="checkbox">
+      <header class="topbar">
+        <span>Wavy Days · Issue 01 · The Weather Is Participating</span>
+        <label class="quiet-toggle" for="quietToggle"><span class="quiet-off">quiet the ink</span><span class="quiet-on">wake the ink</span></label>
+      </header>
+
+      <div class="book" id="book" tabindex="0" aria-label="Flip-through web-zine">
+        <article class="page page-cover is-active" id="cover" data-title="Cover">
+          <img class="cover-art" src="./assets/wavy-days-cover-riso-v1.png" alt="A cheerful mushroom goblin stands in a puddle under a patchwork umbrella while rain and sunshine feed flowers.">
+          <div class="cover-shade" aria-hidden="true"></div>
+          <div class="cover-copy">
+            <span class="issue-stamp">Issue 01 · pocket weather</span>
+            <h1 class="cover-title">Wavy Days</h1>
+            <a class="open-button" href="#page-1">open the weather →</a>
+          </div>
+        </article>
+
+        <article class="page template-gateway" id="page-1" data-title="Arrive" style="--rail: var(--pink); --accent: var(--teal);">
+          <div class="page-grid">
+            <aside class="page-rail">
+              <span class="rail-number">01</span>
+              <span class="rail-symbol" aria-hidden="true">◉</span>
+              <span class="rail-note">First, be where your feet already are.</span>
+            </aside>
+            <div class="page-copy" data-stamp="HERE">
+              <p class="eyebrow">arrive before you interpret</p>
+              <h2>You are already in it</h2>
+              <p class="patch-ism">“Exist first. Explain later.”</p>
+              <details class="page-more">
+                <summary>open the field guide</summary>
+                <p class="inside-note"><strong>The Weather Is Participating.</strong> A pocket field guide for hard weeks, mixed skies, and the fantastically absurd fact of being here.</p>
+                <p class="guided">Before the mind turns this moment into a project, notice that it has already begun without permission. Your breathing is breathing. The room is rooming. You are not outside life trying to earn admission. You are one of the ways life is happening.</p>
+                <div class="tiny-practice"><strong>Tiny practice:</strong> Name three colors. Feel two points of contact. Let one breath finish itself.</div>
+              </details>
+            </div>
+            <figure class="page-art art-1" role="img" aria-label="A tiny sprout creature in boots steps through a round doorway."></figure>
+            <nav class="page-turns" aria-label="Page 1 links"><a class="page-turn" href="#cover">← cover</a><a class="page-turn" href="#page-2">weather →</a></nav>
+          </div>
+        </article>
+
+        <article class="page template-horizon" id="page-2" data-title="Weather" style="--rail: var(--yellow); --accent: var(--violet);">
+          <div class="page-grid">
+            <aside class="page-rail">
+              <span class="rail-number">02</span>
+              <span class="rail-symbol" aria-hidden="true">☂</span>
+              <span class="rail-note">A forecast can be noticed without becoming a verdict.</span>
+            </aside>
+            <div class="page-copy" data-stamp="RAIN + SUN">
+              <p class="eyebrow">the weather page</p>
+              <h2>Both belong</h2>
+              <p class="patch-ism">“A storm is not a failure of the sky.”</p>
+              <fieldset class="weather-options" aria-label="Choose your internal weather">
+                <details class="weather-chip"><summary>sun</summary><p>Warm and bright. Shade remains available. Forecast accepted.</p></details>
+                <details class="weather-chip"><summary>drizzle</summary><p>Soft rain. Roots are drinking. Forecast accepted.</p></details>
+                <details class="weather-chip"><summary>electrical</summary><p>Sparks in the system. Move gently. Forecast accepted.</p></details>
+                <details class="weather-chip"><summary>fog</summary><p>Low visibility is not no direction. Forecast accepted.</p></details>
+                <details class="weather-chip"><summary>mixed</summary><p>Sun and rain together. Complicated, fertile, welcome.</p></details>
+              </fieldset>
+              <details class="page-more"><summary>why both?</summary><p class="guided">Rain is not sunshine doing badly. It is another way the sky participates. Things drink. Roots loosen. Air changes. Only sun scorches; only rain floods. A living week can contain both. Neither cancels the other. Both are welcome at the table.</p></details>
+            </div>
+            <figure class="page-art art-2" role="img" aria-label="A smiling sun and friendly rain cloud water one delighted flower together."></figure>
+            <nav class="page-turns" aria-label="Page 2 links"><a class="page-turn" href="#page-1">← arrive</a><a class="page-turn" href="#page-3">wave →</a></nav>
+          </div>
+        </article>
+
+        <article class="page template-splash" id="page-3" data-title="Wave" style="--rail: var(--teal); --accent: var(--orange);">
+          <div class="page-grid">
+            <aside class="page-rail">
+              <span class="rail-number">03</span>
+              <span class="rail-symbol" aria-hidden="true">≈</span>
+              <span class="rail-note">The sea has never required a wave to submit a plan.</span>
+            </aside>
+            <div class="page-copy" data-stamp="SLOSH">
+              <p class="eyebrow">the wave page</p>
+              <h2>Nothing to solve</h2>
+              <details class="page-more">
+                <summary>let the wave speak</summary>
+                <p class="patch-ism">“You do not need to solve the wave.”</p>
+                <p class="guided">A wave does not have to understand water before it rises. It is water taking a shape for a while. You may be less like a fixed little pilot and more like life doing this particular wobble. There is nothing to solve in order to belong to the sea.</p>
+                <div class="tiny-practice"><strong>Tiny practice:</strong> Unclench one thing you did not know you were clenching.</div>
+              </details>
+            </div>
+            <figure class="page-art art-3" role="img" aria-label="A joyful jelly creature becomes a curling teal wave."></figure>
+            <nav class="page-turns" aria-label="Page 3 links"><a class="page-turn" href="#page-2">← weather</a><a class="page-turn" href="#page-4">rest →</a></nav>
+          </div>
+        </article>
+
+        <article class="page template-sidebar" id="page-4" data-title="Rest" style="--rail: var(--soft-violet); --accent: var(--teal);">
+          <div class="page-grid">
+            <aside class="page-rail">
+              <span class="rail-number">04</span>
+              <span class="rail-symbol" aria-hidden="true">☾</span>
+              <span class="rail-note">The pause is inside the music.</span>
+            </aside>
+            <div class="page-copy" data-stamp="SOFTEN">
+              <p class="eyebrow">the rest page</p>
+              <h2>Pause participates</h2>
+              <p class="patch-ism">“Rest is also a way of participating in reality.”</p>
+              <details class="page-more"><summary>a soft footnote</summary><p class="guided">The pause is not outside the music. The empty bowl is not failing to be useful. A field is not unemployed in winter. Rest does not need to justify itself by improving tomorrow.</p></details>
+              <details class="breath-details">
+                <summary class="action-button">take one unproductive breath</summary>
+                <div class="breath-row">
+                  <div class="breath-orb" aria-hidden="true">○</div>
+                  <p class="weather-response">Stay open for one slow cycle. Inhale without collecting evidence. Exhale and let the room hold some of you.</p>
+                </div>
+              </details>
+            </div>
+            <figure class="page-art art-4" role="img" aria-label="A noodle-armed ghost rests under a patchwork blanket beside a sleepy moon and a steaming mug."></figure>
+            <nav class="page-turns" aria-label="Page 4 links"><a class="page-turn" href="#page-3">← wave</a><a class="page-turn" href="#page-5">shape →</a></nav>
+          </div>
+        </article>
+
+        <article class="page template-banner" id="page-5" data-title="Shape" style="--rail: var(--orange); --accent: var(--pink);">
+          <div class="page-grid">
+            <aside class="page-rail">
+              <span class="rail-number">05</span>
+              <span class="rail-symbol" aria-hidden="true">〰</span>
+              <span class="rail-note">Continuity is not the same thing as sameness.</span>
+            </aside>
+            <div class="page-copy" data-stamp="VERB">
+              <p class="eyebrow">the shape page</p>
+              <h2>Stay by changing</h2>
+              <p class="patch-ism">“The ocean keeps going by not staying one shape.”</p>
+              <details class="page-more">
+                <summary>follow the snail trail</summary>
+                <p class="guided">Continuity is not sameness. The river remains itself by changing. You are allowed to be a process with no final logo, a sentence still revising its own grammar, a very small creature with unclear weather.</p>
+                <div class="tiny-practice"><strong>Pocket question:</strong> What if this version of you is a verb?</div>
+              </details>
+            </div>
+            <figure class="page-art art-5" role="img" aria-label="A snail carries a tiny moon shrine while its shell changes through three wobbly shapes."></figure>
+            <nav class="page-turns" aria-label="Page 5 links"><a class="page-turn" href="#page-4">← rest</a><a class="page-turn" href="#page-6">creature →</a></nav>
+          </div>
+        </article>
+
+        <article class="page template-sticker" id="page-6" data-title="Creature" style="--rail: var(--pink); --accent: var(--violet);">
+          <div class="page-grid">
+            <aside class="page-rail">
+              <span class="rail-number">06</span>
+              <span class="rail-symbol" aria-hidden="true">✿</span>
+              <span class="rail-note">Solemnity is optional. Tiny boots remain available.</span>
+            </aside>
+            <div class="page-copy" data-stamp="GOBLIN MODE">
+              <p class="eyebrow">the absurdity page</p>
+              <h2>Be a creature</h2>
+              <p class="patch-ism">“Be a little creature about it.”</p>
+              <div class="quest-list" aria-label="Tiny delight checklist">
+                <label class="quest-item"><input type="checkbox"><span>drink something nice</span></label>
+                <label class="quest-item"><input type="checkbox"><span>find a ridiculous shape</span></label>
+                <label class="quest-item"><input type="checkbox"><span>make one unnecessary noise</span></label>
+                <label class="quest-item"><input type="checkbox"><span>allow one tiny luxury</span></label>
+              </div>
+              <details class="page-more"><summary>the serious bit</summary><p class="guided">The universe has invented beetles, knees, marmalade, gravity, and the noise a spoon makes in a mug. Delight is not evidence that you have misunderstood the seriousness of things. It is one of the things seriousness is for.</p></details>
+            </div>
+            <figure class="page-art art-6" role="img" aria-label="A cheerful beetle carries a tiny candle past a mug, spoon, marmalade star, and ridiculous boot."></figure>
+            <nav class="page-turns" aria-label="Page 6 links"><a class="page-turn" href="#page-5">← shape</a><a class="page-turn" href="#page-7">motion →</a></nav>
+          </div>
+        </article>
+
+        <article class="page template-totem" id="page-7" data-title="Motion" style="--rail: var(--teal); --accent: var(--pink);">
+          <div class="page-grid">
+            <aside class="page-rail">
+              <span class="rail-number">07</span>
+              <span class="rail-symbol" aria-hidden="true">➜</span>
+              <span class="rail-note">Moss has never been late to become a forest.</span>
+            </aside>
+            <div class="page-copy" data-stamp="STILL MOVING">
+              <p class="eyebrow">the motion page</p>
+              <h2>Still moving</h2>
+              <details class="page-more">
+                <summary>at moss speed</summary>
+                <p class="patch-ism">“You are not behind; you are in motion.”</p>
+                <p class="guided">There is no cosmic conveyor belt you missed. There is this pace, this body, this week. Moss is not late to become forest. A tide does not apologize to the calendar.</p>
+                <div class="tiny-practice"><strong>Pocket note:</strong> Slow still moves. Paused still belongs.</div>
+              </details>
+            </div>
+            <figure class="page-art art-7" role="img" aria-label="A mossy slow creature strolls under stars beside sprouting footprints."></figure>
+            <nav class="page-turns" aria-label="Page 7 links"><a class="page-turn" href="#page-6">← creature</a><a class="page-turn" href="#page-8">pocket →</a></nav>
+          </div>
+        </article>
+
+        <article class="page template-toolbox" id="page-8" data-title="Pocket note" style="--rail: var(--yellow); --accent: var(--teal);">
+          <div class="page-grid">
+            <aside class="page-rail">
+              <span class="rail-number">08</span>
+              <span class="rail-symbol" aria-hidden="true">★</span>
+              <span class="rail-note">Keep this page somewhere behind your ribs.</span>
+            </aside>
+            <div class="page-copy" data-stamp="BE HERE">
+              <p class="eyebrow">a closing note for the pocket</p>
+              <h2>Existing is the point</h2>
+              <p class="patch-ism">“This is not rehearsal for being alive.”</p>
+              <details class="pocket-drawer">
+                <summary class="action-button">open the reminder pouch</summary>
+                <div class="note-pouch">
+                  <span style="--note-tilt: -1deg">You are allowed to have no lesson yet.</span>
+                  <span style="--note-tilt: 1deg">The strange part still belongs to the whole.</span>
+                  <span style="--note-tilt: 0.5deg">Pause, tiny creature. The universe can hold for a moment.</span>
+                  <span style="--note-tilt: -0.5deg">A difficult hour is not a defective life.</span>
+                  <span style="--note-tilt: 1.2deg">Existing counts before it becomes useful.</span>
+                  <span style="--note-tilt: -1.2deg">Your current shape is permitted.</span>
+                  <span style="--note-tilt: 0.8deg">The sky can carry more than one kind of weather.</span>
+                  <span style="--note-tilt: -0.8deg">Delight is a valid way to notice reality.</span>
+                </div>
+              </details>
+              <details class="page-more"><summary>one last thought</summary><p class="guided">You do not have to convert your life into a conclusion before it is allowed to count. Being here is not preparation for the real event. This is the real event: strange, tender, inconvenient, sparkling.</p><p class="colophon">The guided text in this zine is original writing, Watts-ish in spirit, and not a quotation or attribution. Made in the Riso Goblin Zine lane for ACIDGOBLIN.</p></details>
+            </div>
+            <figure class="page-art art-8" role="img" aria-label="A heart-marked toolbox holds stars, pocket notes, a moon, and one peeking goblin eye."></figure>
+            <nav class="page-turns" aria-label="Page 8 links"><a class="page-turn" href="#page-7">← motion</a><a class="page-turn" href="#cover">start again ↺</a></nav>
+          </div>
+        </article>
+      </div>
+
+      <nav class="navigation" aria-label="Zine pages">
+        <a class="nav-button" id="previousButton" href="#cover" aria-label="Previous page">← back</a>
+        <div class="page-status">
+          <div class="page-dots" id="pageDots" aria-label="Choose a page">
+            <a class="page-dot" href="#cover" aria-label="Go to page 1: Cover"></a>
+            <a class="page-dot" href="#page-1" aria-label="Go to page 2: Arrive"></a>
+            <a class="page-dot" href="#page-2" aria-label="Go to page 3: Weather"></a>
+            <a class="page-dot" href="#page-3" aria-label="Go to page 4: Wave"></a>
+            <a class="page-dot" href="#page-4" aria-label="Go to page 5: Rest"></a>
+            <a class="page-dot" href="#page-5" aria-label="Go to page 6: Shape"></a>
+            <a class="page-dot" href="#page-6" aria-label="Go to page 7: Creature"></a>
+            <a class="page-dot" href="#page-7" aria-label="Go to page 8: Motion"></a>
+            <a class="page-dot" href="#page-8" aria-label="Go to page 9: Pocket note"></a>
+          </div>
+          <span class="page-count" id="pageCount" aria-live="polite">01 / 09</span>
+        </div>
+        <a class="nav-button" id="nextButton" href="#page-1" aria-label="Next page">next →</a>
+      </nav>
+      <p class="instructions">Use the links, arrow keys, space bar, swipe, or simply scroll. Quiet the ink whenever the page feels too loud.</p>
+    </section>
+  </main>
+
+  <script>
+    const pages = Array.from(document.querySelectorAll('.page'));
+    const previousButton = document.getElementById('previousButton');
+    const nextButton = document.getElementById('nextButton');
+    const pageCount = document.getElementById('pageCount');
+    const quietToggle = document.getElementById('quietToggle');
+    const book = document.getElementById('book');
+    const dots = Array.from(document.querySelectorAll('.page-dot'));
+    const pageIds = pages.map(page => `#${page.id}`);
+    const initialHashIndex = pageIds.indexOf(window.location.hash);
+    let currentPage = initialHashIndex >= 0 ? initialHashIndex : 0;
+    let pointerStartX = null;
+
+    function showPage(nextIndex) {
+      currentPage = Math.max(0, Math.min(pages.length - 1, nextIndex));
+      pages.forEach((page, index) => {
+        const active = index === currentPage;
+        page.classList.toggle('is-active', active);
+        page.classList.toggle('is-before', index < currentPage);
+        page.setAttribute('aria-hidden', String(!active));
+      });
+      dots.forEach((dot, index) => {
+        if (index === currentPage) {
+          dot.setAttribute('aria-current', 'page');
+        } else {
+          dot.removeAttribute('aria-current');
+        }
+      });
+      const atStart = currentPage === 0;
+      const atEnd = currentPage === pages.length - 1;
+      previousButton.setAttribute('aria-disabled', String(atStart));
+      nextButton.setAttribute('aria-disabled', String(atEnd));
+      previousButton.href = pageIds[Math.max(0, currentPage - 1)];
+      nextButton.href = pageIds[Math.min(pages.length - 1, currentPage + 1)];
+      pageCount.textContent = `${String(currentPage + 1).padStart(2, '0')} / ${String(pages.length).padStart(2, '0')}`;
+      pages[currentPage].scrollTop = 0;
+      try {
+        window.history.replaceState(null, '', pageIds[currentPage]);
+      } catch (error) {
+        // Embedded file viewers may restrict history changes. The zine still works.
+      }
+    }
+
+    previousButton.addEventListener('click', event => {
+      event.preventDefault();
+      showPage(currentPage - 1);
+    });
+    nextButton.addEventListener('click', event => {
+      event.preventDefault();
+      showPage(currentPage + 1);
+    });
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', event => {
+        const targetIndex = pageIds.indexOf(link.getAttribute('href'));
+        if (targetIndex < 0 || link === previousButton || link === nextButton) return;
+        event.preventDefault();
+        showPage(targetIndex);
+      });
+    });
+
+    document.addEventListener('keydown', event => {
+      const target = event.target;
+      const typing = target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement;
+      const interactive = target instanceof Element && target.closest('a, button, input, label, summary, details');
+      if (typing) return;
+      if (event.key === 'ArrowRight' || (event.key === ' ' && !interactive)) {
+        event.preventDefault();
+        showPage(currentPage + 1);
+      }
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        showPage(currentPage - 1);
+      }
+      if (event.key === 'Home') showPage(0);
+      if (event.key === 'End') showPage(pages.length - 1);
+    });
+
+    book.addEventListener('pointerdown', event => {
+      pointerStartX = event.clientX;
+    });
+
+    book.addEventListener('pointerup', event => {
+      if (pointerStartX === null) return;
+      const distance = event.clientX - pointerStartX;
+      pointerStartX = null;
+      if (Math.abs(distance) < 55) return;
+      showPage(currentPage + (distance < 0 ? 1 : -1));
+    });
+
+    function readQuietPreference() {
+      try {
+        return window.localStorage.getItem('wavy-days-quiet') === 'true';
+      } catch (error) {
+        return false;
+      }
+    }
+
+    function saveQuietPreference(value) {
+      try {
+        window.localStorage.setItem('wavy-days-quiet', String(value));
+      } catch (error) {
+        // Some embedded viewers block storage. The current quiet state still works.
+      }
+    }
+
+    const quietSaved = readQuietPreference();
+    quietToggle.checked = quietSaved;
+    document.body.classList.toggle('quiet', quietSaved);
+    quietToggle.addEventListener('change', () => {
+      const quiet = quietToggle.checked;
+      document.body.classList.toggle('quiet', quiet);
+      saveQuietPreference(quiet);
+    });
+
+    showPage(currentPage);
+  </script>
+</body>
+</html>
