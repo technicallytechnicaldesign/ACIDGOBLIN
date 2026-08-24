@@ -113,6 +113,16 @@
       transform: translateY(-1px);
     }
 
+    .topbar-title {
+      flex: 1;
+      text-align: center;
+    }
+
+    .shelf-back {
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
     .quiet-control {
       position: absolute;
       width: 1px;
@@ -1309,12 +1319,27 @@
       .template-totem .page-turn,
       .template-toolbox .page-turn { padding: 6px 8px; font-size: 0.62rem; }
 
+      /* Opened drawers become a centered floating card on mobile, regardless of
+         template. Several templates (splash/sticker/toolbox/gateway) lay their
+         page-copy children out with individual position:absolute anchors, so
+         letting an opened drawer fall back into normal flow (or stay pinned at
+         its collapsed-button corner) lands it on top of that template's other
+         layers. Centering it within .page-copy (already the positioned
+         ancestor on every template here) sidesteps each template's layout
+         without the containing-block surprises position:fixed would add. */
       .page-more[open] {
         position: absolute !important;
-        inset: auto auto 7% 5% !important;
-        z-index: 40;
-        width: 90% !important;
-        max-height: 62%;
+        inset: auto !important;
+        top: 50% !important;
+        left: 50% !important;
+        right: auto !important;
+        bottom: auto !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 60 !important;
+        width: min(88%, 440px) !important;
+        max-height: 70%;
+        background: var(--paper);
+        box-shadow: 8px 8px 0 var(--ink), 0 24px 40px rgb(25 21 30 / 35%);
       }
 
       .template-gateway .page-art {
@@ -1372,15 +1397,10 @@
       .template-horizon .patch-ism { font-size: 1.04rem; }
       .template-horizon .weather-options { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
       .template-horizon .weather-options { position: relative; }
-      .template-horizon .weather-chip { position: static; padding: 6px 8px; font-size: 0.66rem; }
+      .template-horizon .weather-chip { position: relative; padding: 6px 8px; font-size: 0.66rem; }
       .template-horizon .weather-chip p { font-size: 0.72rem; }
       .template-horizon .weather-chip[open] p {
-        position: absolute;
-        top: calc(100% + 7px);
-        right: 0;
-        left: 0;
-        z-index: 30;
-        margin: 0;
+        margin: 7px 0 0;
         border: 2px solid var(--ink);
         border-radius: 12px;
         padding: 9px 11px;
@@ -1598,7 +1618,8 @@
     <section class="zine-shell" aria-label="Wavy Days Issue 01">
       <input class="quiet-control" id="quietToggle" type="checkbox">
       <header class="topbar">
-        <span>Wavy Days · Issue 01 · The Weather Is Participating</span>
+        <a class="quiet-toggle shelf-back" href="../index.html">&larr; shelf</a>
+        <span class="topbar-title">Wavy Days · Issue 01 · The Weather Is Participating</span>
         <label class="quiet-toggle" for="quietToggle"><span class="quiet-off">quiet the ink</span><span class="quiet-on">wake the ink</span></label>
       </header>
 
