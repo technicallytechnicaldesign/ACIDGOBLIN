@@ -121,7 +121,16 @@
     .newspaper > h2, .newspaper > .paper-dek { max-width: 46rem; margin-left: auto; margin-right: auto; padding: 0 1.25rem; }
     .newspaper > h2 { margin-bottom: 0.5rem; }
     .paper-dek { font-size: 0.95rem; opacity: 0.8; margin-top: 0; margin-bottom: 1.1rem; }
-    .tickers { border-block: 3px solid var(--ink); background: var(--paper-deep); }
+    .tickers { display: block; position: relative; color: inherit; text-decoration: none; cursor: pointer; border-block: 3px solid var(--ink); background: var(--paper-deep); }
+    .tickers:focus-visible { outline: 3px solid var(--teal); outline-offset: -6px; }
+    .ticker-cta {
+      position: absolute; z-index: 2; top: 50%; right: 1rem; transform: translateY(-50%);
+      font: 900 0.8rem/1 "Trebuchet MS", sans-serif; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--ink); background: var(--yellow); border: 3px solid var(--ink); border-radius: 999px;
+      padding: 0.55rem 0.9rem; box-shadow: 0 4px 0 rgb(25 21 30 / 35%);
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .tickers:hover .ticker-cta, .tickers:focus-visible .ticker-cta { background: var(--pink); transform: translateY(-50%) scale(1.06); }
     .ticker { overflow: hidden; }
     .ticker.front { background: var(--ink); color: var(--paper); border-bottom: 3px solid var(--ink); }
     .ticker.advice { background: var(--paper-deep); color: var(--ink); }
@@ -179,9 +188,10 @@
 
     <section class="shelf-section newspaper">
       <h2>The Newspaper</h2>
-      <p class="paper-dek">The Gobbo Weekly, all the news that fits inside a coat pocket. Headlines and small advice from the first five issues.</p>
-      <div class="tickers">
-        <div class="ticker front" role="group" aria-label="Front page headlines">
+      <p class="paper-dek">The Gobbo Weekly, all the news that fits inside a coat pocket. Tap the ticker to visit the newsstand and pick up an issue.</p>
+      <a class="tickers" href="./newsstand/" aria-label="Visit the newsstand and pick up an issue of The Gobbo Weekly">
+        <span class="ticker-cta" aria-hidden="true">To the newsstand &rarr;</span>
+        <div class="ticker front">
           <div class="ticker-track">
           <ul class="ticker-list">
             <li><b class="iss">05</b>Locked door opens for the patient goblin</li>
@@ -229,7 +239,7 @@
           </ul>
           </div>
         </div>
-        <div class="ticker advice" role="group" aria-label="Section titles and Patch's advice">
+        <div class="ticker advice">
           <div class="ticker-track">
           <ul class="ticker-list">
             <li><b class="iss">05</b>The archway waits for you to stop pushing</li>
@@ -277,7 +287,7 @@
           </ul>
           </div>
         </div>
-      </div>
+      </a>
     </section>
 
     <section class="shelf-section">

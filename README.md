@@ -11,7 +11,8 @@ Cute-chaos zine series: tiny goblins, gentle reminders, acid color, and emotiona
 
 - `not-my-fucking-fire-zine/`: Field Note 02, *Not My Fucking Fire*, an eight-page Riso guide to centered intern work inside workplace chaos.
 
-- The shelf's **Newspaper** section is a two-row scrolling ticker of headlines and small advice from *The Gobbo Weekly* issues 01 to 05.
-- `gobbo-weekly/`: the issue PDFs and cover thumbnails; not linked from the shelf.
+- The shelf's **Newspaper** section is a two-row scrolling ticker of headlines and small advice from *The Gobbo Weekly* issues 01 to 05; clicking it opens the newsstand.
+- `newsstand/`: the newsstand page, where each issue of *The Gobbo Weekly* (the newspaper edition of the zines) can be picked up as a PDF.
+- `gobbo-weekly/`: the issue PDFs and cover thumbnails the newsstand serves.
 
 This is the published-pages mirror of the Acid Goblin project. The full working project (prompts, source studies, sticker/card/animation output, production bible) lives in the private workspace, not in this repo.
