@@ -115,6 +115,36 @@
       text-align: center;
     }
     footer a { color: var(--violet); }
+
+    main { width: 100%; display: flex; flex-direction: column; align-items: center; }
+    .newspaper { max-width: none; width: auto; align-self: stretch; margin-inline: -1.25rem; }
+    .newspaper > h2, .newspaper > .paper-dek { max-width: 46rem; margin-left: auto; margin-right: auto; padding: 0 1.25rem; }
+    .newspaper > h2 { margin-bottom: 0.5rem; }
+    .paper-dek { font-size: 0.95rem; opacity: 0.8; margin-top: 0; margin-bottom: 1.1rem; }
+    .tickers { border-block: 3px solid var(--ink); background: var(--paper-deep); }
+    .ticker { overflow: hidden; }
+    .ticker.front { background: var(--ink); color: var(--paper); border-bottom: 3px solid var(--ink); }
+    .ticker.advice { background: var(--paper-deep); color: var(--ink); }
+    .ticker-track { display: flex; width: max-content; animation: ticker-left 220s linear infinite; }
+    .ticker.advice .ticker-track { animation-name: ticker-right; animation-duration: 260s; }
+    .ticker:hover .ticker-track, .ticker:focus-within .ticker-track { animation-play-state: paused; }
+    .ticker-list { display: flex; flex: none; margin: 0; padding: 0; list-style: none; }
+    .ticker-list li { flex: none; display: flex; align-items: center; gap: 0.7rem; white-space: nowrap; }
+    .ticker-list li::after { content: "✦"; content: "✦" / ""; margin: 0 1.6rem; color: var(--pink); }
+    .ticker.front li { padding: 0.85rem 0; font-family: "Arial Black", Impact, "Trebuchet MS", sans-serif; font-size: 1.25rem; letter-spacing: 0.02em; text-transform: uppercase; }
+    .ticker.advice li { padding: 0.7rem 0; font-family: Georgia, "Times New Roman", serif; font-style: italic; font-size: 1.1rem; }
+    .ticker.advice li::after { color: var(--teal); }
+    .ticker .iss { font: 900 0.68rem/1 "Courier New", monospace; letter-spacing: 0.08em; padding: 0.28rem 0.5rem; border-radius: 4px; background: var(--orange); color: var(--ink); font-style: normal; }
+    .ticker.advice .iss { background: var(--violet); color: var(--paper); }
+    @keyframes ticker-left { to { transform: translateX(-50%); } }
+    @keyframes ticker-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+    @media (prefers-reduced-motion: reduce) {
+      .ticker-track { animation: none !important; width: auto; }
+      .ticker-list[aria-hidden="true"] { display: none; }
+      .ticker-list { flex-wrap: wrap; padding: 0.4rem 1.25rem; }
+      .ticker-list li { white-space: normal; }
+      .ticker.front li, .ticker.advice li { padding-block: 0.4rem; font-size: 1rem; }
+    }
   </style>
 </head>
 <body>
@@ -147,49 +177,106 @@
       </div>
     </section>
 
-    <section class="shelf-section">
-      <h2>The Gobbo Weekly</h2>
-      <div class="shelf">
-        <a class="issue" href="./gobbo-weekly/gobbo-weekly-issue-05.pdf">
-          <div class="cover" style="background-image:url('./gobbo-weekly/cover-05.jpg'); background-position:top;"></div>
-          <div class="meta">
-            <span class="tag" style="background:var(--orange);">Issue 05 &middot; 27 Sep</span>
-            <h2>The Right Key</h2>
-            <p>Five old charms, one open door. An eight-page pocket newspaper (PDF).</p>
+    <section class="shelf-section newspaper">
+      <h2>The Newspaper</h2>
+      <p class="paper-dek">The Gobbo Weekly, all the news that fits inside a coat pocket. Headlines and small advice from the first five issues.</p>
+      <div class="tickers">
+        <div class="ticker front" role="group" aria-label="Front page headlines">
+          <div class="ticker-track">
+          <ul class="ticker-list">
+            <li><b class="iss">05</b>Locked door opens for the patient goblin</li>
+            <li><b class="iss">05</b>Shed key found, fits nothing</li>
+            <li><b class="iss">05</b>Toolbox reaches consensus</li>
+            <li><b class="iss">05</b>Garden gate closes itself, apologises</li>
+            <li><b class="iss">04</b>Town meeting ends before the tea does</li>
+            <li><b class="iss">04</b>Postbox agrees to wait</li>
+            <li><b class="iss">04</b>Windowsill reaches consensus</li>
+            <li><b class="iss">04</b>Hourglass runs early, apologises</li>
+            <li><b class="iss">03</b>Small spell warms far more than one kettle</li>
+            <li><b class="iss">03</b>Streetlamp learns one trick</li>
+            <li><b class="iss">03</b>Houseplant issues verdict</li>
+            <li><b class="iss">03</b>Coin lands on its edge</li>
+            <li><b class="iss">02</b>Entire town arrives sideways and counts it</li>
+            <li><b class="iss">02</b>Pebble named interim mayor</li>
+            <li><b class="iss">02</b>Chair retires from corner</li>
+            <li><b class="iss">02</b>Kettle remembers one song</li>
+            <li><b class="iss">01</b>Local sky experiences several emotions at once</li>
+            <li><b class="iss">01</b>Bench remains available</li>
+            <li><b class="iss">01</b>Moss index up 3%</li>
+            <li><b class="iss">01</b>Spoon declared enough</li>
+          </ul>
+          <ul class="ticker-list" aria-hidden="true">
+            <li><b class="iss">05</b>Locked door opens for the patient goblin</li>
+            <li><b class="iss">05</b>Shed key found, fits nothing</li>
+            <li><b class="iss">05</b>Toolbox reaches consensus</li>
+            <li><b class="iss">05</b>Garden gate closes itself, apologises</li>
+            <li><b class="iss">04</b>Town meeting ends before the tea does</li>
+            <li><b class="iss">04</b>Postbox agrees to wait</li>
+            <li><b class="iss">04</b>Windowsill reaches consensus</li>
+            <li><b class="iss">04</b>Hourglass runs early, apologises</li>
+            <li><b class="iss">03</b>Small spell warms far more than one kettle</li>
+            <li><b class="iss">03</b>Streetlamp learns one trick</li>
+            <li><b class="iss">03</b>Houseplant issues verdict</li>
+            <li><b class="iss">03</b>Coin lands on its edge</li>
+            <li><b class="iss">02</b>Entire town arrives sideways and counts it</li>
+            <li><b class="iss">02</b>Pebble named interim mayor</li>
+            <li><b class="iss">02</b>Chair retires from corner</li>
+            <li><b class="iss">02</b>Kettle remembers one song</li>
+            <li><b class="iss">01</b>Local sky experiences several emotions at once</li>
+            <li><b class="iss">01</b>Bench remains available</li>
+            <li><b class="iss">01</b>Moss index up 3%</li>
+            <li><b class="iss">01</b>Spoon declared enough</li>
+          </ul>
           </div>
-        </a>
-        <a class="issue" href="./gobbo-weekly/gobbo-weekly-issue-04.pdf">
-          <div class="cover" style="background-image:url('./gobbo-weekly/cover-04.jpg'); background-position:top;"></div>
-          <div class="meta">
-            <span class="tag" style="background:var(--orange);">Issue 04 &middot; 20 Sep</span>
-            <h2>The Steeping Hour</h2>
-            <p>Tea, patience, and good timing, reported by the Kettle Desk (PDF).</p>
+        </div>
+        <div class="ticker advice" role="group" aria-label="Section titles and Patch's advice">
+          <div class="ticker-track">
+          <ul class="ticker-list">
+            <li><b class="iss">05</b>The archway waits for you to stop pushing</li>
+            <li><b class="iss">05</b>The key took the scenic route</li>
+            <li><b class="iss">05</b>Patch says: not every key needs its door today</li>
+            <li><b class="iss">05</b>Patch says: a door that opens owes you no interrogation</li>
+            <li><b class="iss">04</b>Hold the bright thing loosely</li>
+            <li><b class="iss">04</b>The grimoire took the scenic route</li>
+            <li><b class="iss">04</b>Patch says: open hands keep more than fists</li>
+            <li><b class="iss">04</b>Patch says: a good week owes you no explanation</li>
+            <li><b class="iss">03</b>Trust the weird little signal</li>
+            <li><b class="iss">03</b>The spell was only meant for one kettle</li>
+            <li><b class="iss">03</b>Patch says: noticing is half the spell</li>
+            <li><b class="iss">03</b>Patch says: make peace with the glitch</li>
+            <li><b class="iss">02</b>The map was never a moral document</li>
+            <li><b class="iss">02</b>The arrow asks for directions</li>
+            <li><b class="iss">02</b>Patch says: updates are not betrayal</li>
+            <li><b class="iss">02</b>Patch says: landmark before destiny</li>
+            <li><b class="iss">01</b>The sky is not behind schedule</li>
+            <li><b class="iss">01</b>The storm joins a union</li>
+            <li><b class="iss">01</b>Patch says: one clean square</li>
+            <li><b class="iss">01</b>Patch says: soup is not a merger</li>
+          </ul>
+          <ul class="ticker-list" aria-hidden="true">
+            <li><b class="iss">05</b>The archway waits for you to stop pushing</li>
+            <li><b class="iss">05</b>The key took the scenic route</li>
+            <li><b class="iss">05</b>Patch says: not every key needs its door today</li>
+            <li><b class="iss">05</b>Patch says: a door that opens owes you no interrogation</li>
+            <li><b class="iss">04</b>Hold the bright thing loosely</li>
+            <li><b class="iss">04</b>The grimoire took the scenic route</li>
+            <li><b class="iss">04</b>Patch says: open hands keep more than fists</li>
+            <li><b class="iss">04</b>Patch says: a good week owes you no explanation</li>
+            <li><b class="iss">03</b>Trust the weird little signal</li>
+            <li><b class="iss">03</b>The spell was only meant for one kettle</li>
+            <li><b class="iss">03</b>Patch says: noticing is half the spell</li>
+            <li><b class="iss">03</b>Patch says: make peace with the glitch</li>
+            <li><b class="iss">02</b>The map was never a moral document</li>
+            <li><b class="iss">02</b>The arrow asks for directions</li>
+            <li><b class="iss">02</b>Patch says: updates are not betrayal</li>
+            <li><b class="iss">02</b>Patch says: landmark before destiny</li>
+            <li><b class="iss">01</b>The sky is not behind schedule</li>
+            <li><b class="iss">01</b>The storm joins a union</li>
+            <li><b class="iss">01</b>Patch says: one clean square</li>
+            <li><b class="iss">01</b>Patch says: soup is not a merger</li>
+          </ul>
           </div>
-        </a>
-        <a class="issue" href="./gobbo-weekly/gobbo-weekly-issue-03.pdf">
-          <div class="cover" style="background-image:url('./gobbo-weekly/cover-03.jpg'); background-position:top;"></div>
-          <div class="meta">
-            <span class="tag" style="background:var(--orange);">Issue 03 &middot; 13 Sep</span>
-            <h2>Small Magic</h2>
-            <p>Fifteen new omens, one town, all the news from the Cauldron Desk (PDF).</p>
-          </div>
-        </a>
-        <a class="issue" href="./gobbo-weekly/gobbo-weekly-issue-02.pdf">
-          <div class="cover" style="background-image:url('./gobbo-weekly/cover-02.jpg'); background-position:top;"></div>
-          <div class="meta">
-            <span class="tag" style="background:var(--orange);">Issue 02 &middot; 30 Aug</span>
-            <h2>The Gentle Detour</h2>
-            <p>Two kind directions, courtesy of the Navigation Desk (PDF).</p>
-          </div>
-        </a>
-        <a class="issue" href="./gobbo-weekly/gobbo-weekly-issue-01.pdf">
-          <div class="cover" style="background-image:url('./gobbo-weekly/cover-01.jpg'); background-position:top;"></div>
-          <div class="meta">
-            <span class="tag" style="background:var(--orange);">Issue 01 &middot; 24 Aug</span>
-            <h2>The Small Weather</h2>
-            <p>One shiny button, and all the news that fits inside a coat pocket (PDF).</p>
-          </div>
-        </a>
+        </div>
       </div>
     </section>
 
