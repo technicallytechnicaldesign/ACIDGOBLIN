@@ -16,6 +16,7 @@ Cute-chaos zine series: tiny goblins, gentle reminders, acid color, and emotiona
 - `bookshop/`: a warm reading-room shelf for the interactive zines, *Wavy Days* and *Not My Fucking Fire*.
 - The town map routes readers to a **Newsstand** with a two-row scrolling ticker of headlines and small advice from *The Gobbo Weekly* issues 01 to 05.
 - `newsstand/`: the newsstand page, where each issue of *The Gobbo Weekly* (the newspaper edition of the zines) can be picked up as a PDF.
+- `tarot/`: The Goblin Oracle, a three-card sequential tarot draw with a curated 12-card Star-Eyed Charms deck.
 - `gobbo-weekly/`: the issue PDFs and cover thumbnails the newsstand serves.
 
 This is the published-pages mirror of the Acid Goblin project. The full working project (prompts, source studies, sticker/card/animation output, production bible) lives in the private workspace, not in this repo.
