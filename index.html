@@ -170,13 +170,27 @@
           <a href="./bookshop/">bookshop</a>
           <a href="./newsstand/">newsstand</a>
           <a href="./free-chaos-merch/">merch store</a>
+          <button class="about-toggle" type="button" aria-controls="town-about" aria-expanded="false">about town</button>
           <a href="https://github.com/technicallytechnicaldesign/ACIDGOBLIN" target="_blank" rel="noopener">source</a>
         </nav>
       </header>
 
       <section class="street-map" aria-label="Acid Goblin Town destinations">
+        <svg class="town-routes" viewBox="0 0 1200 700" preserveAspectRatio="none" aria-hidden="true">
+          <path class="route route--main" d="M80 165 C245 105 348 188 488 262 S790 329 1090 180"></path>
+          <path class="route route--side" d="M175 548 C365 426 510 547 678 508 S942 456 1128 575"></path>
+          <path class="route route--lane" d="M498 88 C574 212 562 327 654 425 S839 511 1008 675"></path>
+          <circle class="route-dot" cx="500" cy="262" r="12"></circle>
+          <circle class="route-dot" cx="683" cy="508" r="10"></circle>
+        </svg>
         <span class="road road--one" aria-hidden="true"></span>
         <span class="road road--two" aria-hidden="true"></span>
+        <span class="district-label district-label--books" aria-hidden="true">Mossy reading lane</span>
+        <span class="district-label district-label--news" aria-hidden="true">Fire exit row</span>
+        <span class="district-label district-label--merch" aria-hidden="true">Printmaker's square</span>
+        <span class="map-landmark map-landmark--mushroom" aria-hidden="true"><b>✦</b> mushroom turn</span>
+        <span class="map-landmark map-landmark--watch" aria-hidden="true"><b>◉</b> watch post</span>
+        <span class="map-landmark map-landmark--sticker" aria-hidden="true"><b>✹</b> sticker pond</span>
         <a class="place place--bookshop" href="./bookshop/">
           <span class="place-sign">
             <span class="place-kicker">01 / reading lane</span>
@@ -207,10 +221,43 @@
 
       <div class="town-note">
         <p>Directions written by a goblin with a colour printer and no interest in property law.</p>
-        <span class="town-stamp">town open / no ticket needed</span>
+        <div class="town-map-tools" aria-label="Map details">
+          <span class="town-scale">↔ one goblin minute</span>
+          <span class="town-compass" aria-label="North-ish">N<br><i>✦</i></span>
+          <span class="town-stamp">town open / no ticket needed</span>
+        </div>
       </div>
     </div>
+
+    <dialog class="town-about" id="town-about" aria-labelledby="town-about-title">
+      <form method="dialog" class="town-about-card">
+        <button class="about-close" type="submit" aria-label="Close About Acid Goblin Town">×</button>
+        <p class="town-key">About / field note 00</p>
+        <h2 id="town-about-title">A town built for <em>the situation.</em></h2>
+        <p>Acid Goblin is an ongoing experiment in making strange, useful little experiences. It uses generated images and a frankly cheerful amount of Python to turn a growing goblin world into zines, newspapers, posters and places to poke around.</p>
+        <p>Every route is tuned to the goblin preferences and fire circumstances of its creator: what feels good to look at, what needs saying, and which kind of emergency wants a tiny field guide instead of a corporate memo.</p>
+        <p class="about-last">No universal solution promised. Just a small town with a colour printer, an overstuffed tool shed, and room to keep changing.</p>
+        <button class="about-return" type="submit">Back to the map →</button>
+      </form>
+    </dialog>
   </div>
+  <script>
+    (() => {
+      const openButton = document.querySelector('.about-toggle');
+      const dialog = document.querySelector('#town-about');
+      if (!openButton || !dialog) return;
+      const reset = () => openButton.setAttribute('aria-expanded', 'false');
+      openButton.addEventListener('click', () => {
+        dialog.showModal();
+        openButton.setAttribute('aria-expanded', 'true');
+      });
+      dialog.addEventListener('close', reset);
+      dialog.addEventListener('click', (event) => {
+        const bounds = dialog.getBoundingClientRect();
+        if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
+      });
+    })();
+  </script>
   <header>
     <span class="eyebrow">Acid Goblin</span>
     <h1>The zine <em>shelf</em></h1>
