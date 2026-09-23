@@ -1,56 +1,28 @@
 (() => {
   const deck = window.GOBLIN_DECK || [];
   const slots = ['Situation', 'Complication', 'Unreasonable Way Through'];
-  const scenes = [
-    { place: 'Moon-puddle Court', detail: 'The vending machine had begun accepting compliments instead of coins' },
-    { place: 'the goblin bookshop back room', detail: 'Three receipts for one suspiciously cheap moon were arguing under a chair' },
-    { place: 'the town crossroads', detail: 'A tiny bell kept ringing whenever nobody was looking' },
-    { place: 'the laundrette behind the newsstand', detail: 'Every lost sock had formed a union and elected a moth' },
-    { place: 'the roof of the bookshop', detail: 'The chimney was quietly teaching a kettle how to whistle' }
+  const disguises = [
+    'a calendar problem',
+    'a personality flaw with paperwork',
+    'something that needs one more tab open',
+    'a test you can pass by thinking harder',
+    'an emergency hat you have to keep wearing'
   ];
-  const errands = [
-    'return a borrowed moon before tea went cold',
-    'make one small plan stop wearing such a large hat',
-    'find the off-switch for a very polite emergency',
-    'rescue a useful thing from the drawer marked someday',
-    'untangle a tender administrative knot with three unnecessary tabs open'
+  const observers = [
+    'a pocket moth with a clipboard',
+    'a tiny focus group of three mushrooms',
+    'a pigeon wearing a ceremonial lanyard',
+    'a spoon that has learned to say no',
+    'one extremely calm snail'
   ];
-  const heroes = [
-    'Midge, a goblin with one warm sock and a ceremonial pencil',
-    'Pip, who could hear a biscuit thinking from across the room',
-    'Aunt Crumb, carrying a handbag full of unlabelled buttons',
-    'Nibs, a pocket-sized goblin determined to look busy without rushing',
-    'Mossy June, who had recently apologised to a lamp and meant it'
+  const nextMoves = [
+    'send the small message',
+    'put one useful thing where your hands can find it',
+    'take a proper pause before inventing a new obligation',
+    'choose the kindest available next step',
+    'stop polishing the doorway and walk through it'
   ];
-  const props = [
-    'a lavender receipt',
-    'one determined thimble',
-    'a biscuit shaped like a small weather system',
-    'a tiny flag reading MAYBE LATER',
-    'a teaspoon with excellent boundaries'
-  ];
-  const witnesses = [
-    'Three pigeons in little bureaucrat hats',
-    'A cat who had not been invited but had brought opinions',
-    'The night-shift librarian, pretending not to listen',
-    'A row of very impressed mushrooms',
-    'One toddler dragon on a municipal leash'
-  ];
-  const entrances = [
-    'slid from beneath the oracle cloth and landed with a polite thump',
-    'appeared in a puff of pink dust, already halfway through an argument',
-    'arrived late, carrying the calm of something that had missed the meeting on purpose',
-    'tumbled out of a pocket nobody remembered having',
-    'drifted down from the ceiling as if gravity had written it a personal invitation'
-  ];
-  const wisdoms = [
-    'Nothing had been solved forever, which was a relief: forever is far too long to hold a cup of tea.',
-    'The path had not been hiding somewhere else. It had been happening under their feet each time they stopped demanding it look like a path.',
-    'The town did not become less strange; they simply stopped treating strangeness as a clerical error.',
-    'A small true movement turned out to be more useful than a grand promise wearing a cape.',
-    'The mess was still a mess, but it had become a place where something living could happen.'
-  ];
-  const state = { cards: [], revealed: 0, narrative: null };
+  const state = { cards: [], revealed: 0, fortune: null };
   const byId = (id) => document.getElementById(id);
   const grid = byId('card-grid');
   const heading = document.querySelector('#reading-title');
@@ -73,65 +45,40 @@
     return entry.reversed ? entry.card.reversed : entry.card.upright;
   }
 
-  function buildNarrative(cards) {
-    const scene = pick(scenes);
-    const narrative = {
-      scene,
-      hero: pick(heroes),
-      errand: pick(errands),
-      prop: pick(props),
-      witness: pick(witnesses),
-      arrivals: cards.map(() => pick(entrances)),
-      wisdom: pick(wisdoms)
-    };
-    const firstWord = cardWords(cards[0])[0];
-    const secondWord = cardWords(cards[1])[0];
-    narrative.interaction = pick([
-      `${cards[0].card.title} offered ${narrative.prop} to ${cards[1].card.title}, which turned it into a very small hat for the problem.`,
-      `${cards[1].card.title} borrowed the ${firstWord} from ${cards[0].card.title} and returned it wearing a moustache of ${secondWord}.`,
-      `${cards[0].card.title} and ${cards[1].card.title} disagreed so gently that the disagreement became a bench for tired people.`,
-      `${cards[1].card.title} asked ${cards[0].card.title} to hold the wobbly end, and together they made the trouble small enough to inspect.`
+  function buildFortune() {
+    return { disguise: pick(disguises), observer: pick(observers), nextMove: pick(nextMoves) };
+  }
+
+  function postureLine(entry, observer) {
+    if (entry.reversed) return pick([
+      'It has appeared upside down, which is its impolite little way of asking whether you have mistaken motion for meaning.',
+      'Upside down, it refuses to let your old habits cosplay as a compass.',
+      'It arrives backwards and wonders whether the thing you keep postponing is already trying to help you.'
     ]);
-    return narrative;
+    return pick([
+      `Right-way-up, it notices that ${observer} has already been guarding the answer in your quieter pocket.`,
+      `It stands very still while ${observer} demonstrates that your gentler instinct is not lost, only wearing a funny hat.`,
+      `Facing you plainly, it lets ${observer} remind you that a pause is also part of the dance.`
+    ]);
   }
 
   function makeBeat(entry, position) {
-    const story = state.narrative;
+    const fortune = state.fortune;
     const card = entry.card;
     const message = cardMessage(entry);
-    const posture = entry.reversed ? 'upside down' : 'right-way-up';
+    const messageStem = message.replace(/[.!?]+$/, '');
+    const [theme] = cardWords(entry);
     if (position === 0) {
-      const firstPosture = entry.reversed
-        ? `It had arrived upside down, so ${story.hero} had to lean their head sideways to notice its quiet suggestion: ${message}`
-        : `It settled right-way-up and waited until ${story.hero} noticed its quiet suggestion: ${message}`;
-      return `Once, in ${story.scene.place}, ${story.hero} was trying to ${story.errand}. ${story.scene.detail}. Then ${card.title} ${story.arrivals[0]}. ${firstPosture}`;
+      return `${card.title} reveals that you have been treating ${theme} like ${fortune.disguise}, when it is really a living thing with crumbs in its pockets. ${postureLine(entry, fortune.observer)} It rings a tiny bell for you: “${message}”`;
     }
     if (position === 1) {
-      const secondPosture = entry.reversed
-        ? `Being upside down, it made its own awkward truth clear: ${message}`
-        : `It made its own awkward truth clear: ${message}`;
-      return `Just as ${story.hero} thought the errand might be behaving itself, ${card.title} ${story.arrivals[1]}. ${story.interaction} ${story.witness} watched this with the solemn attention usually reserved for a dropped cake. ${secondPosture}`;
+      const first = state.cards[0];
+      const [firstTheme] = cardWords(first);
+      return `${card.title} catches you trying to make ${firstTheme} and ${theme} agree before either has had a biscuit. ${postureLine(entry, fortune.observer)} It exchanges a knowing look with ${first.card.title} and says: “${message}”`;
     }
-    const [firstWord] = cardWords(state.cards[0]);
-    const [secondWord] = cardWords(state.cards[1]);
-    const [thirdWord] = cardWords(entry);
-    const finalPosture = entry.reversed ? 'It remained upside down and seemed to agree' : 'It remained right-way-up and seemed to agree';
-    return `At the last possible moment, ${card.title} ${story.arrivals[2]}. It did not defeat the errand or make a heroic speech. Instead, it placed ${firstWord}, ${secondWord}, and ${thirdWord} beside each other and waited for a useful shape to emerge. ${story.hero} took one small next step, which was more than enough. ${finalPosture}: ${message}`;
-  }
-
-  function makeConclusion() {
-    const [first, second, third] = state.cards;
-    const [firstWord] = cardWords(first);
-    const [secondWord] = cardWords(second);
-    const [thirdWord] = cardWords(third);
-    return `By closing time, nobody had conquered anything. ${first.card.title} held a little ${firstWord}, ${second.card.title} made room for ${secondWord}, and ${third.card.title} let ${thirdWord} ride home in its imaginary pockets. ${storyName(first, second, third)} ${state.narrative.wisdom}`;
-  }
-
-  function storyName(first, second, third) {
-    const upsideDown = [first, second, third].filter((entry) => entry.reversed).length;
-    if (!upsideDown) return 'All three cards nodded as if they had planned this, which they absolutely had not.';
-    if (upsideDown === 1) return 'One card was still upside down, which gave the whole scene an unexpectedly useful perspective.';
-    return 'Several cards were upside down, so the town agreed to call it a different kind of map.';
+    const [firstTheme] = cardWords(state.cards[0]);
+    const [secondTheme] = cardWords(state.cards[1]);
+    return `${card.title} points to the small place where ${firstTheme}, ${secondTheme}, and ${theme} are already talking to one another. ${postureLine(entry, fortune.observer)} It says, “${messageStem},” and suggests one small move: ${fortune.nextMove}.`;
   }
 
   function imageFailed(image) {
@@ -160,12 +107,12 @@
     const chosen = shuffle(deck).slice(0, 3).map((card) => ({ card, reversed: Math.random() < 0.34 }));
     state.cards = chosen;
     state.revealed = 0;
-    state.narrative = buildNarrative(chosen);
+    state.fortune = buildFortune();
     grid.replaceChildren();
     chosen.forEach(renderCard);
     byId('reading-copy').hidden = true;
     byId('actions').hidden = true;
-    byId('setting').textContent = `A little tale from ${state.narrative.scene.place}.`;
+    byId('setting').textContent = 'A small fortune for the creature currently holding the mouse.';
     byId('beats').replaceChildren();
     heading.innerHTML = 'The cards are <em>listening.</em>';
     byId('instruction').textContent = 'Turn over Situation to begin. The other cards will wait their turn.';
@@ -194,10 +141,6 @@
       next.disabled = false;
       byId('instruction').textContent = `Now turn over ${slots[state.revealed]}.`;
     } else {
-      const conclusion = document.createElement('p');
-      conclusion.className = 'conclusion';
-      conclusion.textContent = makeConclusion();
-      byId('beats').append(conclusion);
       heading.innerHTML = 'The oracle has <em>spoken.</em>';
       byId('instruction').textContent = 'Keep what is useful. Leave the glitter on the table.';
       byId('actions').hidden = false;
