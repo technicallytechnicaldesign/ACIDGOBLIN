@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#120b21">
+  <meta name="description" content="Free chaos merch from Acid Goblin: posters, tiny prophecies, and workplace survival art.">
+  <title>Free Chaos Merch — Acid Goblin</title>
+  <style>
+    :root {
+      --ink: #120b21;
+      --paper: #fff1ca;
+      --acid: #d8ff36;
+      --pink: #ff4eaa;
+      --blue: #63d8ff;
+      --violet: #8a52db;
+      --orange: #ff794d;
+      --line: 3px solid var(--ink);
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--ink); scroll-behavior: smooth; }
+    body {
+      min-width: 320px;
+      margin: 0;
+      color: var(--ink);
+      font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 8% 4%, rgb(255 78 170 / 35%), transparent 24rem),
+        radial-gradient(circle at 94% 14%, rgb(99 216 255 / 28%), transparent 26rem),
+        radial-gradient(circle at 45% 84%, rgb(216 255 54 / 16%), transparent 34rem),
+        #120b21;
+    }
+    a { color: inherit; }
+    .topbar {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.75rem clamp(1rem, 4vw, 3rem);
+      color: var(--paper);
+      border-bottom: 2px solid var(--pink);
+      background: rgb(18 11 33 / 93%);
+      backdrop-filter: blur(14px);
+    }
+    .mark {
+      font: 900 clamp(0.78rem, 1.7vw, 1rem)/1 "Arial Black", Impact, sans-serif;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .mark b { color: var(--acid); }
+    .pathways { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.4rem; }
+    .pathways a {
+      border: 1px solid rgb(255 241 202 / 65%);
+      border-radius: 999px;
+      padding: 0.38rem 0.6rem;
+      color: var(--paper);
+      font: 900 0.66rem/1 ui-monospace, Consolas, monospace;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .pathways a:hover, .pathways a:focus-visible { border-color: var(--acid); color: var(--acid); }
+    main { overflow: hidden; }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(220px, 0.9fr);
+      align-items: center;
+      gap: clamp(1.5rem, 5vw, 5rem);
+      width: min(1140px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(3rem, 8vw, 6.5rem) 0 clamp(2.5rem, 6vw, 5rem);
+      color: var(--paper);
+    }
+    .eyebrow, .collection-kicker {
+      display: inline-block;
+      margin: 0 0 1rem;
+      padding: 0.42rem 0.68rem;
+      border: 2px solid var(--ink);
+      color: var(--ink);
+      background: var(--acid);
+      box-shadow: 4px 4px 0 var(--pink);
+      font: 900 0.7rem/1 ui-monospace, Consolas, monospace;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transform: rotate(-1deg);
+    }
+    h1, h2, p { margin-top: 0; }
+    h1 {
+      max-width: 9ch;
+      margin-bottom: 1rem;
+      font: 900 clamp(3.4rem, 8.2vw, 7.8rem)/0.78 "Arial Black", Impact, sans-serif;
+      letter-spacing: -0.075em;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+    h1 em { color: var(--pink); font-style: normal; -webkit-text-stroke: 1px var(--paper); }
+    .hero-copy > p:not(.eyebrow) { max-width: 37rem; font-size: clamp(1.03rem, 2vw, 1.32rem); font-weight: 800; line-height: 1.45; }
+    .how-to {
+      width: fit-content;
+      max-width: 36rem;
+      margin-top: 1.5rem;
+      padding: 0.7rem 0.86rem;
+      border-left: 5px solid var(--acid);
+      background: rgb(255 241 202 / 12%);
+      font: 800 0.83rem/1.35 ui-monospace, Consolas, monospace;
+    }
+    .hero-art {
+      position: relative;
+      max-width: 430px;
+      justify-self: center;
+      padding: clamp(0.45rem, 1.5vw, 0.9rem);
+      border: var(--line);
+      background: var(--acid);
+      box-shadow: 11px 11px 0 var(--pink), -7px -7px 0 var(--blue);
+      transform: rotate(3deg);
+    }
+    .hero-art img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+    .hero-art span {
+      position: absolute;
+      right: -1rem;
+      bottom: 1.25rem;
+      padding: 0.5rem 0.65rem;
+      border: var(--line);
+      background: var(--orange);
+      font: 900 0.72rem/1 ui-monospace, Consolas, monospace;
+      text-transform: uppercase;
+      transform: rotate(-7deg);
+    }
+    .manifest {
+      width: min(1140px, calc(100% - 2rem));
+      margin: 0 auto 4rem;
+    }
+    .collection {
+      margin-top: clamp(3.2rem, 7vw, 6rem);
+    }
+    .collection-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      color: var(--paper);
+    }
+    .collection-kicker { margin: 0 0 0.5rem; background: var(--blue); box-shadow: 4px 4px 0 var(--violet); }
+    .collection-heading h2 {
+      margin-bottom: 0;
+      font: 900 clamp(1.8rem, 4.4vw, 3.6rem)/0.92 "Arial Black", Impact, sans-serif;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+    }
+    .collection-heading p { max-width: 27rem; margin-bottom: 0; font-size: 0.95rem; font-weight: 800; line-height: 1.35; text-align: right; }
+    .poster-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: clamp(1rem, 2.1vw, 1.7rem); }
+    .artifact {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      border: var(--line);
+      background: var(--paper);
+      box-shadow: 7px 8px 0 rgb(255 78 170 / 86%);
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+    .artifact:nth-child(3n + 2) { box-shadow: 7px 8px 0 var(--blue); transform: rotate(0.5deg); }
+    .artifact:nth-child(3n) { box-shadow: 7px 8px 0 var(--acid); transform: rotate(-0.55deg); }
+    .artifact:hover, .artifact:focus-within { box-shadow: 3px 4px 0 var(--pink); transform: translate(4px, 4px) rotate(0deg); }
+    .poster {
+      display: block;
+      overflow: hidden;
+      border-bottom: var(--line);
+      background: var(--ink);
+    }
+    .poster:focus-visible, .mini-action:focus-visible, .pathways a:focus-visible, .mark:focus-visible { outline: 4px solid var(--acid); outline-offset: 3px; }
+    .poster img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; transition: transform 280ms ease; }
+    .artifact:hover .poster img, .artifact:focus-within .poster img { transform: scale(1.045) rotate(-1deg); }
+    .artifact-meta { display: flex; min-height: 10rem; flex: 1; flex-direction: column; padding: 0.9rem 0.9rem 0.8rem; }
+    .artifact-meta .type {
+      margin: 0 0 0.48rem;
+      color: var(--violet);
+      font: 900 0.63rem/1 ui-monospace, Consolas, monospace;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .artifact h3 { margin: 0; font: 900 1.08rem/0.98 "Arial Black", Impact, sans-serif; letter-spacing: -0.035em; text-transform: uppercase; }
+    .artifact-meta p:not(.type) { margin: 0.6rem 0 0; font-size: 0.82rem; font-weight: 700; line-height: 1.3; }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: auto; padding-top: 0.85rem; }
+    .mini-action {
+      padding: 0.46rem 0.55rem;
+      border: 2px solid var(--ink);
+      color: var(--ink);
+      background: var(--acid);
+      font: 900 0.63rem/1 ui-monospace, Consolas, monospace;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .mini-action.secondary { background: var(--paper); }
+    .mini-action:hover { background: var(--pink); }
+    .closing-note {
+      margin-top: clamp(4rem, 9vw, 8rem);
+      padding: clamp(1.5rem, 4vw, 3rem);
+      border: var(--line);
+      color: var(--ink);
+      background: var(--acid);
+      box-shadow: 10px 10px 0 var(--violet);
+      transform: rotate(-0.7deg);
+    }
+    .closing-note h2 { margin-bottom: 0.7rem; font: 900 clamp(2rem, 5vw, 4rem)/0.88 "Arial Black", Impact, sans-serif; letter-spacing: -0.06em; text-transform: uppercase; }
+    .closing-note p { max-width: 57rem; margin-bottom: 0; font-size: 1rem; font-weight: 800; line-height: 1.45; }
+    footer { padding: 2rem 1rem 3rem; color: var(--paper); font: 800 0.75rem/1.4 ui-monospace, Consolas, monospace; text-align: center; }
+    footer a { color: var(--acid); }
+    @media (max-width: 720px) {
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .pathways { justify-content: flex-start; }
+      .hero { grid-template-columns: 1fr; padding-top: 3rem; }
+      .hero-art { width: min(76vw, 360px); }
+      .collection-heading { display: block; }
+      .collection-heading p { margin-top: 0.9rem; text-align: left; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="mark" href="../">Acid <b>Goblin</b> / free chaos merch</a>
+    <nav class="pathways" aria-label="Acid Goblin pathways">
+      <a href="../">zine shelf</a>
+      <a href="../newsstand/">newsstand</a>
+      <a href="../not-my-fucking-fire-zine/">field note 02</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="merch-title">
+      <div class="hero-copy">
+        <p class="eyebrow">No checkout / all omen</p>
+        <h1 id="merch-title">Free <em>chaos</em> merch.</h1>
+        <p>A loud little public pile of posters, workplace hexes, and friendly cosmic instructions from the Acid Goblin cupboard.</p>
+        <p class="how-to">Tap a thing to see the full image. Use “take it” to save the original, then furnish a desktop, a wall, or a deeply overcommitted group chat.</p>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <img src="assets/solve-the-wave-v1.png" alt="">
+        <span>1 free scream</span>
+      </div>
+    </section>
+
+    <div class="manifest">
+      <section class="collection" aria-labelledby="single-title">
+        <div class="collection-heading">
+          <div><p class="collection-kicker">Single plate</p><h2 id="single-title">Wave apparatus</h2></div>
+          <p>The first public print, promoted from a lonely shelf card to its own properly noisy department.</p>
+        </div>
+        <div class="poster-grid">
+          <article class="artifact">
+            <a class="poster" href="assets/solve-the-wave-v1.png" target="_blank" rel="noopener" aria-label="Open You Do Not Need To Solve The Wave at full size"><img src="assets/solve-the-wave-v1.png" alt="Cosmic acid poster of a green goblin holding a heart-shaped teacup that overflows into waves; lettering reads You do not need to solve the wave."></a>
+            <div class="artifact-meta"><p class="type">Cosmic acid / print 01</p><h3>You do not need to solve the wave.</h3><p>One goblin, one teacup, one perfectly uncooperative ocean.</p><div class="actions"><a class="mini-action" href="assets/solve-the-wave-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/solve-the-wave-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="collection" aria-labelledby="omens-title">
+        <div class="collection-heading">
+          <div><p class="collection-kicker">15 gentle omens</p><h2 id="omens-title">Tiny prophecies</h2></div>
+          <p>The original lettering lives on the posters: moon-and-sun borders, rainbow arches, all-seeing eyes, and a creature for every small strange feeling.</p>
+        </div>
+        <div class="poster-grid">
+          <article class="artifact"><a class="poster" href="assets/omen-01-small-magic-large-consequences-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/omen-01-small-magic-large-consequences-v1.png" alt="Poster reading Small magic, large consequences."></a><div class="artifact-meta"><p class="type">Gentle omen 01</p><h3>Small magic, large consequences.</h3><p>A little spell with suspiciously broad reach.</p><div class="actions"><a class="mini-action" href="assets/omen-01-small-magic-large-consequences-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/omen-01-small-magic-large-consequences-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/omen-02-trust-the-weird-little-signal-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/omen-02-trust-the-weird-little-signal-v1.png" alt="Poster reading Trust the weird little signal."></a><div class="artifact-meta"><p class="type">Gentle omen 02</p><h3>Trust the weird little signal.</h3><p>The one your rational brain keeps pretending it cannot hear.</p><div class="actions"><a class="mini-action" href="assets/omen-02-trust-the-weird-little-signal-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/omen-02-trust-the-weird-little-signal-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/omen-03-chaos-is-a-kind-of-compass-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/omen-03-chaos-is-a-kind-of-compass-v1.png" alt="Poster reading Chaos is a kind of compass."></a><div class="artifact-meta"><p class="type">Gentle omen 03</p><h3>Chaos is a kind of compass.</h3><p>Not a precise one. Still, it points somewhere.</p><div class="actions"><a class="mini-action" href="assets/omen-03-chaos-is-a-kind-of-compass-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/omen-03-chaos-is-a-kind-of-compass-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/omen-04-rest-is-part-of-the-ritual-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/omen-04-rest-is-part-of-the-ritual-v1.png" alt="Poster reading Rest is part of the ritual."></a><div class="artifact-meta"><p class="type">Gentle omen 04</p><h3>Rest is part of the ritual.</h3><p>Put the cauldron down for five highly ceremonial minutes.</p><div class="actions"><a class="mini-action" href="assets/omen-04-rest-is-part-of-the-ritual-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/omen-04-rest-is-part-of-the-ritual-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/omen-05-follow-the-strange-bright-tide-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/omen-05-follow-the-strange-bright-tide-v1.png" alt="Poster reading Follow the strange bright tide."></a><div class="artifact-meta"><p class="type">Gentle omen 05</p><h3>Follow the strange bright tide.</h3><p>Bring snacks. The moon looks committed to the bit.</p><div class="actions"><a class="mini-action" href="assets/omen-05-follow-the-strange-bright-tide-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/omen-05-follow-the-strange-bright-tide-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/omen-06-make-peace-with-the-glitch-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/omen-06-make-peace-with-the-glitch-v1.png" alt="Poster reading Make peace with the glitch."></a><div class="artifact-meta"><p class="type">Gentle omen 06</p><h3>Make peace with the glitch.</h3><p>It may be an error. It may be a portal. Ask politely.</p><div class="actions"><a class="mini-action" href="assets/omen-06-make-peace-with-the-glitch-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/omen-06-make-peace-with-the-glitch-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/omen-07-tiny-omens-big-feelings-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/omen-07-tiny-omens-big-feelings-v1.png" alt="Poster reading Tiny omens, big feelings."></a><div class="artifact-meta"><p class="type">Gentle omen 07</p><h3>Tiny omens, big feelings.</h3><p>A modest oracle with an enormous emotional support budget.</p><div class="actions"><a class="mini-action" href="assets/omen-07-tiny-omens-big-feelings-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/omen-07-tiny-omens-big-feelings-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/omen-08-drift-toward-the-soft-unknown-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/omen-08-drift-toward-the-soft-unknown-v1.png" alt="Poster reading Drift toward the soft unknown."></a><div class="artifact-meta"><p class="type">Gentle omen 08</p><h3>Drift toward the soft unknown.</h3><p>The hard known has had plenty of attention already.</p><div class="actions"><a class="mini-action" href="assets/omen-08-drift-toward-the-soft-unknown-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/omen-08-drift-toward-the-soft-unknown-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/omen-09-let-the-strange-things-bloom-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/omen-09-let-the-strange-things-bloom-v1.png" alt="Poster reading Let the strange things bloom."></a><div class="artifact-meta"><p class="type">Gentle omen 09</p><h3>Let the strange things bloom.</h3><p>Especially the weird little flower growing through the meeting notes.</p><div class="actions"><a class="mini-action" href="assets/omen-09-let-the-strange-things-bloom-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/omen-09-let-the-strange-things-bloom-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/omen-10-kindness-is-its-own-spell-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/omen-10-kindness-is-its-own-spell-v1.png" alt="Poster reading Kindness is its own spell."></a><div class="artifact-meta"><p class="type">Gentle omen 10</p><h3>Kindness is its own spell.</h3><p>A powerful little charm with no subscription tier.</p><div class="actions"><a class="mini-action" href="assets/omen-10-kindness-is-its-own-spell-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/omen-10-kindness-is-its-own-spell-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/omen-11-the-cosmos-loves-a-soft-heart-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/omen-11-the-cosmos-loves-a-soft-heart-v1.png" alt="Poster reading The cosmos loves a soft heart."></a><div class="artifact-meta"><p class="type">Gentle omen 11</p><h3>The cosmos loves a soft heart.</h3><p>It also enjoys a nice soup, but that is another department.</p><div class="actions"><a class="mini-action" href="assets/omen-11-the-cosmos-loves-a-soft-heart-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/omen-11-the-cosmos-loves-a-soft-heart-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/omen-12-grow-gentle-in-wild-places-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/omen-12-grow-gentle-in-wild-places-v1.png" alt="Poster reading Grow gentle in wild places."></a><div class="artifact-meta"><p class="type">Gentle omen 12</p><h3>Grow gentle in wild places.</h3><p>Roots can be soft and still hold the whole hillside.</p><div class="actions"><a class="mini-action" href="assets/omen-12-grow-gentle-in-wild-places-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/omen-12-grow-gentle-in-wild-places-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/omen-13-every-odd-star-has-a-song-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/omen-13-every-odd-star-has-a-song-v1.png" alt="Poster reading Every odd star has a song."></a><div class="artifact-meta"><p class="type">Gentle omen 13</p><h3>Every odd star has a song.</h3><p>No need to understand the chorus before humming along.</p><div class="actions"><a class="mini-action" href="assets/omen-13-every-odd-star-has-a-song-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/omen-13-every-odd-star-has-a-song-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/omen-14-sip-slowly-from-the-mystery-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/omen-14-sip-slowly-from-the-mystery-v1.png" alt="Poster reading Sip slowly from the mystery."></a><div class="artifact-meta"><p class="type">Gentle omen 14</p><h3>Sip slowly from the mystery.</h3><p>It is hot, it is weird, and the cup has no handle.</p><div class="actions"><a class="mini-action" href="assets/omen-14-sip-slowly-from-the-mystery-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/omen-14-sip-slowly-from-the-mystery-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/omen-15-curiosity-opens-secret-gardens-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/omen-15-curiosity-opens-secret-gardens-v1.png" alt="Poster reading Curiosity opens secret gardens."></a><div class="artifact-meta"><p class="type">Gentle omen 15</p><h3>Curiosity opens secret gardens.</h3><p>Bring a key, an open mind, and a tiny watering can.</p><div class="actions"><a class="mini-action" href="assets/omen-15-curiosity-opens-secret-gardens-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/omen-15-curiosity-opens-secret-gardens-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+        </div>
+      </section>
+
+      <section class="collection" aria-labelledby="work-title">
+        <div class="collection-heading">
+          <div><p class="collection-kicker">Six office spells</p><h2 id="work-title">Work is a haunted machine</h2></div>
+          <p>Two distinct poster families for when the assignment claims that everything is normal, actually.</p>
+        </div>
+        <div class="poster-grid">
+          <article class="artifact"><a class="poster" href="assets/work-hell-01-everything-is-awesome-v2.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/work-hell-01-everything-is-awesome-v2.png" alt="Poster reading Everything is awesome."></a><div class="artifact-meta"><p class="type">Work hell 01</p><h3>Everything is awesome.</h3><p>Even the dumpster fire has a brand deck.</p><div class="actions"><a class="mini-action" href="assets/work-hell-01-everything-is-awesome-v2.png" download>take it ↓</a><a class="mini-action secondary" href="assets/work-hell-01-everything-is-awesome-v2.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/work-hell-02-everything-is-cool-team-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/work-hell-02-everything-is-cool-team-v1.png" alt="Poster reading Everything is cool, team."></a><div class="artifact-meta"><p class="type">Work hell 02</p><h3>Everything is cool, team.</h3><p>A corporate reassurance from inside the weather event.</p><div class="actions"><a class="mini-action" href="assets/work-hell-02-everything-is-cool-team-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/work-hell-02-everything-is-cool-team-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/work-hell-03-living-the-dream-bolts-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/work-hell-03-living-the-dream-bolts-v1.png" alt="Poster reading Living the dream."></a><div class="artifact-meta"><p class="type">Work hell 03</p><h3>Living the dream.</h3><p>We decline to specify whose dream or which OSHA category.</p><div class="actions"><a class="mini-action" href="assets/work-hell-03-living-the-dream-bolts-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/work-hell-03-living-the-dream-bolts-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/work-martyrs-01-blessed-are-the-overcommitted-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/work-martyrs-01-blessed-are-the-overcommitted-v1.png" alt="Poster reading Blessed are the overcommitted."></a><div class="artifact-meta"><p class="type">Work martyr 01</p><h3>Blessed are the overcommitted.</h3><p>A tiny secular holy card for saying yes one too many times.</p><div class="actions"><a class="mini-action" href="assets/work-martyrs-01-blessed-are-the-overcommitted-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/work-martyrs-01-blessed-are-the-overcommitted-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/work-martyrs-02-thy-deadline-come-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/work-martyrs-02-thy-deadline-come-v1.png" alt="Poster reading Thy deadline come."></a><div class="artifact-meta"><p class="type">Work martyr 02</p><h3>Thy deadline come.</h3><p>And maybe pass gently, without updating the scope.</p><div class="actions"><a class="mini-action" href="assets/work-martyrs-02-thy-deadline-come-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/work-martyrs-02-thy-deadline-come-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+          <article class="artifact"><a class="poster" href="assets/work-martyrs-03-deliver-us-from-scope-creep-v1.png" target="_blank" rel="noopener"><img loading="lazy" src="assets/work-martyrs-03-deliver-us-from-scope-creep-v1.png" alt="Poster reading Deliver us from scope creep."></a><div class="artifact-meta"><p class="type">Work martyr 03</p><h3>Deliver us from scope creep.</h3><p>The project will keep growing until somebody lights a candle.</p><div class="actions"><a class="mini-action" href="assets/work-martyrs-03-deliver-us-from-scope-creep-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/work-martyrs-03-deliver-us-from-scope-creep-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div></article>
+        </div>
+      </section>
+
+      <section class="closing-note" aria-label="More artifacts on the way"><h2>Cabinet remains open.</h2><p>More zines, little print artefacts, and creatures with well-meaning advice will continue to leak out of the shelf. The newsstand has the newspapers; the zine shelf has the reading material; this is the bit where you take the strange picture home.</p></section>
+    </div>
+  </main>
+  <footer>ACID GOBLIN / FREE CHAOS MERCH / <a href="../">RETURN TO THE ZINE SHELF</a></footer>
+</body>
+</html>

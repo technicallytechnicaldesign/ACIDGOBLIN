@@ -11,7 +11,9 @@ Cute-chaos zine series: tiny goblins, gentle reminders, acid color, and emotiona
 
 - `not-my-fucking-fire-zine/`: Field Note 02, *Not My Fucking Fire*, an eight-page Riso guide to centered intern work inside workplace chaos.
 
-- The shelf's **Newspaper** section is a two-row scrolling ticker of headlines and small advice from *The Gobbo Weekly* issues 01 to 05; clicking it opens the newsstand.
+- `free-chaos-merch/`: a separate, linked free-pickup cabinet for *Solve the Wave*, all 15 Gentle Omens posters, and both three-poster workplace families.
+
+- The shelf opens with a **Newspaper** section: a two-row scrolling ticker of headlines and small advice from *The Gobbo Weekly* issues 01 to 05; clicking it opens the newsstand.
 - `newsstand/`: the newsstand page, where each issue of *The Gobbo Weekly* (the newspaper edition of the zines) can be picked up as a PDF.
 - `gobbo-weekly/`: the issue PDFs and cover thumbnails the newsstand serves.
 
