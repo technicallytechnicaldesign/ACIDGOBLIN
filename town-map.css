@@ -1,0 +1,262 @@
+:root {
+  --town-paper: #f4ead4;
+  --town-ink: #19151e;
+  --town-pink: #f4479a;
+  --town-teal: #078c8c;
+  --town-yellow: #f5c928;
+  --town-orange: #ef5e2f;
+  --town-violet: #74439a;
+  --town-lime: #b7d33a;
+  --town-sky: #91d8d5;
+}
+
+body.town-root {
+  display: block;
+  min-width: 320px;
+  padding: 0;
+  color: var(--town-ink);
+  background:
+    radial-gradient(circle at 14% 9%, rgb(244 71 154 / 23%), transparent 27rem),
+    radial-gradient(circle at 91% 84%, rgb(7 140 140 / 24%), transparent 30rem),
+    #17121c;
+}
+
+body.town-root > header:not(.town-header),
+body.town-root > main:not(.town-map),
+body.town-root > footer { display: none; }
+
+.town-map {
+  min-height: 100svh;
+  padding: clamp(0.8rem, 2.7vw, 2.5rem);
+  overflow: hidden;
+}
+
+.town-board {
+  position: relative;
+  isolation: isolate;
+  width: min(1220px, 100%);
+  min-height: calc(100svh - clamp(1.6rem, 5.4vw, 5rem));
+  margin: 0 auto;
+  padding: clamp(1.1rem, 3.6vw, 3.3rem);
+  border: 4px solid var(--town-ink);
+  border-radius: 18px 11px 22px 13px;
+  background:
+    radial-gradient(circle at 8% 20%, rgb(244 71 154 / 16%) 0 2px, transparent 3px) 0 0 / 17px 17px,
+    radial-gradient(circle at 76% 62%, rgb(7 140 140 / 14%) 0 1px, transparent 2px) 0 0 / 13px 13px,
+    repeating-linear-gradient(0deg, rgb(25 21 30 / 4%) 0 1px, transparent 1px 4px),
+    var(--town-paper);
+  box-shadow: 11px 11px 0 var(--town-pink), -6px -6px 0 var(--town-yellow), 0 28px 70px rgb(0 0 0 / 36%);
+}
+
+.town-board::before,
+.town-board::after {
+  position: absolute;
+  z-index: -1;
+  width: 19rem;
+  height: 19rem;
+  content: "";
+  border: 1.1rem solid var(--town-pink);
+  border-radius: 41% 59% 62% 38%;
+  opacity: 0.31;
+  filter: blur(1px);
+}
+
+.town-board::before { top: -10rem; right: -9rem; box-shadow: 0 0 0 1.6rem var(--town-teal); transform: rotate(17deg); }
+.town-board::after { bottom: -12rem; left: -12rem; border-color: var(--town-orange); box-shadow: 0 0 0 1.6rem var(--town-yellow); transform: rotate(-12deg); }
+
+.town-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: none;
+  margin: 0 0 clamp(1.4rem, 4vw, 3.3rem);
+  text-align: left;
+}
+
+.town-eyebrow,
+.town-key,
+.place-kicker {
+  display: inline-block;
+  margin: 0;
+  font: 900 0.69rem/1 ui-monospace, Consolas, monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.town-eyebrow {
+  padding: 0.45rem 0.65rem;
+  border: 2px solid var(--town-ink);
+  background: var(--town-lime);
+  box-shadow: 4px 4px 0 var(--town-pink);
+  transform: rotate(-1.3deg);
+}
+
+.town-header h1 {
+  max-width: 13ch;
+  margin: 0.75rem 0 0;
+  font: 900 clamp(2.9rem, 7vw, 6.6rem)/0.78 "Arial Black", Impact, sans-serif;
+  letter-spacing: -0.08em;
+  text-transform: uppercase;
+}
+
+.town-header h1 em { color: var(--town-pink); font-style: normal; -webkit-text-stroke: 1px var(--town-ink); }
+
+.town-header-copy { max-width: 40rem; }
+.town-header-copy > p:not(.town-eyebrow) { max-width: 42rem; margin: 1rem 0 0; font-size: clamp(0.96rem, 1.9vw, 1.17rem); font-weight: 800; line-height: 1.4; }
+
+.town-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.45rem;
+  max-width: 19rem;
+}
+
+.town-legend a {
+  padding: 0.43rem 0.58rem;
+  border: 2px solid var(--town-ink);
+  color: var(--town-ink);
+  background: var(--town-paper);
+  box-shadow: 3px 3px 0 var(--town-teal);
+  font: 900 0.62rem/1 ui-monospace, Consolas, monospace;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.town-legend a:hover,
+.town-legend a:focus-visible { color: var(--town-paper); background: var(--town-ink); box-shadow: 3px 3px 0 var(--town-pink); }
+
+.street-map {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(190px, 0.68fr) minmax(0, 1fr);
+  grid-template-areas: "books crossroads news" "books merch merch";
+  gap: clamp(1rem, 2.6vw, 2rem);
+  align-items: stretch;
+}
+
+.road {
+  position: absolute;
+  z-index: -1;
+  display: block;
+  width: 10%;
+  height: 60%;
+  border: 10px dashed rgb(25 21 30 / 70%);
+  border-width: 0 0 10px;
+  opacity: 0.38;
+}
+
+.road--one { top: 32%; left: 27%; width: 38%; transform: rotate(7deg); }
+.road--two { top: 42%; right: 12%; width: 31%; transform: rotate(-15deg); }
+
+.place {
+  position: relative;
+  display: flex;
+  min-height: clamp(250px, 31vw, 366px);
+  overflow: hidden;
+  color: var(--town-ink);
+  border: 4px solid var(--town-ink);
+  border-radius: 13px 24px 10px 18px;
+  background: var(--town-paper);
+  box-shadow: 8px 9px 0 var(--town-ink);
+  text-decoration: none;
+  transition: transform 170ms ease, box-shadow 170ms ease;
+}
+
+.place::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(180deg, transparent 25%, rgb(244 234 212 / 17%) 55%, rgb(244 234 212 / 92%) 100%), var(--scene) center / cover no-repeat;
+  filter: saturate(1.05) contrast(1.03);
+  transition: transform 350ms ease, filter 350ms ease;
+}
+
+.place::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background-image: repeating-linear-gradient(0deg, rgb(25 21 30 / 10%) 0 1px, transparent 1px 4px), radial-gradient(circle, rgb(25 21 30 / 15%) 0 0.7px, transparent 0.8px);
+  background-size: auto, 7px 7px;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.place:hover,
+.place:focus-visible { box-shadow: 3px 4px 0 var(--town-ink); transform: translate(5px, 5px) rotate(-0.5deg); }
+.place:hover::before,
+.place:focus-visible::before { filter: saturate(1.22) contrast(1.09); transform: scale(1.055) rotate(1deg); }
+.place:focus-visible { outline: 5px solid var(--town-pink); outline-offset: 4px; }
+
+.place--bookshop { grid-area: books; --scene: url("./wavy-days-issue-01/assets/wavy-days-cover-riso-v1.png"); background: var(--town-lime); transform: rotate(-1.1deg); }
+.place--newsstand { grid-area: news; --scene: url("./gobbo-weekly/cover-05.jpg"); background: var(--town-orange); transform: rotate(1.1deg); }
+.place--merch { grid-area: merch; --scene: url("./free-chaos-merch/assets/solve-the-wave-v1.png"); min-height: clamp(225px, 26vw, 304px); background: var(--town-violet); transform: rotate(-0.45deg); }
+.place--merch::before { background-position: 65% 42%; }
+
+.place-sign {
+  position: relative;
+  z-index: 2;
+  align-self: flex-end;
+  width: calc(100% - 1.5rem);
+  margin: 0 0 0.75rem 0.75rem;
+  padding: 0.8rem 0.85rem;
+  border: 3px solid var(--town-ink);
+  background: var(--town-paper);
+  box-shadow: 4px 4px 0 var(--town-pink);
+}
+
+.place-kicker { margin-bottom: 0.45rem; color: var(--town-violet); }
+.place-sign strong { display: block; font: 900 clamp(1.65rem, 3.5vw, 3.2rem)/0.79 "Arial Black", Impact, sans-serif; letter-spacing: -0.065em; text-transform: uppercase; }
+.place-sign span { display: block; margin-top: 0.56rem; font-size: 0.82rem; font-weight: 800; line-height: 1.22; }
+.place--merch .place-sign { width: min(27rem, calc(100% - 1.5rem)); box-shadow: 4px 4px 0 var(--town-lime); }
+
+.crossroads {
+  grid-area: crossroads;
+  align-self: center;
+  padding: 1rem;
+  border: 3px dashed var(--town-ink);
+  border-radius: 49% 51% 43% 57%;
+  background: var(--town-yellow);
+  box-shadow: 5px 5px 0 var(--town-teal);
+  text-align: center;
+  transform: rotate(2deg);
+}
+
+.crossroads .tiny-goblin { display: block; margin-bottom: 0.5rem; font-size: clamp(2.8rem, 5vw, 4.3rem); line-height: 1; }
+.crossroads h2 { margin: 0; font: 900 clamp(1.25rem, 2.4vw, 2rem)/0.9 "Arial Black", Impact, sans-serif; letter-spacing: -0.055em; text-transform: uppercase; }
+.crossroads p { margin: 0.6rem 0 0; font: 800 0.78rem/1.25 ui-monospace, Consolas, monospace; }
+
+.town-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: clamp(1.4rem, 3vw, 2.3rem) 0 0;
+  padding-top: 1rem;
+  border-top: 3px solid var(--town-ink);
+}
+
+.town-note p { max-width: 48rem; margin: 0; font: 800 clamp(0.73rem, 1.4vw, 0.9rem)/1.35 ui-monospace, Consolas, monospace; }
+.town-note a { color: var(--town-violet); font-weight: 950; }
+.town-stamp { flex: none; padding: 0.54rem 0.66rem; border: 2px solid var(--town-ink); background: var(--town-teal); box-shadow: 3px 3px 0 var(--town-orange); font: 900 0.62rem/1 ui-monospace, Consolas, monospace; letter-spacing: 0.07em; text-transform: uppercase; transform: rotate(-2deg); }
+
+@media (max-width: 820px) {
+  .town-map { padding: 0.5rem; }
+  .town-board { min-height: calc(100svh - 1rem); padding: 1rem; border-width: 3px; box-shadow: 6px 7px 0 var(--town-pink), -3px -3px 0 var(--town-yellow); }
+  .town-header { display: block; margin-bottom: 1.7rem; }
+  .town-header h1 { max-width: 11ch; font-size: clamp(3.05rem, 14vw, 5.25rem); }
+  .town-legend { justify-content: flex-start; max-width: none; margin-top: 1.1rem; }
+  .street-map { grid-template-columns: 1fr; grid-template-areas: "crossroads" "books" "news" "merch"; gap: 1rem; }
+  .road { display: none; }
+  .place { min-height: 250px; transform: none; }
+  .place--merch { min-height: 250px; }
+  .place-sign strong { font-size: clamp(2rem, 10vw, 3.3rem); }
+  .crossroads { max-width: 18rem; justify-self: center; }
+  .town-note { align-items: flex-start; flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .place, .place::before { transition: none; }
+}

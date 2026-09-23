@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Acid Goblin Town bookshop: two unruly interactive zines and a place to begin reading.">
+  <title>Goblin Bookshop — Acid Goblin Town</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Space+Grotesk:wght@500;700&display=swap');
+
+    :root { --paper:#f2e6c5; --ink:#1b1920; --red:#f05e45; --green:#5f7d57; --blue:#7aaed5; --sun:#f3b421; }
+    * { box-sizing:border-box; }
+    html { background:#231d27; }
+    body { margin:0; min-width:320px; color:var(--ink); background:
+      radial-gradient(circle at 8% 15%, rgba(255,255,255,.33) 0 1px, transparent 1.5px) 0 0/13px 15px,
+      linear-gradient(115deg, rgba(255,255,255,.2), transparent 26%), var(--paper);
+      font-family:"Space Grotesk", ui-sans-serif, system-ui, sans-serif; }
+    a { color:inherit; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:16px clamp(18px,4vw,54px); background:var(--ink); color:var(--paper); border-bottom:5px solid var(--red); }
+    .back { display:inline-flex; align-items:center; gap:8px; color:var(--paper); text-decoration:none; font:500 11px/1 "DM Mono", monospace; letter-spacing:.08em; text-transform:uppercase; }
+    .back::before { content:"←"; font-size:19px; line-height:.6; }
+    .back:hover { color:#ffcc48; }
+    .topbar span { font:500 10px/1 "DM Mono", monospace; letter-spacing:.08em; text-transform:uppercase; color:#d7c6a3; text-align:right; }
+    .shop { width:min(1180px, calc(100% - 32px)); margin:0 auto; padding:clamp(26px,5vw,70px) 0 62px; }
+    .shop-head { display:grid; grid-template-columns:minmax(0,1fr) minmax(210px,.42fr); gap:clamp(25px,7vw,110px); align-items:end; padding:0 clamp(0px,2vw,18px) 42px; }
+    .eyebrow { margin:0 0 13px; font:500 11px/1.2 "DM Mono", monospace; letter-spacing:.1em; text-transform:uppercase; color:#7c3f35; }
+    h1 { max-width:720px; margin:0; font:900 clamp(50px,10vw,132px)/.77 "Fraunces", Georgia, serif; letter-spacing:-.075em; text-transform:lowercase; }
+    h1 em { font-style:normal; color:var(--red); }
+    .intro { max-width:305px; margin:0; padding-bottom:8px; font-size:16px; line-height:1.35; }
+    .window { position:relative; min-height:150px; overflow:hidden; padding:25px 22px; color:var(--paper); background:linear-gradient(145deg,#28374f,#101420 64%); border:5px solid var(--ink); box-shadow:8px 8px 0 var(--green); transform:rotate(2.4deg); }
+    .window::before { content:""; position:absolute; inset:0; opacity:.28; background:repeating-linear-gradient(0deg, transparent 0 10px, #d8e1cc 11px 12px); }
+    .window > * { position:relative; }
+    .window small { display:block; margin-bottom:18px; font:500 10px/1 "DM Mono", monospace; letter-spacing:.08em; text-transform:uppercase; color:#f5c247; }
+    .window strong { display:block; max-width:165px; font:700 19px/1.02 "Fraunces", Georgia, serif; }
+    .window i { position:absolute; width:36px; height:36px; right:20px; bottom:19px; border-radius:50%; background:var(--sun); box-shadow:0 0 0 7px rgba(243,180,33,.14), 0 0 28px 6px rgba(243,180,33,.5); }
+    .shelf-label { display:flex; justify-content:space-between; align-items:baseline; gap:18px; margin:0 0 16px; padding-top:8px; border-top:2px solid var(--ink); }
+    .shelf-label h2 { margin:0; font:700 12px/1 "DM Mono", monospace; letter-spacing:.09em; text-transform:uppercase; }
+    .shelf-label span { font:500 10px/1 "DM Mono", monospace; color:#765f56; text-transform:uppercase; }
+    .shelf { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(18px,3vw,35px); }
+    .book { position:relative; display:grid; grid-template-columns:minmax(150px,.78fr) minmax(0,1fr); gap:clamp(18px,3vw,38px); min-height:330px; padding:clamp(16px,2.8vw,34px); overflow:hidden; text-decoration:none; border:4px solid var(--ink); box-shadow:9px 10px 0 var(--ink); transition:transform .18s ease, box-shadow .18s ease; }
+    .book:hover { transform:translate(-4px,-5px) rotate(-.4deg); box-shadow:14px 15px 0 var(--ink); }
+    .book::after { content:""; position:absolute; z-index:0; width:150px; height:150px; right:-47px; bottom:-62px; border-radius:50%; opacity:.74; }
+    .book > * { position:relative; z-index:1; }
+    .book--wavy { background:#e4e9dc; }
+    .book--wavy::after { background:var(--blue); }
+    .book--fire { background:#f0d8bd; }
+    .book--fire::after { background:var(--red); }
+    .cover { align-self:start; aspect-ratio:2/2.48; border:3px solid var(--ink); background-color:#17131c; background-size:cover; background-position:center; box-shadow:5px 6px 0 rgba(27,25,32,.25); }
+    .cover--wavy { background-image:url("../wavy-days-issue-01/assets/wavy-days-cover-riso-v1.png"); }
+    .cover--fire { background-image:url("../not-my-fucking-fire-zine/assets/acidgoblin-center-sheet-v1.png"); background-size:400% 200%; background-position:0 0; }
+    .book-copy { align-self:center; }
+    .book-copy small { display:block; margin:0 0 12px; font:500 10px/1.2 "DM Mono", monospace; letter-spacing:.09em; text-transform:uppercase; }
+    .book-copy h3 { margin:0 0 12px; font:900 clamp(29px,3vw,48px)/.86 "Fraunces", Georgia, serif; letter-spacing:-.065em; }
+    .book-copy p { margin:0 0 18px; font-size:15px; line-height:1.28; }
+    .open-book { display:inline-block; padding-bottom:4px; border-bottom:2px solid currentColor; font:500 11px/1 "DM Mono", monospace; letter-spacing:.06em; text-transform:uppercase; }
+    .town-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:54px; padding-top:20px; border-top:2px dashed rgba(27,25,32,.5); }
+    .town-links a { padding:9px 11px; font:500 10px/1 "DM Mono", monospace; text-decoration:none; letter-spacing:.06em; text-transform:uppercase; background:#fff5d8; border:2px solid var(--ink); box-shadow:3px 3px 0 var(--ink); }
+    .town-links a:hover { background:#f7c544; transform:translate(-1px,-1px); box-shadow:5px 5px 0 var(--ink); }
+    footer { padding:20px clamp(18px,4vw,54px); color:#ded0b1; background:#231d27; font:500 10px/1.35 "DM Mono", monospace; letter-spacing:.05em; text-transform:uppercase; }
+    @media (max-width:760px) { .shop-head { grid-template-columns:1fr; padding-bottom:34px; } .intro { max-width:470px; } .window { max-width:270px; justify-self:end; } .book { grid-template-columns:minmax(126px,.65fr) minmax(0,1fr); min-height:270px; padding:17px; } }
+    @media (max-width:560px) { .topbar { padding:15px 18px; } .topbar span { display:none; } .shop { width:min(100% - 24px, 1180px); } h1 { font-size:67px; } .shelf { grid-template-columns:1fr; gap:26px; } .book { min-height:250px; } .shelf-label span { display:none; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="back" href="../">Town map</a>
+    <span>Acid Goblin Town / Books &amp; field guides</span>
+  </header>
+
+  <main class="shop">
+    <section class="shop-head">
+      <div>
+        <p class="eyebrow">Door 01 / Reading lane</p>
+        <h1>Goblin <em>bookshop</em></h1>
+      </div>
+      <div class="window" aria-label="After-hours bookshop window">
+        <small>Tonight's display</small>
+        <strong>Books for people who keep making strange little worlds.</strong>
+        <i aria-hidden="true"></i>
+      </div>
+      <p class="intro">A very small shop for very large weather systems, institutional fires, and curious readers with questionable bedtime habits.</p>
+    </section>
+
+    <div class="shelf-label">
+      <h2>Open shelves</h2>
+      <span>Everything here is interactive</span>
+    </div>
+    <section class="shelf" aria-label="Interactive zines">
+      <a class="book book--wavy" href="../wavy-days-issue-01/">
+        <span class="cover cover--wavy" aria-hidden="true"></span>
+        <span class="book-copy">
+          <small>Issue 01 / weather report</small>
+          <h3>Wavy Days</h3>
+          <p>A riso-coloured pocket forecast for systems, feelings and making your way through the fog.</p>
+          <span class="open-book">Open zine →</span>
+        </span>
+      </a>
+      <a class="book book--fire" href="../not-my-fucking-fire-zine/">
+        <span class="cover cover--fire" aria-hidden="true"></span>
+        <span class="book-copy">
+          <small>Issue 02 / job description</small>
+          <h3>Not My Fucking Fire</h3>
+          <p>An interactive field guide for contributing without becoming the emergency response department.</p>
+          <span class="open-book">Open zine →</span>
+        </span>
+      </a>
+    </section>
+
+    <nav class="town-links" aria-label="More places in Acid Goblin Town">
+      <a href="../">← Town map</a>
+      <a href="../newsstand/">Gobbo newsstand</a>
+      <a href="../free-chaos-merch/">Free chaos merch</a>
+    </nav>
+  </main>
+
+  <footer>Acid Goblin Town bookshop / browse gently, annotate wildly.</footer>
+</body>
+</html>
