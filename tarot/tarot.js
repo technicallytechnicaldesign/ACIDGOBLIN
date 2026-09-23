@@ -42,7 +42,7 @@
     button.setAttribute('aria-label', `${slots[index]}, face down`);
     button.dataset.index = index;
     const orientation = entry.reversed ? 'Reversed' : 'Upright';
-    button.innerHTML = `<span class="card-inner"><span class="card-back"><span class="back-eye">◉</span><span>${slots[index]}</span><small>Goblin oracle</small></span><span class="card-face" hidden><span class="card-number">${entry.card.number}</span><span class="card-art"><img src="${entry.card.source}" alt="${entry.card.artAlt}"><span class="missing-art">${entry.card.title}</span></span><span class="card-title">${entry.card.title}</span><span class="orientation">${orientation}</span><span class="keywords">${entry.card.keywords}</span></span></span>`;
+    button.innerHTML = `<span class="card-inner"><span class="card-back"><span class="back-eye">◉</span><span>${slots[index]}</span><small>Goblin oracle</small></span><span class="card-face" hidden aria-hidden="true"><span class="card-number">${entry.card.number}</span><span class="card-art"><img src="${entry.card.source}" alt="${entry.card.artAlt}"><span class="missing-art">${entry.card.title}</span></span><span class="card-title">${entry.card.title}</span><span class="orientation">${orientation}</span><span class="keywords">${entry.card.keywords}</span></span></span>`;
     button.addEventListener('click', () => reveal(index));
     const img = button.querySelector('img');
     if (img) img.addEventListener('error', () => imageFailed(img), { once: true });
@@ -72,6 +72,7 @@
     if (!button || button.classList.contains('is-revealed')) return;
     const face = button.querySelector('.card-face');
     face.hidden = false;
+    face.setAttribute('aria-hidden', 'false');
     button.classList.add('is-revealed');
     button.disabled = true;
     button.setAttribute('aria-label', `${slots[index]}: ${state.cards[index].card.title}, ${state.cards[index].reversed ? 'reversed' : 'upright'}`);
