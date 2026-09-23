@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f4ead4">
-  <meta name="description" content="Acid Goblin: a cute-chaos zine shelf. Riso goblins, gentle reminders, and acid color, one issue at a time.">
-  <title>Acid Goblin — Zine Shelf</title>
+  <meta name="description" content="Acid Goblin Town: a navigable little world with a bookshop, newsstand, and free chaos merch store.">
+  <title>Acid Goblin Town</title>
   <style>
     :root {
       --paper: #f4ead4;
@@ -154,9 +154,63 @@
       .ticker-list li { white-space: normal; }
       .ticker.front li, .ticker.advice li { padding-block: 0.4rem; font-size: 1rem; }
     }
-  </style>
+</style>
+  <link rel="stylesheet" href="town-map.css">
 </head>
-<body>
+<body class="town-root">
+  <div class="town-map" role="main">
+    <div class="town-board">
+      <header class="town-header">
+        <div class="town-header-copy">
+          <p class="town-eyebrow">Welcome / you are here</p>
+          <h1>Acid <em>Goblin</em> Town</h1>
+          <p>Three doors, no entry fee. Pick a corner and follow the wonky little roads.</p>
+        </div>
+        <nav class="town-legend" aria-label="Town utility routes">
+          <a href="./bookshop/">bookshop</a>
+          <a href="./newsstand/">newsstand</a>
+          <a href="./free-chaos-merch/">merch store</a>
+          <a href="https://github.com/technicallytechnicaldesign/ACIDGOBLIN" target="_blank" rel="noopener">source</a>
+        </nav>
+      </header>
+
+      <section class="street-map" aria-label="Acid Goblin Town destinations">
+        <span class="road road--one" aria-hidden="true"></span>
+        <span class="road road--two" aria-hidden="true"></span>
+        <a class="place place--bookshop" href="./bookshop/">
+          <span class="place-sign">
+            <span class="place-kicker">01 / reading lane</span>
+            <strong>Goblin<br>bookshop</strong>
+            <span>Field guides, zines and the odd quiet corner.</span>
+          </span>
+        </a>
+        <section class="crossroads" aria-label="Patch's crossroads">
+          <span class="tiny-goblin" aria-hidden="true">✦</span>
+          <h2>Patch's<br>crossroads</h2>
+          <p>Pick a door. You are exactly there.</p>
+        </section>
+        <a class="place place--newsstand" href="./newsstand/">
+          <span class="place-sign">
+            <span class="place-kicker">02 / corner paper</span>
+            <strong>Gobbo<br>newsstand</strong>
+            <span>Fresh rags, field notes and improbable headlines.</span>
+          </span>
+        </a>
+        <a class="place place--merch" href="./free-chaos-merch/">
+          <span class="place-sign">
+            <span class="place-kicker">03 / free pickup</span>
+            <strong>Chaos<br>merch</strong>
+            <span>Posters for the wall, the window and the void.</span>
+          </span>
+        </a>
+      </section>
+
+      <div class="town-note">
+        <p>Directions written by a goblin with a colour printer and no interest in property law.</p>
+        <span class="town-stamp">town open / no ticket needed</span>
+      </div>
+    </div>
+  </div>
   <header>
     <span class="eyebrow">Acid Goblin</span>
     <h1>The zine <em>shelf</em></h1>
