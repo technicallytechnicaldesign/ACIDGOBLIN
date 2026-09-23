@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Goblin Oracle: a three-card tarot draw for the situation, its complication, and an unreasonable way through.">
+  <title>The Goblin Oracle — Acid Goblin Town</title>
+  <link rel="stylesheet" href="tarot.css?v=0384">
+</head>
+<body>
+  <header class="site-header">
+    <a class="mark" href="../">Acid <b>Goblin</b> / town</a>
+    <nav aria-label="Other places in Goblin Town"><a href="../">town map</a><a href="../bookshop/">bookshop</a><a href="../newsstand/">newsstand</a><a href="../free-chaos-merch/">free chaos merch</a></nav>
+  </header>
+  <main>
+    <section class="oracle-intro" aria-labelledby="oracle-title">
+      <p class="eyebrow">Moon-puddle court / open late</p>
+      <h1 id="oracle-title">The Goblin <em>Oracle</em></h1>
+      <p class="lede">Three cards for the situation. No fate, no account, no ominous subscription renewal.</p>
+      <button class="shuffle" type="button" id="shuffle">Shuffle the situation <span aria-hidden="true">↻</span></button>
+      <p class="instruction" id="instruction">Deal the cards, then turn them over in order. The first card goes first because it insists.</p>
+    </section>
+    <noscript><p class="no-js">The Oracle needs JavaScript to shuffle. The town map and its other doors remain open.</p></noscript>
+    <section class="reading" aria-labelledby="reading-title">
+      <div class="reading-heading"><p class="eyebrow">A three-beat field report</p><h2 id="reading-title">No cards on the table <span aria-hidden="true">yet.</span></h2></div>
+      <div class="card-grid" id="card-grid" aria-label="Your tarot cards"></div>
+      <div class="reading-copy" id="reading-copy" hidden>
+        <p class="setting" id="setting"></p>
+        <div id="beats"></div>
+      </div>
+      <div class="actions" id="actions" hidden><button class="shuffle" type="button" id="again">Another adventure <span aria-hidden="true">↻</span></button><button class="copy" type="button" id="copy">Copy reading</button></div>
+      <p class="live" id="live" aria-live="polite" aria-atomic="true"></p>
+    </section>
+    <p class="art-note">Star-Eyed Charms edition: twelve selected charms travel here from the canonical collection, with their source mapping preserved in the deck.</p>
+  </main>
+  <footer>THE GOBLIN ORACLE / <a href="../">RETURN TO TOWN MAP</a> / PLEASE DO NOT ASK THE CARDS TO DO YOUR TAXES</footer>
+  <script src="deck.js"></script>
+  <script src="tarot.js"></script>
+</body>
+</html>

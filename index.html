@@ -155,7 +155,7 @@
       .ticker.front li, .ticker.advice li { padding-block: 0.4rem; font-size: 1rem; }
     }
 </style>
-  <link rel="stylesheet" href="town-map.css?v=36cbd9a">
+  <link rel="stylesheet" href="town-map.css?v=tarot-0384">
 </head>
 <body class="town-root">
   <div class="town-map" role="main">
@@ -164,12 +164,13 @@
         <div class="town-header-copy">
           <p class="town-eyebrow">Welcome / you are here</p>
           <h1>Acid <em>Goblin</em> Town</h1>
-          <p>Three doors, no entry fee. Pick a corner and follow the wonky little roads.</p>
+          <p>Four doors, no entry fee. Pick a corner and follow the wonky little roads.</p>
         </div>
         <nav class="town-legend" aria-label="Town utility routes">
           <a href="./bookshop/">bookshop</a>
           <a href="./newsstand/">newsstand</a>
           <a href="./free-chaos-merch/">merch store</a>
+          <a href="./tarot/">goblin oracle</a>
           <button class="about-toggle" type="button" aria-controls="town-about" aria-expanded="false">about town</button>
           <a href="https://github.com/technicallytechnicaldesign/ACIDGOBLIN" target="_blank" rel="noopener">source</a>
         </nav>
@@ -180,14 +181,17 @@
           <path class="route route--main" d="M80 165 C245 105 348 188 488 262 S790 329 1090 180"></path>
           <path class="route route--side" d="M175 548 C365 426 510 547 678 508 S942 456 1128 575"></path>
           <path class="route route--lane" d="M498 88 C574 212 562 327 654 425 S839 511 1008 675"></path>
+          <path class="route route--oracle" d="M594 295 C554 380 568 488 620 624"></path>
           <circle class="route-dot" cx="500" cy="262" r="12"></circle>
           <circle class="route-dot" cx="683" cy="508" r="10"></circle>
+          <circle class="route-dot" cx="620" cy="624" r="9"></circle>
         </svg>
         <span class="road road--one" aria-hidden="true"></span>
         <span class="road road--two" aria-hidden="true"></span>
         <span class="district-label district-label--books" aria-hidden="true">Mossy reading lane</span>
         <span class="district-label district-label--news" aria-hidden="true">Fire exit row</span>
         <span class="district-label district-label--merch" aria-hidden="true">Printmaker's square</span>
+        <span class="district-label district-label--tarot" aria-hidden="true">Moon-puddle court</span>
         <span class="map-landmark map-landmark--mushroom" aria-hidden="true"><b>✦</b> mushroom turn</span>
         <span class="map-landmark map-landmark--watch" aria-hidden="true"><b>◉</b> watch post</span>
         <span class="map-landmark map-landmark--sticker" aria-hidden="true"><b>✹</b> sticker pond</span>
@@ -215,6 +219,13 @@
             <span class="place-kicker">03 / free pickup</span>
             <strong>Chaos<br>merch</strong>
             <span>Posters for the wall, the window and the void.</span>
+          </span>
+        </a>
+        <a class="place place--tarot" href="./tarot/">
+          <span class="place-sign">
+            <span class="place-kicker">04 / moon-puddle court</span>
+            <strong>Goblin<br>oracle</strong>
+            <span>Three strange cards and one unreasonable way through.</span>
           </span>
         </a>
       </section>
