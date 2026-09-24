@@ -35,12 +35,13 @@ body{background:var(--paper)}
 .well-layout{gap:16px}
 .well-scene{min-height:520px;border-radius:3px;background:radial-gradient(circle at 48% 42%,#fff8d7 0 14%,transparent 50%),#a5d7c8;box-shadow:4px 4px 0 var(--teal)}
 .well-scene:before{content:none}
-.well-art{position:relative;z-index:2;display:block;width:min(80%,440px);height:auto;max-height:490px;object-fit:contain;filter:drop-shadow(4px 6px 0 #21182044)}
+.well-art{position:relative;z-index:2;display:block;width:min(80%,440px);height:auto;max-height:490px;padding:0;border:0;background:none;cursor:pointer;filter:drop-shadow(4px 6px 0 #21182044)}
+.well-art img{display:block;width:100%;height:auto}.well-art:disabled{opacity:1;cursor:wait}.well-art:hover:not(:disabled) img{transform:translateY(-3px)}
 .well-sign{border-radius:0;box-shadow:2px 2px 0 var(--ink)}
-.ripple{z-index:3;top:55%;left:48%;border-color:#fff9e8}
+.ripple{z-index:3;top:55%;left:48%;border-color:#fff9e8;pointer-events:none}
 .well-scene.tossing .ripple:nth-of-type(2){animation-delay:.14s}
 .well-scene.tossing .ripple:nth-of-type(3){animation-delay:.28s}
-.pebble{bottom:24px;left:50%}
+.pebble{bottom:24px;left:50%;pointer-events:none}
 .rumour-card{border-radius:1px;background:repeating-linear-gradient(0deg,#21182008 0 1px,transparent 1px 5px),#fffaf0;box-shadow:3px 3px 0 var(--teal)}
 .goblin-well{background:#fff7e7}
 
