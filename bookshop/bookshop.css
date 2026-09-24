@@ -1,0 +1,106 @@
+/* A small reading nook: the selected book, Moss and both spines share one screen. */
+:root { --paper:#ead9b9; --ink:#2a1c24; --wood:#70472f; --wood-dark:#432c2a; --amber:#edb84f; --coral:#ee765a; --plum:#62436b; --cream:#fff4dc; --teal:#338385; }
+* { box-sizing:border-box; }
+html { background:#3c3039; }
+body { min-width:320px; margin:0; overflow:hidden; color:var(--ink); font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif; background:radial-gradient(circle at 12% 14%,#fff9e6a0 0 4%,transparent 29%),repeating-linear-gradient(0deg,#52372c0b 0 1px,transparent 1px 5px),var(--paper); }
+a,button { -webkit-tap-highlight-color:transparent; }
+a:focus-visible,button:focus-visible,summary:focus-visible { outline:3px solid var(--teal); outline-offset:2px; }
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+.page { width:min(1360px,100%); height:100svh; height:100dvh; margin:auto; padding:clamp(.3rem,.8vw,.55rem) clamp(.45rem,1.7vw,1rem) clamp(.4rem,1vw,.7rem); display:grid; grid-template-rows:auto minmax(0,1fr); gap:clamp(.3rem,.7vw,.55rem); }
+.masthead { min-width:0; padding:.2rem .45rem .3rem; border-top:4px double var(--ink); border-bottom:5px double var(--ink); background:#fff4dcbd; }
+.door-line,.shelf-line { display:flex; align-items:center; justify-content:space-between; gap:.5rem; font:900 clamp(.5rem,.67vw,.64rem)/1.1 ui-monospace,Consolas,monospace; letter-spacing:.045em; text-transform:uppercase; }
+.door-line { position:relative; min-height:1.3rem; border-bottom:1px solid var(--ink); }
+.town-link { color:var(--ink); text-decoration:none; white-space:nowrap; }
+.town-link:hover { color:var(--coral); }
+.door-note { text-align:center; }
+.other-doors { position:relative; z-index:10; flex:none; }
+.other-doors summary { padding:.18rem .3rem; border:1px solid var(--ink); background:var(--amber); cursor:pointer; list-style:none; white-space:nowrap; }
+.other-doors summary::-webkit-details-marker { display:none; }
+.other-doors nav { position:absolute; right:0; top:calc(100% + 3px); min-width:9.5rem; padding:.35rem; display:grid; gap:.2rem; border:2px solid var(--ink); background:var(--cream); box-shadow:4px 4px 0 var(--coral); }
+.other-doors nav a { padding:.35rem .4rem; color:var(--ink); text-decoration:none; }
+.other-doors nav a:hover { background:#f7dc9a; }
+.masthead h1 { display:flex; align-items:baseline; justify-content:center; gap:.18em; margin:.1rem 0 .08rem; font:900 clamp(1.75rem,4.9vw,4rem)/.95 Georgia,"Times New Roman",serif; letter-spacing:-.07em; text-align:center; text-transform:uppercase; white-space:nowrap; }
+.masthead-the { align-self:flex-start; margin-top:.24em; font:900 .28em/1 Georgia,serif; letter-spacing:-.02em; }
+.masthead h1 em { color:var(--plum); font-style:normal; }
+.masthead-star { color:var(--amber); font-size:.56em; text-shadow:2px 2px 0 var(--ink); }
+.shelf-line { padding-top:.14rem; border-top:1px solid var(--ink); }
+.reading-room { min-height:0; display:grid; grid-template-rows:minmax(0,1fr) auto auto; gap:clamp(.3rem,.7vw,.55rem); }
+.feature { min-width:0; min-height:0; display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1fr); gap:clamp(.45rem,1.5vw,1.2rem); padding:clamp(.3rem,.9vw,.65rem); border:3px solid var(--ink); background:#fff5df; box-shadow:5px 5px 0 var(--teal); overflow:hidden; }
+.book-display { position:relative; min-width:0; min-height:0; display:grid; place-items:center; padding:.55rem .55rem .8rem; border:2px solid var(--ink); background:radial-gradient(circle at 50% 33%,#f8daa5 0 16%,transparent 66%),repeating-linear-gradient(90deg,#4b2e2d 0 10px,#66402e 10px 13px,#754b30 13px 25px); overflow:hidden; }
+.book-display::before { position:absolute; inset:8% 8% 10%; content:""; border-radius:48% 48% 12% 12%; background:#fff1c971; box-shadow:0 0 55px #f7d783aa; }
+.display-spark { position:absolute; top:8%; right:13%; color:var(--amber); font-size:clamp(1rem,2vw,2rem); text-shadow:2px 2px 0 var(--ink); }
+.book-cover { position:relative; z-index:1; display:block; height:100%; max-height:100%; max-width:100%; aspect-ratio:4/5; border:3px solid var(--ink); background-color:#fff8e8; background-repeat:no-repeat; box-shadow:5px 0 0 #e9c497,7px 5px 0 var(--ink),12px 10px 15px #25171788; transform:perspective(700px) rotateY(-4deg) rotate(-1.2deg); transition:transform .2s ease; }
+.book-cover:hover { transform:perspective(700px) rotateY(0) rotate(0) translateY(-3px); }
+.book-cover--wavy { background-image:url('../wavy-days-issue-01/assets/wavy-days-cover-riso-v1.png'); background-size:cover; background-position:center; }
+.book-cover--fire { background-image:url('../not-my-fucking-fire-zine/assets/acidgoblin-center-sheet-v1.png'); background-size:400% 200%; background-position:0 0; }
+.shelf-board { position:absolute; z-index:2; left:5%; right:5%; bottom:0; height:.6rem; border-top:2px solid var(--ink); background:linear-gradient(#bb8853 0 52%,#6f482e 53%); box-shadow:0 3px 0 var(--ink); pointer-events:none; }
+.book-story { min-width:0; min-height:0; display:flex; flex-direction:column; padding:clamp(.1rem,.6vw,.55rem) .1rem; }
+.book-category { align-self:flex-start; margin:0 0 clamp(.25rem,.9vh,.6rem); padding:.23rem .46rem; background:var(--amber); font:900 clamp(.58rem,.8vw,.74rem)/1 ui-monospace,Consolas,monospace; letter-spacing:.05em; text-transform:uppercase; }
+.book-story h2 { margin:0 0 .55rem; font:900 clamp(2rem,4.3vw,4.4rem)/.93 Georgia,"Times New Roman",serif; letter-spacing:-.075em; text-wrap:balance; }
+.book-lede { max-width:34ch; margin:0 0 .6rem; font:800 clamp(.9rem,1.45vw,1.38rem)/1.18 "Trebuchet MS",sans-serif; }
+.book-aside { max-width:48ch; margin:0; color:#69514e; font-size:clamp(.76rem,1vw,1rem); line-height:1.28; }
+.open-book { align-self:flex-start; margin-top:auto; padding:.6rem .78rem; border:2px solid var(--ink); color:var(--cream); background:var(--plum); font:900 clamp(.65rem,.9vw,.82rem)/1 ui-monospace,Consolas,monospace; text-decoration:none; text-transform:uppercase; white-space:nowrap; }
+.open-book:hover { transform:translateY(-2px); box-shadow:2px 2px 0 var(--ink); }
+.book-note { margin:.4rem 0 0; color:#705b59; font:.66rem/1 ui-monospace,Consolas,monospace; text-transform:uppercase; }
+.moss { min-height:0; display:grid; grid-template-columns:clamp(68px,8vw,96px) minmax(0,1fr) auto; align-items:center; gap:.5rem; padding:.12rem .5rem .12rem .12rem; border:3px solid var(--ink); border-radius:13px 9px 14px 8px; background:#fff4d9; box-shadow:4px 4px 0 var(--coral); }
+.moss img { display:block; width:100%; height:clamp(63px,9vh,84px); object-fit:contain; filter:drop-shadow(2px 2px 0 var(--coral)); animation:moss-peek 11s ease-in-out infinite; }
+.moss-copy { min-width:0; }
+.moss-copy strong { display:block; margin-bottom:.2rem; font:900 .62rem/1 ui-monospace,Consolas,monospace; letter-spacing:.08em; text-transform:uppercase; }
+.moss-copy p { margin:0; font:800 clamp(.76rem,1.15vw,1rem)/1.2 "Trebuchet MS",sans-serif; }
+#moss-more { width:1.9rem; height:1.9rem; padding:0; border:2px solid var(--ink); border-radius:50%; background:var(--amber); box-shadow:2px 2px 0 var(--teal); cursor:pointer; font:900 1rem/1 Arial,sans-serif; }
+#moss-more:hover { transform:rotate(-20deg); }
+.bookcase { min-width:0; display:grid; grid-template-rows:auto auto; padding:.23rem .35rem .4rem; border:3px solid var(--wood-dark); background:repeating-linear-gradient(90deg,#805437 0 18px,#90613e 18px 21px,#744c33 21px 35px); box-shadow:4px 4px 0 #251a1e88; }
+.bookcase-label { display:flex; align-items:center; justify-content:space-between; gap:.35rem; padding:0 0 .25rem; color:#fff1d9; font:900 clamp(.52rem,.75vw,.7rem)/1 ui-monospace,Consolas,monospace; text-transform:uppercase; text-shadow:1px 1px 0 var(--ink); }
+.bookcase-label strong { letter-spacing:.07em; }
+.bookcase-label span { color:#ead3ac; }
+#rotation { padding:.23rem .38rem; border:1px solid var(--ink); color:var(--ink); background:var(--cream); cursor:pointer; font-family:ui-monospace,Consolas,monospace; font-size:inherit; font-weight:900; text-transform:uppercase; white-space:nowrap; text-shadow:none; }
+#rotation:hover { background:var(--amber); }
+.book-strip { min-width:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(.3rem,.9vw,.7rem); }
+.shelf-book { min-width:0; display:flex; align-items:center; gap:.7rem; padding:.25rem .4rem; border:2px solid var(--ink); color:var(--ink); background:var(--cream); text-align:left; cursor:pointer; box-shadow:2px 2px 0 #21151aaa; }
+.shelf-cover { display:block; flex:none; height:clamp(45px,8vh,71px); aspect-ratio:4/5; border:1px solid var(--ink); background-color:#fff; background-repeat:no-repeat; box-shadow:2px 2px 0 #98745a; }
+.shelf-cover--wavy { background-image:url('../wavy-days-issue-01/assets/wavy-days-cover-riso-v1.png'); background-size:cover; background-position:center; }
+.shelf-cover--fire { background-image:url('../not-my-fucking-fire-zine/assets/acidgoblin-center-sheet-v1.png'); background-size:400% 200%; background-position:0 0; }
+.shelf-book > span:last-child { min-width:0; display:block; font:900 clamp(.65rem,1vw,.97rem)/1.03 Georgia,serif; text-transform:uppercase; }
+.shelf-book small { display:block; margin-bottom:.24rem; color:var(--plum); font:900 .65em/1 ui-monospace,Consolas,monospace; }
+.shelf-book[aria-pressed="true"] { background:#f8d17b; box-shadow:inset 0 0 0 2px var(--coral); }
+.shelf-book:hover { transform:translateY(-2px); }
+.no-script { position:fixed; bottom:.3rem; left:.5rem; right:.5rem; z-index:20; margin:0; padding:.5rem; border:2px solid var(--ink); background:var(--cream); font-size:.75rem; }
+@keyframes moss-peek { 0%,78%,100% { transform:translateY(0); } 87% { transform:translateY(-4px) rotate(-2deg); } 95% { transform:rotate(2deg); } }
+@media(max-width:700px) {
+  .door-note,.shelf-line span:nth-child(2) { display:none; }
+  .masthead h1 { justify-content:space-between; font-size:clamp(1.4rem,5.8vw,2.5rem); }
+  .feature { grid-template-columns:1fr; grid-template-rows:minmax(0,1fr) auto; gap:.2rem; }
+  .book-story { display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"category link" "title link" "lede link"; align-content:center; gap:0 .4rem; padding:.1rem .16rem; }
+  .book-category { grid-area:category; margin:0 0 .13rem; padding:.13rem .25rem; font-size:.53rem; }
+  .book-story h2 { grid-area:title; margin:0; font-size:clamp(1rem,3.8vw,1.45rem); line-height:.96; }
+  .book-lede { grid-area:lede; margin:.12rem 0 0; font-size:clamp(.61rem,2.3vw,.83rem); line-height:1.1; }
+  .book-aside,.book-note { display:none; }
+  .open-book { grid-area:link; align-self:center; margin:0; padding:.35rem .4rem; font-size:.56rem; }
+  .bookcase-label span { display:none; }
+  .shelf-book { gap:.4rem; padding:.18rem .25rem; }
+  .shelf-cover { height:clamp(40px,7vh,57px); }
+  .shelf-book > span:last-child { font-size:clamp(.53rem,2vw,.75rem); }
+}
+@media(max-width:380px) {
+  .page { padding:.25rem .36rem .36rem; gap:.28rem; }
+  .masthead { padding:.12rem .25rem .2rem; }
+  .masthead h1 { font-size:1.32rem; }
+  .shelf-line { font-size:.45rem; }
+  .reading-room { gap:.28rem; }
+  .feature { padding:.25rem; }
+  .moss { grid-template-columns:56px minmax(0,1fr) 25px; gap:.25rem; padding:.08rem .24rem .08rem .05rem; }
+  .moss img { height:57px; }
+  .moss-copy strong { font-size:.49rem; }
+  .moss-copy p { font-size:.67rem; line-height:1.13; }
+  #moss-more { width:1.55rem; height:1.55rem; }
+  .bookcase { padding:.15rem .22rem .22rem; }
+  .bookcase-label { font-size:.47rem; }
+  .shelf-cover { height:35px; }
+}
+@media(max-height:660px) {
+  .masthead h1 { margin:.06rem 0; }
+  .moss img { height:50px; }
+  .shelf-cover { height:34px; }
+  .bookcase-label { padding-bottom:.1rem; }
+}
+@media(prefers-reduced-motion:reduce) { .moss img { animation:none; } .shelf-book,.open-book,.book-cover { transition:none; } }
