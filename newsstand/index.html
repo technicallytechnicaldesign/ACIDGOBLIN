@@ -156,8 +156,9 @@
       .copy:hover, .copy:focus-within { transform: none; }
     }
   </style>
+  <link rel="stylesheet" href="../shopkeeper.css?v=1">
 </head>
-<body>
+<body class="newsstand-page">
   <div class="awning" aria-hidden="true"></div>
   <div class="wrap">
     <header>
@@ -166,6 +167,12 @@
       <p class="lede">The Gobbo Weekly is the newspaper edition of the zines. Every issue is free, so take one, or take the whole rack.</p>
       <div class="back-links"><a class="back" href="../">&larr; Town map</a><a class="back" href="../bookshop/">Goblin bookshop &rarr;</a><a class="back" href="../free-chaos-merch/">Free chaos merch &rarr;</a><a class="back" href="../tarot/">Goblin oracle &rarr;</a></div>
     </header>
+
+    <aside class="shopkeeper shopkeeper--news" data-shopkeeper="news" aria-label="A goblin shopkeeper speaks">
+      <div class="keeper-portrait"><img src="../town-assets/newsstand-keeper-v1.webp" alt="A bright-eyed newspaper goblin with a folded pink paper cap and rolled newsprint" width="620" height="620" decoding="async"></div>
+      <div class="keeper-copy"><strong class="keeper-name">Pip, town correspondent says</strong><p class="keeper-bubble" aria-live="polite" aria-atomic="true">Extra! Extra! A tiny event has become everyone’s business!</p></div>
+      <button class="keeper-again" type="button" aria-label="Hear another little goblin remark" title="Another little remark">↻</button>
+    </aside>
 
     <main>
       <ol class="rack" aria-label="Issues of The Gobbo Weekly, newest first">
@@ -262,5 +269,6 @@
       <p>More issues land here as they're made &middot; <a href="../">back to town</a></p>
     </footer>
   </div>
+  <script src="../shopkeeper.js?v=1" defer></script>
 </body>
 </html>

@@ -222,8 +222,9 @@
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; } }
   </style>
+  <link rel="stylesheet" href="../shopkeeper.css?v=1">
 </head>
-<body>
+<body class="merch-page">
   <header class="topbar">
     <a class="mark" href="../">Acid <b>Goblin</b> / free chaos merch</a>
     <nav class="pathways" aria-label="Acid Goblin pathways">
@@ -240,6 +241,11 @@
         <p class="eyebrow">No checkout / all omen</p>
         <h1 id="merch-title">Free <em>chaos</em> merch.</h1>
         <p>A loud little public pile of posters, workplace hexes, and friendly cosmic instructions from the Acid Goblin cupboard.</p>
+        <aside class="shopkeeper shopkeeper--prints" data-shopkeeper="prints" aria-label="A goblin shopkeeper speaks">
+      <div class="keeper-portrait"><img src="../town-assets/merch-keeper-v1.webp" alt="A winking goblin printmaker with a magenta beret, fresh poster, and ink squeegee" width="620" height="620" decoding="async"></div>
+      <div class="keeper-copy"><strong class="keeper-name">Dot, printmaker of dubious miracles says</strong><p class="keeper-bubble" aria-live="polite" aria-atomic="true">Fresh ink! Please keep your elbows, omens, and expectations inside the stall.</p></div>
+      <button class="keeper-again" type="button" aria-label="Hear another little goblin remark" title="Another little remark">↻</button>
+    </aside>
         <p class="how-to">Tap a thing to see the full image. Use “take it” to save the original, then furnish a desktop, a wall, or a deeply overcommitted group chat.</p>
       </div>
       <div class="hero-art" aria-hidden="true">
@@ -247,6 +253,8 @@
         <span>1 free scream</span>
       </div>
     </section>
+
+
 
     <div class="manifest">
       <section class="collection" aria-labelledby="single-title">
@@ -305,5 +313,6 @@
     </div>
   </main>
   <footer>ACID GOBLIN / FREE CHAOS MERCH / <a href="../">RETURN TO TOWN MAP</a></footer>
+  <script src="../shopkeeper.js?v=1" defer></script>
 </body>
 </html>
