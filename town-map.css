@@ -425,3 +425,23 @@ body.town-root > footer { display: none; }
   .stop-art,.stop-callout,.stop-extra { transition: none; }
   .map-stop:hover .stop-art img,.map-stop:focus-visible .stop-art img { animation: none; }
 }
+
+/* The Trip Engine is a little guest beside the Oracle, with its own touch target. */
+.map-stop--tripper { left: 39%; top: 36%; width: 13%; z-index: 4; }
+.map-stop--tripper .stop-art { width: 78%; aspect-ratio: 3 / 5; filter: drop-shadow(0 0 5px #fff6b7) drop-shadow(0 0 7px var(--town-pink)); }
+.map-stop--tripper .stop-art img { animation: tripper-bob 3s ease-in-out infinite; }
+.map-stop--tripper .stop-callout { width: 155px; max-width: 118%; padding: .42rem .52rem .48rem; background: var(--town-yellow); box-shadow: 4px 5px 0 var(--town-teal); transform: rotate(4deg); }
+.map-stop--tripper .stop-callout small { font-size: clamp(.42rem,.75vw,.58rem); }
+.map-stop--tripper .stop-callout strong { font-size: clamp(.78rem,1.35vw,1.05rem); letter-spacing: -.04em; }
+.map-stop--tripper .stop-extra { font-size: .7rem; }
+@keyframes tripper-bob { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-7px) rotate(2deg); } }
+@media (max-width: 640px) {
+  .map-stop--tripper { left: 39%; top: 51%; width: 22%; }
+  .map-stop--tripper .stop-art { width: 86%; }
+  .map-stop--tripper .stop-callout { width: 86px; max-width: none; margin-top: -14px; padding: .25rem .3rem .3rem; text-align: center; transform: rotate(-4deg); }
+  .map-stop--tripper .stop-callout::before,.map-stop--tripper .stop-callout small,.map-stop--tripper .stop-extra { display: none; }
+  .map-stop--tripper .stop-callout strong { font-size: .66rem; line-height: .95; letter-spacing: -.03em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-stop--tripper .stop-art img { animation: none; }
+}
