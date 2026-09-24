@@ -48,6 +48,7 @@
   const keeper = document.getElementById('keeper-line');
   const scene = document.getElementById('scene');
   const toss = document.getElementById('toss');
+  const wellHit = document.getElementById('well-hit');
   const hear = document.getElementById('hear');
   const now = new Date();
   const day = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
@@ -73,11 +74,14 @@
     keeper.textContent=featured?'I was not supposed to tell you any of these.':keeperLines[(shown-1)%keeperLines.length];
   }
   show(daily,true);
-  toss.addEventListener('click',() => {
-    toss.disabled=true; scene.classList.remove('tossing'); void scene.offsetWidth; scene.classList.add('tossing');
+  function throwPebble() {
+    if (toss.disabled) return;
+    toss.disabled=true; wellHit.disabled=true; scene.classList.remove('tossing'); void scene.offsetWidth; scene.classList.add('tossing');
     if ('speechSynthesis' in window) speechSynthesis.cancel();
-    window.setTimeout(() => {if (!queue.length) {for(let i=0;i<rumours.length;i++) if(i!==daily) queue.push(i);for(let i=queue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[queue[i],queue[j]]=[queue[j],queue[i]];}}shown++;show(queue.pop());toss.disabled=false;},window.matchMedia('(prefers-reduced-motion: reduce)').matches?100:900);
-  });
+    window.setTimeout(() => {if (!queue.length) {for(let i=0;i<rumours.length;i++) if(i!==daily) queue.push(i);for(let i=queue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[queue[i],queue[j]]=[queue[j],queue[i]];}}shown++;show(queue.pop());toss.disabled=false;wellHit.disabled=false;},window.matchMedia('(prefers-reduced-motion: reduce)').matches?100:900);
+  }
+  toss.addEventListener('click',throwPebble);
+  wellHit.addEventListener('click',throwPebble);
   if ('speechSynthesis' in window) {
     hear.hidden=false;
     hear.addEventListener('click',() => {speechSynthesis.cancel();const voice=new SpeechSynthesisUtterance(rumours[current][0]);voice.rate=.92;voice.pitch=1.17;speechSynthesis.speak(voice);});
