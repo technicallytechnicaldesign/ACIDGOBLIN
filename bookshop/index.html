@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#ead9b9">
   <meta name="description" content="The Goblin Bookshop: two free interactive zines on a cozy little shelf, with Moss ready to recommend a read.">
   <title>Goblin Bookshop | Acid Goblin Town</title>
-  <link rel="stylesheet" href="bookshop.css?v=nook-1">
-  <script src="bookshop.js?v=nook-1" defer></script>
+  <link rel="stylesheet" href="bookshop.css?v=nook-2">
+  <script src="bookshop.js?v=nook-2" defer></script>
 </head>
 <body>
   <div class="page">
@@ -32,15 +32,24 @@
           <a id="cover-link" class="book-cover book-cover--wavy" href="../wavy-days-issue-01/" aria-label="Open Wavy Days">
             <span class="sr-only">Wavy Days illustrated cover</span>
           </a>
+          <div class="inside-page">
+            <div class="inside-head"><span>A peek inside</span><span id="peek-count">01 / 03</span></div>
+            <a id="peek-link" class="peek-art-link" href="../wavy-days-issue-01/#page-2" aria-label="Open the weather page in Wavy Days"><span id="inside-art" class="inside-art inside-art--wavy" role="img" aria-label="A smiling sun and friendly rain cloud water a flower"></span></a>
+            <div class="inside-copy">
+              <strong id="peek-title">Both belong</strong>
+              <p id="peek-question">What is your internal weather today?</p>
+              <button id="peek-next" type="button" aria-label="See another page inside this book">Turn a page →</button>
+            </div>
+          </div>
           <span class="shelf-board" aria-hidden="true"></span>
         </div>
         <div class="book-story">
           <p class="book-category" id="book-category">Book 01 · pocket weather report</p>
           <h2 id="book-title" aria-live="off">Wavy Days</h2>
-          <p class="book-lede" id="book-lede">A pocket forecast for feelings, systems and finding your way through the fog.</p>
-          <p class="book-aside" id="book-aside">For the creature whose inner weather refuses to choose just one sky.</p>
+          <p class="book-lede" id="book-lede">An illustrated, interactive field guide for hard weeks and mixed skies.</p>
+          <div class="book-inside"><strong>Inside these pages</strong><ul id="book-activities"><li>Choose your internal weather</li><li>Take one unproductive breath</li><li>Keep a pocket reminder</li></ul></div>
           <a class="open-book" id="open-book" href="../wavy-days-issue-01/">Open this book ↗</a>
-          <p class="book-note" id="book-note">Interactive zine · Read in your browser</p>
+          <p class="book-note" id="book-note">9 illustrated pages · interactive</p>
         </div>
       </section>
 
