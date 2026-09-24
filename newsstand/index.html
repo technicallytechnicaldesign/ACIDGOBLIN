@@ -5,270 +5,51 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f4ead4">
-  <meta name="description" content="The Acid Goblin newsstand: free copies of The Gobbo Weekly, the newspaper edition of the zines. Pick up an issue as a PDF.">
-  <title>Acid Goblin Newsstand</title>
-  <style>
-    :root {
-      --paper: #f4ead4;
-      --paper-deep: #ead8b7;
-      --ink: #19151e;
-      --pink: #f4479a;
-      --teal: #078c8c;
-      --yellow: #f5c928;
-      --orange: #ef5e2f;
-      --violet: #74439a;
-      --soft-violet: #d8c5e6;
-      --card: #fffaf0;
-    }
-    * { box-sizing: border-box; }
-    html { min-height: 100%; color-scheme: light; background: #cfd9c5; }
-    body {
-      min-height: 100vh;
-      min-height: 100dvh;
-      margin: 0;
-      color: var(--ink);
-      font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
-      background:
-        radial-gradient(circle at 12% 10%, rgb(244 71 154 / 16%), transparent 45%),
-        radial-gradient(circle at 88% 85%, rgb(7 140 140 / 16%), transparent 45%),
-        var(--paper);
-    }
-    .awning {
-      position: relative;
-      height: 3.4rem;
-      border-bottom: 3px solid var(--ink);
-      background: repeating-linear-gradient(90deg, var(--pink) 0 3rem, var(--teal) 3rem 6rem);
-      margin-bottom: 2rem;
-    }
-    .awning::after {
-      content: "";
-      position: absolute;
-      left: 0; right: 0; top: 100%;
-      height: 1.5rem;
-      background:
-        radial-gradient(circle at 1.5rem 0, var(--pink) 1.5rem, transparent 1.55rem) 0 0 / 6rem 100% repeat-x,
-        radial-gradient(circle at 4.5rem 0, var(--teal) 1.5rem, transparent 1.55rem) 0 0 / 6rem 100% repeat-x;
-      filter: drop-shadow(0 3px 0 rgb(25 21 30 / 30%));
-    }
-    .wrap { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
-    header { max-width: 40rem; margin: 0 auto 2.5rem; text-align: center; }
-    .eyebrow {
-      display: inline-block;
-      font-weight: 900;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-size: 0.75rem;
-      color: var(--violet);
-      background: var(--soft-violet);
-      padding: 0.3rem 0.9rem;
-      border-radius: 999px;
-      margin-bottom: 1rem;
-    }
-    h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.05; margin: 0 0 0.75rem; }
-    h1 em { font-style: normal; color: var(--pink); -webkit-text-stroke: 1px var(--ink); }
-    .lede { font-size: 1.05rem; opacity: 0.85; margin: 0 0 1rem; }
-    .back { color: var(--violet); font-weight: 900; text-decoration: none; }
-    .back:hover, .back:focus-visible { text-decoration: underline; }
-    .back-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.85rem; }
-    .rack {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: grid;
-      gap: 2.25rem 1.75rem;
-      grid-template-columns: repeat(auto-fill, minmax(16.5rem, 1fr));
-    }
-    .copy {
-      background: var(--card);
-      border: 3px solid var(--ink);
-      border-radius: 20px;
-      box-shadow: 0 14px 0 rgb(25 21 30 / 12%);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-    .copy:nth-child(odd) { transform: rotate(-0.8deg); }
-    .copy:nth-child(even) { transform: rotate(0.8deg); }
-    .copy:hover, .copy:focus-within { transform: translateY(-4px) rotate(0); box-shadow: 0 18px 0 rgb(25 21 30 / 16%); }
-    .cover-wrap { position: relative; background: var(--paper-deep); padding: 1rem 1rem 0.5rem; }
-    .cover-wrap img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border: 2px solid var(--ink);
-      border-radius: 6px;
-      box-shadow: 4px 5px 0 rgb(25 21 30 / 22%);
-      background: #fff;
-    }
-    .stamp {
-      position: absolute;
-      top: 0.4rem; right: 0.4rem;
-      z-index: 1;
-      transform: rotate(6deg);
-      font: 900 0.72rem/1 "Trebuchet MS", sans-serif;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--paper);
-      background: var(--teal);
-      border: 2px solid var(--ink);
-      padding: 0.4rem 0.7rem;
-      border-radius: 999px;
-    }
-    .meta { padding: 1rem 1.15rem 1.3rem; display: flex; flex-direction: column; flex: 1; }
-    .tag {
-      align-self: flex-start;
-      font-size: 0.7rem;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--ink);
-      background: var(--yellow);
-      padding: 0.15rem 0.6rem;
-      border-radius: 999px;
-      margin-bottom: 0.5rem;
-    }
-    .meta h2 { margin: 0 0 0.35rem; font-size: 1.3rem; }
-    .front { margin: 0 0 0.5rem; font: 900 0.95rem/1.25 "Arial Black", Impact, "Trebuchet MS", sans-serif; text-transform: uppercase; }
-    .also { margin: 0 0 1rem; font-size: 0.85rem; opacity: 0.75; }
-    .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: auto; }
-    .pickup, .peek {
-      font-weight: 900;
-      font-size: 0.9rem;
-      text-decoration: none;
-      padding: 0.6rem 1rem;
-      border-radius: 999px;
-      border: 3px solid var(--ink);
-      transition: transform 0.12s ease, background 0.12s ease;
-    }
-    .pickup { background: var(--violet); color: var(--paper); }
-    .pickup::before { content: "\2193"; margin-right: 0.45rem; }
-    .peek { background: transparent; color: var(--ink); }
-    .pickup:hover, .pickup:focus-visible, .peek:hover, .peek:focus-visible { transform: translateY(-2px); }
-    .peek:hover, .peek:focus-visible { background: var(--soft-violet); }
-    a:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
-    .spec { margin: 0.7rem 0 0; font: 0.75rem "Courier New", monospace; opacity: 0.65; }
-    footer { margin-top: 3.5rem; font-size: 0.85rem; opacity: 0.7; text-align: center; }
-    footer p { margin: 0.3rem 0; }
-    footer a { color: var(--violet); }
-    @media (prefers-reduced-motion: reduce) {
-      .copy, .pickup, .peek { transition: none; }
-      .copy:hover, .copy:focus-within { transform: none; }
-    }
-  </style>
-  <link rel="stylesheet" href="../shopkeeper.css?v=1">
+  <meta name="description" content="The Gobbo Weekly newsstand: five free goblin newspapers in one little rotating rack, with Pip's remarks on every issue.">
+  <title>The Gobbo Weekly / Newsstand — Acid Goblin Town</title>
+  <link rel="stylesheet" href="newsstand.css?v=kiosk-1">
+  <script src="newsstand.js?v=kiosk-1" defer></script>
 </head>
-<body class="newsstand-page">
-  <div class="awning" aria-hidden="true"></div>
-  <div class="wrap">
-    <header>
-      <span class="eyebrow">Acid Goblin</span>
-      <h1>The <em>newsstand</em></h1>
-      <p class="lede">The Gobbo Weekly is the newspaper edition of the zines. Every issue is free, so take one, or take the whole rack.</p>
-      <div class="back-links"><a class="back" href="../">&larr; Town map</a><a class="back" href="../bookshop/">Goblin bookshop &rarr;</a><a class="back" href="../free-chaos-merch/">Free chaos merch &rarr;</a><a class="back" href="../tarot/">Goblin oracle &rarr;</a></div>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <div class="pressline">
+        <a class="town-link" href="../">← Town map</a>
+        <span class="pressline-note">Moon-puddle district · free press · no subscription goblins</span>
+        <details class="other-doors">
+          <summary>Other doors +</summary>
+          <nav aria-label="Other places in Goblin Town"><a href="../bookshop/">Bookshop</a><a href="../tarot/">Oracle</a><a href="../free-chaos-merch/">Chaos Merch</a></nav>
+        </details>
+      </div>
+      <h1><span class="masthead-the">The</span> Gobbo Weekly <span class="masthead-edition">NEWSSTAND</span></h1>
+      <div class="edition-line"><span>Five issues on the rack</span><span>Pick a paper · Pip has opinions</span><span>Every copy free</span></div>
     </header>
 
-    <aside class="shopkeeper shopkeeper--news" data-shopkeeper="news" aria-label="A goblin shopkeeper speaks">
-      <div class="keeper-portrait"><img src="../town-assets/newsstand-keeper-v1.webp" alt="A bright-eyed newspaper goblin with a folded pink paper cap and rolled newsprint" width="620" height="620" decoding="async"></div>
-      <div class="keeper-copy"><strong class="keeper-name">Pip, town correspondent says</strong><p class="keeper-bubble" aria-live="polite" aria-atomic="true">Extra! Extra! A tiny event has become everyone’s business!</p></div>
-      <button class="keeper-again" type="button" aria-label="Hear another little goblin remark" title="Another little remark">↻</button>
-    </aside>
+    <main class="viewer" aria-label="The Gobbo Weekly issue viewer">
+      <section class="feature" aria-labelledby="issue-title">
+        <div class="cover-frame"><a id="cover-link" href="../gobbo-weekly/gobbo-weekly-issue-05.pdf" target="_blank" rel="noopener" aria-label="Read the selected issue"><img id="issue-cover" src="../gobbo-weekly/cover-05.jpg" width="708" height="945" alt="Front page of The Gobbo Weekly, issue 05, The Right Key."></a></div>
+        <div class="story">
+          <p class="edition" id="issue-edition">ISSUE 05 · 27 SEP 2026</p>
+          <h2 id="issue-title" aria-live="off">The Right Key</h2>
+          <p class="headline" id="issue-headline">Locked door opens for the patient goblin</p>
+          <p class="also" id="issue-also">Also: Shed key found, fits nothing · Toolbox reaches consensus · Garden gate closes itself, apologises</p>
+          <div class="issue-actions"><a class="read-link" id="read-link" href="../gobbo-weekly/gobbo-weekly-issue-05.pdf" target="_blank" rel="noopener">Read the paper ↗</a><a class="take-link" id="take-link" href="../gobbo-weekly/gobbo-weekly-issue-05.pdf" download="the-gobbo-weekly-issue-05-the-right-key.pdf">Take a copy ↓</a></div>
+          <p class="issue-spec" id="issue-spec">8 pages · PDF · 3.1 MB</p>
+        </div>
+      </section>
 
-    <main>
-      <ol class="rack" aria-label="Issues of The Gobbo Weekly, newest first">
-        <li class="copy">
-          <div class="cover-wrap">
-            <span class="stamp">Latest</span>
-            <img src="../gobbo-weekly/cover-05.jpg" width="708" height="945" loading="lazy" alt="Front page of The Gobbo Weekly, issue 05, The Right Key edition. Headline: Locked door opens for the patient goblin.">
-          </div>
-          <div class="meta">
-            <span class="tag">Issue 05 &middot; 27 Sep 2026</span>
-            <h2>The Right Key</h2>
-            <p class="front">Locked door opens for the patient goblin</p>
-            <p class="also">Also: Shed key found, fits nothing &middot; Toolbox reaches consensus &middot; Garden gate closes itself, apologises</p>
-            <div class="actions">
-              <a class="pickup" href="../gobbo-weekly/gobbo-weekly-issue-05.pdf" download="the-gobbo-weekly-issue-05-the-right-key.pdf">Pick up a copy</a>
-              <a class="peek" href="../gobbo-weekly/gobbo-weekly-issue-05.pdf" target="_blank" rel="noopener">Read it here</a>
-            </div>
-            <p class="spec">8 pages &middot; PDF &middot; 3.1 MB</p>
-          </div>
-        </li>
-        <li class="copy">
-          <div class="cover-wrap">
-            
-            <img src="../gobbo-weekly/cover-04.jpg" width="708" height="945" loading="lazy" alt="Front page of The Gobbo Weekly, issue 04, The Steeping Hour edition. Headline: Town meeting ends before the tea does.">
-          </div>
-          <div class="meta">
-            <span class="tag">Issue 04 &middot; 20 Sep 2026</span>
-            <h2>The Steeping Hour</h2>
-            <p class="front">Town meeting ends before the tea does</p>
-            <p class="also">Also: Postbox agrees to wait &middot; Windowsill reaches consensus &middot; Hourglass runs early, apologises</p>
-            <div class="actions">
-              <a class="pickup" href="../gobbo-weekly/gobbo-weekly-issue-04.pdf" download="the-gobbo-weekly-issue-04-the-steeping-hour.pdf">Pick up a copy</a>
-              <a class="peek" href="../gobbo-weekly/gobbo-weekly-issue-04.pdf" target="_blank" rel="noopener">Read it here</a>
-            </div>
-            <p class="spec">8 pages &middot; PDF &middot; 2.5 MB</p>
-          </div>
-        </li>
-        <li class="copy">
-          <div class="cover-wrap">
-            
-            <img src="../gobbo-weekly/cover-03.jpg" width="708" height="945" loading="lazy" alt="Front page of The Gobbo Weekly, issue 03, The Small Magic edition. Headline: Small spell warms far more than one kettle.">
-          </div>
-          <div class="meta">
-            <span class="tag">Issue 03 &middot; 13 Sep 2026</span>
-            <h2>Small Magic</h2>
-            <p class="front">Small spell warms far more than one kettle</p>
-            <p class="also">Also: Streetlamp learns one trick &middot; Houseplant issues verdict &middot; Coin lands on its edge</p>
-            <div class="actions">
-              <a class="pickup" href="../gobbo-weekly/gobbo-weekly-issue-03.pdf" download="the-gobbo-weekly-issue-03-small-magic.pdf">Pick up a copy</a>
-              <a class="peek" href="../gobbo-weekly/gobbo-weekly-issue-03.pdf" target="_blank" rel="noopener">Read it here</a>
-            </div>
-            <p class="spec">8 pages &middot; PDF &middot; 2.5 MB</p>
-          </div>
-        </li>
-        <li class="copy">
-          <div class="cover-wrap">
-            
-            <img src="../gobbo-weekly/cover-02.jpg" width="708" height="945" loading="lazy" alt="Front page of The Gobbo Weekly, issue 02, The Gentle Detour edition. Headline: Entire town arrives sideways and counts it.">
-          </div>
-          <div class="meta">
-            <span class="tag">Issue 02 &middot; 30 Aug 2026</span>
-            <h2>The Gentle Detour</h2>
-            <p class="front">Entire town arrives sideways and counts it</p>
-            <p class="also">Also: Pebble named interim mayor &middot; Chair retires from corner &middot; Kettle remembers one song</p>
-            <div class="actions">
-              <a class="pickup" href="../gobbo-weekly/gobbo-weekly-issue-02.pdf" download="the-gobbo-weekly-issue-02-the-gentle-detour.pdf">Pick up a copy</a>
-              <a class="peek" href="../gobbo-weekly/gobbo-weekly-issue-02.pdf" target="_blank" rel="noopener">Read it here</a>
-            </div>
-            <p class="spec">8 pages &middot; PDF &middot; 3.1 MB</p>
-          </div>
-        </li>
-        <li class="copy">
-          <div class="cover-wrap">
-            
-            <img src="../gobbo-weekly/cover-01.jpg" width="708" height="945" loading="lazy" alt="Front page of The Gobbo Weekly, issue 01, The Small Weather edition. Headline: Local sky experiences several emotions at once.">
-          </div>
-          <div class="meta">
-            <span class="tag">Issue 01 &middot; 24 Aug 2026</span>
-            <h2>The Small Weather</h2>
-            <p class="front">Local sky experiences several emotions at once</p>
-            <p class="also">Also: Bench remains available &middot; Moss index up 3% &middot; Spoon declared enough</p>
-            <div class="actions">
-              <a class="pickup" href="../gobbo-weekly/gobbo-weekly-issue-01.pdf" download="the-gobbo-weekly-issue-01-the-small-weather.pdf">Pick up a copy</a>
-              <a class="peek" href="../gobbo-weekly/gobbo-weekly-issue-01.pdf" target="_blank" rel="noopener">Read it here</a>
-            </div>
-            <p class="spec">8 pages &middot; PDF &middot; 3.4 MB</p>
-          </div>
-        </li>
-      </ol>
+      <aside class="pip" aria-label="Pip the goblin correspondent speaks">
+        <img src="../town-assets/newsstand-keeper-v1.webp" width="620" height="620" alt="Pip, a bright-eyed goblin correspondent in a folded pink newspaper cap">
+        <div class="pip-copy"><strong>Pip says,</strong><p id="pip-line" aria-live="off" aria-atomic="true">The Right Key is fresh off the press. Try the patient door; the loud key has had its turn.</p></div>
+        <button id="pip-more" type="button" aria-label="Hear another thought about this issue" title="Another thought">↻</button>
+      </aside>
+
+      <section class="archive" aria-label="Choose an issue">
+        <div class="archive-label"><strong>THE BACK ISSUE RACK</strong><span>Pick a cover, or let Pip turn the pages.</span><button id="rotation" type="button" aria-pressed="true">Pause rotation Ⅱ</button></div>
+        <div class="issue-strip" id="issue-strip" role="group" aria-label="Five issues of The Gobbo Weekly"></div>
+      </section>
     </main>
-
-    <footer>
-      <p>Each issue is eight small pages, a pocket-sized paper of about 5 by 6.5 inches when printed at full size.</p>
-      <p>More issues land here as they're made &middot; <a href="../">back to town</a></p>
-    </footer>
   </div>
-  <script src="../shopkeeper.js?v=1" defer></script>
+  <noscript><p class="no-script">The rack needs JavaScript to switch issues. <a href="../gobbo-weekly/gobbo-weekly-issue-05.pdf">Read the latest paper directly</a>.</p></noscript>
 </body>
 </html>
