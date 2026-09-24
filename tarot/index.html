@@ -5,28 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="The Goblin Oracle: a three-card tarot draw for the situation, its complication, and an unreasonable way through.">
   <title>The Goblin Oracle — Acid Goblin Town</title>
-  <link rel="stylesheet" href="tarot.css?v=whole-card-reversal">
+  <link rel="stylesheet" href="tarot.css?v=oracle-voice-1">
 </head>
 <body>
   <header class="site-header">
-    <a class="mark" href="../">Acid <b>Goblin</b> / town</a>
+    <div class="site-title"><a class="mark" href="../">Acid <b>Goblin</b> / town</a><span class="header-oracle">/ Oracle</span></div>
     <nav aria-label="Other places in Goblin Town"><a href="../">town map</a><a href="../bookshop/">bookshop</a><a href="../newsstand/">newsstand</a><a href="../free-chaos-merch/">free chaos merch</a></nav>
   </header>
   <main>
     <section class="oracle-intro" aria-labelledby="oracle-title">
+      <h1 id="oracle-title" class="sr-only">The Goblin Oracle</h1>
       <p class="eyebrow">Moon-puddle court / open late</p>
-      <h1 id="oracle-title">The Goblin <em>Oracle</em></h1>
       <p class="lede">Three cards for the situation. No fate, no account, no ominous subscription renewal.</p>
       <button class="shuffle" type="button" id="shuffle">Shuffle the situation <span aria-hidden="true">↻</span></button>
       <p class="instruction" id="instruction">Deal the cards, then turn them over in order. The first card goes first because it insists.</p>
     </section>
     <noscript><p class="no-js">The Oracle needs JavaScript to shuffle. The town map and its other doors remain open.</p></noscript>
     <section class="reading" aria-labelledby="reading-title">
-      <div class="reading-heading"><p class="eyebrow">A three-card fortune</p><h2 id="reading-title">No cards on the table <span aria-hidden="true">yet.</span></h2></div>
+      <div class="reading-top">
+        <div class="reading-heading"><p class="eyebrow">A three-card fortune</p><h2 id="reading-title">No cards on the table <span aria-hidden="true">yet.</span></h2></div>
+        <div class="oracle-speaker" aria-label="The goblin fortune teller">
+          <div class="oracle-portrait"><img src="assets/oracle-face.webp" alt="A smiling green goblin fortune teller in a starry purple hood" width="132" height="132"></div>
+          <p class="oracle-bubble" id="oracle-bubble" aria-live="polite" aria-atomic="true">Psst. Shuffle the situation and let us see who is knocking.</p>
+        </div>
+      </div>
       <div class="card-grid" id="card-grid" aria-label="Your tarot cards"></div>
       <div class="reading-copy" id="reading-copy" hidden>
         <p class="setting" id="setting"></p>
         <div id="beats"></div>
+        <p class="conclusion" id="conclusion" hidden></p>
       </div>
       <div class="actions" id="actions" hidden><button class="shuffle" type="button" id="again">Another adventure <span aria-hidden="true">↻</span></button><button class="copy" type="button" id="copy">Copy reading</button></div>
       <p class="live" id="live" aria-live="polite" aria-atomic="true"></p>
@@ -35,6 +42,7 @@
   </main>
   <footer>THE GOBLIN ORACLE / <a href="../">RETURN TO TOWN MAP</a> / PLEASE DO NOT ASK THE CARDS TO DO YOUR TAXES</footer>
   <script src="deck.js?v=eae5d7b"></script>
-  <script src="tarot.js?v=personal-fortunes"></script>
+  <script src="voice.js?v=oracle-voice-1"></script>
+  <script src="tarot.js?v=oracle-voice-1"></script>
 </body>
 </html>
