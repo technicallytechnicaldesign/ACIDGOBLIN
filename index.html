@@ -155,27 +155,26 @@
       .ticker.front li, .ticker.advice li { padding-block: 0.4rem; font-size: 1rem; }
     }
 </style>
-  <link rel="stylesheet" href="town-map.css?v=immersive-0406">
+  <link rel="stylesheet" href="town-map.css?v=polish-0407">
 </head>
 <body class="town-root">
   <div class="town-map" role="main">
     <section class="map-scene" aria-label="Explore the five places in Acid Goblin Town">
       <div class="map-stage">
         <h1 class="map-sr-only">Acid Goblin Town</h1>
-        <details class="map-about">
-          <summary>✦ About this place</summary>
-          <div class="map-about-card">
-            <p class="town-key">About / field note 00</p>
-            <h2>A town built for <em>the situation.</em></h2>
-            <p>Acid Goblin is an ongoing experiment in making strange, useful little experiences. It uses generated images and a frankly cheerful amount of Python to turn a growing goblin world into zines, newspapers, posters and places to poke around.</p>
-            <p>Every route is tuned to the goblin preferences and fire circumstances of its creator: what feels good to look at, what needs saying, and which kind of emergency wants a tiny field guide instead of a corporate memo.</p>
-            <p>No universal solution promised. Just a small town with a colour printer, an overstuffed tool shed, and room to keep changing.</p>
-            <a href="https://github.com/technicallytechnicaldesign/ACIDGOBLIN" target="_blank" rel="noopener">See the source ↗</a>
-          </div>
-        </details>
-        <p class="map-guide"><strong>Choose a place ✦</strong><span>Tap a place to meet it. Tap again or Enter to visit.</span></p>
-        <span class="map-here" aria-label="You are here, at the crossroads">✦</span>
+        <p class="map-guide">Tap a place to peek · tap again to enter</p>
+        <span class="map-here" aria-label="You are here-ish, at the crossroads"><span class="map-here-icon" aria-hidden="true">▲</span><span class="map-here-label">you are here-ish</span></span>
         <div class="footprint-trail" aria-hidden="true"></div>
+          <div class="map-stop map-stop--about" data-about="true">
+            <button class="stop-trigger" type="button" aria-expanded="false" aria-controls="bubble-about" aria-label="Explore the About info booth; press again to read the town note">
+              <span class="stop-art"><img src="./town-assets/info-booth-v1.webp" alt="" width="1122" height="1402" decoding="async"></span>
+              <span class="stop-callout"><strong>Info Booth</strong></span>
+            </button>
+            <div class="stop-bubble" id="bubble-about" hidden>
+              <p>Ask who built this odd little town.</p>
+              <button class="stop-enter" type="button">Read About ↗</button>
+            </div>
+          </div>
           <div class="map-stop map-stop--bookshop" data-destination="./bookshop/">
             <button class="stop-trigger" type="button" aria-expanded="false" aria-controls="bubble-bookshop" aria-label="Explore Goblin Bookshop; press again to enter">
               <span class="stop-art"><img src="./town-assets/bookshop.webp" alt="" width="700" height="700" decoding="async"></span>
@@ -231,13 +230,25 @@
       </div>
     </section>
   </div>
+    <dialog class="map-about-panel" aria-labelledby="map-about-title">
+      <div class="map-about-card">
+        <button class="map-about-close" type="button" aria-label="Close About and return to the map">×</button>
+        <p class="town-key">About / field note 00</p>
+        <h2 id="map-about-title">A town built for <em>the situation.</em></h2>
+        <p>Acid Goblin is an ongoing experiment in making strange, useful little experiences. It uses generated images and a frankly cheerful amount of Python to turn a growing goblin world into zines, newspapers, posters and places to poke around.</p>
+        <p>Every route is tuned to the goblin preferences and fire circumstances of its creator: what feels good to look at, what needs saying, and which kind of emergency wants a tiny field guide instead of a corporate memo.</p>
+        <p>No universal solution promised. Just a small town with a colour printer, an overstuffed tool shed, and room to keep changing.</p>
+        <a href="https://github.com/technicallytechnicaldesign/ACIDGOBLIN" target="_blank" rel="noopener">See the source ↗</a>
+      </div>
+    </dialog>
   <script>
     (() => {
       const stage = document.querySelector('.map-stage');
       const stops = [...document.querySelectorAll('.map-stop')];
       const trail = document.querySelector('.footprint-trail');
       const marker = document.querySelector('.map-here');
-      const about = document.querySelector('.map-about');
+      const about = document.querySelector('.map-about-panel');
+      const aboutStop = document.querySelector('.map-stop--about');
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       let selected = null;
 
@@ -277,10 +288,18 @@
         }
       };
 
+      const openAbout = () => {
+        closeStop();
+        about.showModal();
+        about.querySelector('.map-about-close').focus();
+      };
+
       stops.forEach((stop) => {
         const trigger = stop.querySelector('.stop-trigger');
+        if (stop === aboutStop) stop.querySelector('.stop-enter').addEventListener('click', openAbout);
         trigger.addEventListener('click', () => {
           if (selected === stop) {
+            if (stop === aboutStop) { openAbout(); return; }
             const link = stop.querySelector('.stop-enter');
             if (link.target === '_blank') window.open(link.href, '_blank', 'noopener');
             else window.location.assign(link.href);
@@ -295,15 +314,16 @@
         });
       });
 
-      about.addEventListener('toggle', () => { if (about.open) closeStop(); });
+      about.querySelector('.map-about-close').addEventListener('click', () => about.close());
+      about.addEventListener('click', (event) => { if (event.target === about) about.close(); });
+      about.addEventListener('close', () => aboutStop.querySelector('.stop-trigger').focus());
       document.addEventListener('pointerdown', (event) => {
         if (selected && !event.target.closest('.map-stop')) closeStop();
-        if (about.open && !event.target.closest('.map-about')) about.open = false;
       });
       document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
           closeStop();
-          about.open = false;
+          if (about.open) about.close();
         }
       });
     })();
