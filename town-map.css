@@ -449,3 +449,17 @@ body.town-root { background: #229da8; }
   .map-stop--tripper .stop-art img,.goblin-print { animation: none; }
   .footprint-trail { display: none; }
 }
+
+
+/* Hand-placed, crooked shop signs.  The footprints and map coordinates stay still. */
+.map-stop--bookshop .stop-callout { top:-15px; left:45%; transform:translateX(-50%) rotate(-5deg); }
+.map-stop--newsstand .stop-callout { top:-7px; left:55%; transform:translateX(-50%) rotate(4deg); }
+.map-stop--oracle .stop-callout { top:-13px; left:47%; transform:translateX(-50%) rotate(3deg); }
+.map-stop--merch .stop-callout { top:-7px; left:53%; transform:translateX(-50%) rotate(-6deg); }
+.map-stop--about .stop-callout { top:-12px; left:46%; transform:translateX(-50%) rotate(-8deg); }
+.map-stop--tripper .stop-callout { top:-10px; left:55%; transform:translateX(-50%) rotate(7deg); }
+@media (max-width:640px) {
+  .map-stop--bookshop .stop-callout,.map-stop--newsstand .stop-callout,
+  .map-stop--oracle .stop-callout,.map-stop--merch .stop-callout { top:-9px; }
+  .map-stop--about .stop-callout,.map-stop--tripper .stop-callout { top:-7px; }
+}

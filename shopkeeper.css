@@ -1,0 +1,57 @@
+/* The Oracle's chatty spirit, adapted to three very different shops. */
+.shopkeeper { --keeper-paper:#fff7df; --keeper-ink:#19151e; --keeper-pink:#f4479a; --keeper-accent:#f5c928; display:flex; align-items:center; gap:clamp(.6rem,2vw,1rem); width:min(100%,880px); margin:1.2rem auto 2.3rem; padding:.5rem .75rem .5rem .35rem; color:var(--keeper-ink); background:var(--keeper-paper); border:3px solid var(--keeper-ink); border-radius:14px 8px 15px 9px; box-shadow:6px 7px 0 var(--keeper-pink); transform:rotate(-.6deg); }
+.shopkeeper--books { --keeper-accent:#f3b421; --keeper-pink:#f05e45; background:#fff3d5; }
+.shopkeeper--news { --keeper-accent:#f5c928; --keeper-pink:#078c8c; }
+.shopkeeper--prints { --keeper-accent:#d8ff36; --keeper-pink:#ff4eaa; background:#fff1ca; }
+.keeper-portrait { width:clamp(76px,12vw,118px); flex:none; align-self:end; }
+.keeper-portrait img { display:block; width:100%; height:auto; filter:drop-shadow(2px 3px 0 var(--keeper-pink)); animation:keeper-peek 9s ease-in-out infinite; }
+.keeper-copy { min-width:0; flex:1; }
+.keeper-name { display:block; margin:0 0 .3rem; font:900 .67rem/1.15 ui-monospace,Consolas,monospace; letter-spacing:.08em; text-transform:uppercase; }
+.keeper-bubble { margin:0; max-width:62ch; font:800 clamp(.88rem,1.5vw,1.04rem)/1.32 "Trebuchet MS",Arial,sans-serif; }
+.keeper-again { flex:none; align-self:center; width:2.1rem; height:2.1rem; padding:0; color:var(--keeper-ink); background:var(--keeper-accent); border:2px solid var(--keeper-ink); border-radius:50%; box-shadow:2px 2px 0 var(--keeper-pink); cursor:pointer; font:900 1.2rem/1 Arial,sans-serif; }
+.keeper-again:hover,.keeper-again:focus-visible { transform:rotate(-18deg) scale(1.08); outline:2px solid var(--keeper-pink); outline-offset:2px; }
+@keyframes keeper-peek { 0%,73%,100% { transform:translateY(0) rotate(0); } 80% { transform:translateY(-4px) rotate(-2deg); } 89% { transform:translateY(0) rotate(2deg); } }
+
+/* Reading room: covers stand on a wooden shelf instead of living in generic tiles. */
+.bookshop-page .shelf { position:relative; padding:1.4rem 1.2rem 2.2rem; border:8px solid #3c262a; background:repeating-linear-gradient(90deg,#765033 0 18px,#855d3b 18px 21px,#6e482f 21px 35px); box-shadow:inset 0 0 0 4px #b68755,8px 9px 0 #1b1920; }
+.bookshop-page .shelf::after { position:absolute; z-index:0; inset:auto -10px -13px; height:20px; content:""; border:3px solid #1b1920; background:linear-gradient(#c59a63 0 46%,#775034 47% 100%); box-shadow:0 7px 0 #3c262a; }
+.bookshop-page .book { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; min-height:0; padding:1rem 1rem 1.25rem; overflow:visible; border-radius:3px; background:#f8efd7; box-shadow:5px 7px 0 #1b1920; transform:rotate(-1deg); }
+.bookshop-page .book:nth-child(even) { transform:rotate(1.2deg); }
+.bookshop-page .book:hover,.bookshop-page .book:focus-visible { transform:translateY(-7px) rotate(0); box-shadow:9px 12px 0 #1b1920; }
+.bookshop-page .book::after { display:none; }
+.bookshop-page .cover { align-self:center; width:min(55%,210px); min-width:120px; margin:-.2rem auto .9rem; border-width:4px; transform:perspective(500px) rotateY(-5deg); box-shadow:5px 6px 0 #443443,10px 7px 0 #b9a6a0; }
+.bookshop-page .book-copy { width:100%; align-self:stretch; padding:.2rem .35rem; }
+.bookshop-page .book-copy h3 { font-size:clamp(1.8rem,3vw,2.75rem); }
+
+/* Newsstand: a rack with a wide front-page issue and pinned back copies. */
+.newsstand-page .rack { position:relative; padding:1.25rem; border:7px solid #313033; background:repeating-linear-gradient(0deg,#d7b987 0 7px,#caa775 7px 10px); box-shadow:8px 9px 0 #078c8c; }
+.newsstand-page .rack::before { position:absolute; inset:-19px 6% auto; height:15px; content:""; border:3px solid #19151e; background:repeating-linear-gradient(90deg,#f4479a 0 30px,#078c8c 30px 60px); }
+.newsstand-page .copy { border-radius:2px; box-shadow:4px 6px 0 #3f3a39; }
+.newsstand-page .copy:first-child { grid-column:span 2; display:grid; grid-template-columns:minmax(180px,.65fr) minmax(0,1fr); }
+.newsstand-page .copy:first-child .cover-wrap { padding:.75rem; }
+.newsstand-page .copy:first-child .cover-wrap img { max-height:390px; object-fit:contain; }
+.newsstand-page .meta { background:repeating-linear-gradient(0deg,transparent 0 24px,rgba(25,21,30,.07) 24px 25px),#fffaf0; }
+
+/* Print stall: fresh prints pinned to drying lines. */
+.merch-page .manifest { padding:1.2rem clamp(.7rem,2vw,1.2rem) 2rem; border:5px solid #fff1ca; background:repeating-linear-gradient(0deg,transparent 0 31px,rgba(255,241,202,.13) 31px 33px),#31213e; box-shadow:9px 10px 0 #ff4eaa; }
+.merch-page .collection { position:relative; }
+.merch-page .collection::before { position:absolute; top:4.7rem; left:0; right:0; height:3px; content:""; background:#d8ff36; opacity:.8; }
+.merch-page .poster-grid { position:relative; gap:clamp(1rem,2vw,1.5rem); }
+.merch-page .artifact { position:relative; margin-top:10px; }
+.merch-page .artifact::before { position:absolute; z-index:2; top:-13px; left:50%; width:30px; height:21px; content:""; border:3px solid #120b21; border-radius:3px; background:#fff1ca; box-shadow:inset 0 -5px 0 #ff4eaa; transform:translateX(-50%) rotate(4deg); }
+.merch-page .shopkeeper { width:min(1140px,calc(100% - 2rem)); margin:-1rem auto 3rem; }
+
+@media (max-width:700px) { .newsstand-page .copy:first-child { grid-column:auto; display:flex; } .newsstand-page .copy:first-child .cover-wrap img { max-height:none; } }
+@media (max-width:560px) { .shopkeeper { margin:1rem auto 1.7rem; padding:.42rem .5rem .42rem .15rem; } .keeper-portrait { width:72px; } .keeper-bubble { font-size:.82rem; } .keeper-again { width:1.8rem; height:1.8rem; font-size:1rem; } .bookshop-page .shelf { padding:.9rem .75rem 1.3rem; } .bookshop-page .book { padding:.8rem; } .newsstand-page .rack { padding:.7rem; } .merch-page .shopkeeper { margin:.2rem auto 2rem; } }
+@media (prefers-reduced-motion:reduce) { .keeper-portrait img { animation:none; } .bookshop-page .book,.newsstand-page .copy,.merch-page .artifact { transition:none; } }
+
+
+/* Keep Dot in view before the poster hero on a phone. */
+.merch-page .hero-copy .shopkeeper { width:100%; margin:1.1rem 0 1.3rem; transform:rotate(1deg); }
+.merch-page .collection::before { display:none; }
+.merch-page .poster-grid::before { position:absolute; top:2px; left:0; right:0; height:3px; content:""; background:#d8ff36; }
+
+/* The lead issue takes its own full-width tray; older copies pair beneath it. */
+.newsstand-page .rack { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.newsstand-page .copy:first-child { grid-column:1 / -1; grid-template-columns:minmax(220px,.45fr) minmax(0,1fr); }
+@media(max-width:700px) { .newsstand-page .rack { grid-template-columns:1fr; } .newsstand-page .copy:first-child { grid-column:auto; display:flex; } }

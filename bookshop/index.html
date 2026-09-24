@@ -60,8 +60,9 @@
     @media (max-width:760px) { .shop-head { grid-template-columns:1fr; padding-bottom:34px; } .intro { max-width:470px; } .window { max-width:270px; justify-self:end; } .book { grid-template-columns:minmax(126px,.65fr) minmax(0,1fr); min-height:270px; padding:17px; } }
     @media (max-width:560px) { .topbar { padding:15px 18px; } .topbar span { display:none; } .shop { width:min(100% - 24px, 1180px); } h1 { font-size:67px; } .shelf { grid-template-columns:1fr; gap:26px; } .book { min-height:250px; } .shelf-label span { display:none; } }
   </style>
+  <link rel="stylesheet" href="../shopkeeper.css?v=1">
 </head>
-<body>
+<body class="bookshop-page">
   <header class="topbar">
     <a class="back" href="../">Town map</a>
     <span>Acid Goblin Town / Books &amp; field guides</span>
@@ -80,6 +81,12 @@
       </div>
       <p class="intro">A very small shop for very large weather systems, institutional fires, and curious readers with questionable bedtime habits.</p>
     </section>
+
+<aside class="shopkeeper shopkeeper--books" data-shopkeeper="books" aria-label="A goblin shopkeeper speaks">
+      <div class="keeper-portrait"><img src="../town-assets/bookshop-keeper-v1.webp" alt="A grinning bookshop goblin with a purple mushroom hat and tiny spectacles" width="620" height="620" decoding="async"></div>
+      <div class="keeper-copy"><strong class="keeper-name">Moss, keeper of crooked shelves says</strong><p class="keeper-bubble" aria-live="polite" aria-atomic="true">Psst, the books are standing very still so you think they cannot hear you.</p></div>
+      <button class="keeper-again" type="button" aria-label="Hear another little goblin remark" title="Another little remark">↻</button>
+    </aside>
 
     <div class="shelf-label">
       <h2>Open shelves</h2>
@@ -115,5 +122,6 @@
   </main>
 
   <footer>Acid Goblin Town bookshop / browse gently, annotate wildly.</footer>
+  <script src="../shopkeeper.js?v=1" defer></script>
 </body>
 </html>
