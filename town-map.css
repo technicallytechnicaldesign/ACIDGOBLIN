@@ -463,3 +463,34 @@ body.town-root { background: #229da8; }
   .map-stop--oracle .stop-callout,.map-stop--merch .stop-callout { top:-9px; }
   .map-stop--about .stop-callout,.map-stop--tripper .stop-callout { top:-7px; }
 }
+
+/* Painted side streets sit on the clearings; the well stays close to the crossroads. */
+.map-stop--side { z-index:4; }
+.map-stop--rummage { left:7%; top:44%; width:12%; }
+.map-stop--well { left:56%; top:51%; width:8%; }
+.map-stop--post { right:7%; top:44%; width:11%; }
+.map-stop--side .stop-art { aspect-ratio:1; filter:drop-shadow(4px 7px 2px rgb(25 21 30 / .29)); }
+.map-stop--side .side-art img { position:absolute; top:5%; left:5%; display:block; width:90%; height:90%; object-fit:contain; filter:drop-shadow(2px 0 0 var(--town-pink)) drop-shadow(-2px 0 0 var(--town-pink)) drop-shadow(0 2px 0 var(--town-pink)); }
+.map-stop--side .stop-callout { top:-10px; max-width:115%; padding:.28rem .31rem; background:var(--town-yellow); }
+.map-stop--side .stop-callout strong { font-size:clamp(.55rem,.7vw,.68rem); line-height:1.04; }
+.map-stop--well .stop-callout { background:var(--town-sky); transform:translateX(-50%) rotate(4deg); }
+.map-stop--post .stop-callout { background:var(--town-lime); transform:translateX(-50%) rotate(-4deg); }
+.map-stop--side .stop-bubble { width:155px; top:6%; }
+@media(max-width:640px) {
+  .map-stop--side { width:25%; top:35%; }
+  .map-stop--rummage { left:7%; }
+  .map-stop--post { right:7%; }
+  .map-stop--well { left:40.5%; top:61%; width:19%; }
+  .map-stop--side .stop-callout { max-width:130%; }
+  .map-stop--side .stop-callout strong { font-size:.58rem; }
+  .map-stop--side .stop-bubble { top:1%; width:145px; }
+  .map-stop--rummage .stop-bubble { left:85%; }
+  .map-stop--post .stop-bubble { left:15%; }
+}
+@media(max-width:380px) {
+  .map-stop--side { width:25.5%; }
+  .map-stop--well { width:19.5%; }
+}
+
+/* Allow classic desktop scrollbars at narrow responsive widths. */
+body.town-root { min-width: 0; }
