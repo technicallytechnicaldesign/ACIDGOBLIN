@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f4ead4">
-  <meta name="description" content="Explore an illustrated Goblin Town map with a bookshop, newsstand, oracle, and free poster stall.">
+  <meta name="description" content="Explore Goblin Town, including a rummage yard, gossip well, mushroom post office, bookshop, newsstand, oracle, and more.">
   <title>Acid Goblin Town</title>
   <style>
     :root {
@@ -155,11 +155,11 @@
       .ticker.front li, .ticker.advice li { padding-block: 0.4rem; font-size: 1rem; }
     }
 </style>
-  <link rel="stylesheet" href="town-map.css?v=town-shops-0418">
+  <link rel="stylesheet" href="town-map.css?v=style-matched-side-streets-0924">
 </head>
 <body class="town-root">
   <div class="town-map" role="main">
-    <section class="map-scene" aria-label="Explore the six places in Acid Goblin Town">
+    <section class="map-scene" aria-label="Explore nine places in Acid Goblin Town">
       <div class="map-stage">
         <h1 class="map-sr-only">Acid Goblin Town</h1>
         <p class="map-guide">Tap a place to peek · tap again to enter</p>
@@ -224,6 +224,27 @@
               <p>Touch to bend the colours. Sound if you fancy.</p>
               <a class="stop-enter" href="https://technicallytechnicaldesign.github.io/acidgoblin-tripper/" target="_blank" rel="noopener">Enter Trippa ↗</a>
             </div>
+          </div>
+          <div class="map-stop map-stop--rummage map-stop--side" data-destination="./rummage-yard/">
+            <button class="stop-trigger" type="button" aria-expanded="false" aria-controls="bubble-rummage" aria-label="Explore Goblin Rummage Yard; press again to enter">
+              <span class="stop-art side-art" aria-hidden="true"><img src="./town-assets/rummage-yard-v2.webp" alt="" width="675" height="700" decoding="async"></span>
+              <span class="stop-callout"><strong>Rummage Yard</strong></span>
+            </button>
+            <div class="stop-bubble" id="bubble-rummage" hidden><p>Two scraps. One very unsafe lever.</p><a class="stop-enter" href="./rummage-yard/">Enter Yard ↗</a></div>
+          </div>
+          <div class="map-stop map-stop--well map-stop--side" data-destination="./gossip-well/">
+            <button class="stop-trigger" type="button" aria-expanded="false" aria-controls="bubble-well" aria-label="Explore Gossip Well; press again to enter">
+              <span class="stop-art side-art" aria-hidden="true"><img src="./town-assets/gossip-well-v2.webp" alt="" width="779" height="700" decoding="async"></span>
+              <span class="stop-callout"><strong>Gossip Well</strong></span>
+            </button>
+            <div class="stop-bubble" id="bubble-well" hidden><p>One pebble buys one dubious secret.</p><a class="stop-enter" href="./gossip-well/">Toss a pebble ↗</a></div>
+          </div>
+          <div class="map-stop map-stop--post map-stop--side" data-destination="./mushroom-post-office/">
+            <button class="stop-trigger" type="button" aria-expanded="false" aria-controls="bubble-post" aria-label="Explore Mushroom Post Office; press again to enter">
+              <span class="stop-art side-art" aria-hidden="true"><img src="./town-assets/post-office-v2.webp" alt="" width="754" height="700" decoding="async"></span>
+              <span class="stop-callout"><strong>Post Office</strong></span>
+            </button>
+            <div class="stop-bubble" id="bubble-post" hidden><p>Make a postcard for anywhere-ish.</p><a class="stop-enter" href="./mushroom-post-office/">Make a card ↗</a></div>
           </div>
         <p class="map-margin-note">Roads approximate · curiosity encouraged</p>
         <span class="map-compass" aria-label="North-ish">N <i>✦</i></span>

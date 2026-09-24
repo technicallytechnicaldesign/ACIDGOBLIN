@@ -1,0 +1,62 @@
+/* Town side streets: illustration and editorial language shared with the Bookshop and Newsstand. */
+:root{--paper:#f4ead4;--ink:#211820;--cream:#fffaf0;--pink:#f4479a;--teal:#078c8c;--lime:#c6db49;--yellow:#f5c928;--violet:#74439a}
+html{background:#392a3d}
+body{background:var(--paper)}
+.street{max-width:1280px;background:repeating-linear-gradient(0deg,#21182008 0 1px,transparent 1px 5px),var(--paper);box-shadow:none}
+.street-head{border-bottom:4px double var(--ink)}
+.street-head h1{font-family:Georgia,'Times New Roman',serif;font-weight:900;letter-spacing:-.06em}
+.street-head h1 em{color:var(--violet);-webkit-text-stroke:0}
+.street-home,.tag,.action,.lever,.message-row button{border-radius:0;box-shadow:2px 2px 0 var(--ink)}
+.panel{border-radius:2px;background:var(--cream);box-shadow:4px 4px 0 var(--ink)}
+.keeper{border-radius:3px;background:#fff7e7;box-shadow:3px 3px 0 var(--teal)}
+.keeper-portrait{display:block;flex:none;width:70px;height:70px;background-image:url('./town-assets/side-street-keepers-v2.webp');background-size:300% 100%;background-repeat:no-repeat}
+.keeper-bix{background-position:0 50%}.keeper-wisp{background-position:50% 50%}.keeper-dot{background-position:100% 50%}
+.keeper strong{color:var(--violet)}
+.street-foot{margin-top:18px}
+
+/* Rummage Yard: all interactive objects share the same illustrated sheet. */
+.yard{gap:16px}.tray,.work{padding:17px}
+.scrap{border-radius:2px;background:#fff9e9;box-shadow:2px 2px 0 #b7a3a7}
+.scrap:hover,.scrap:focus-visible{transform:translateY(-2px) rotate(-1deg)}
+.scrap-art{display:block;width:76px;height:76px;margin:auto;background-image:url('./town-assets/rummage-objects-v2.webp');background-size:400% 200%;background-repeat:no-repeat;filter:none}
+.scrap-art--spoon{background-position:0 0}.scrap-art--boot{background-position:33.333% 0}.scrap-art--bell{background-position:66.667% 0}.scrap-art--key{background-position:100% 0}
+.scrap-art--teacup{background-position:0 100%}.scrap-art--mushroom{background-position:33.333% 100%}.scrap-art--clock{background-position:66.667% 100%}.scrap-art--lantern{background-position:100% 100%}
+.work{background:repeating-linear-gradient(90deg,#4c2c2110 0 2px,transparent 2px 22px),#dfc49d}
+.slot{border-radius:3px;background:#fffaf0d9}.slot .scrap-art{width:82px;height:82px}.slot span:last-child:not(.scrap-art){font-size:10px}
+.lever{background:var(--yellow);box-shadow:3px 4px 0 var(--ink)}.lever:hover:not(:disabled){background:var(--lime)}
+.output{border-radius:3px;background:#fffaf0;box-shadow:3px 3px 0 var(--teal)}
+.invention{border-radius:4px;background:#f4ead4;border:2px solid var(--ink)}
+.invention .scrap-art{position:absolute;width:82px;height:82px;margin:0}
+.invention .scrap-art:first-child{transform:translate(-20px,5px) rotate(-14deg)}
+.invention .scrap-art:last-child{transform:translate(20px,-4px) rotate(14deg)}
+.drag-ghost .scrap-art{width:88px;height:88px}
+
+/* Gossip Well: the actual Town cutout replaces the diagrammatic CSS well. */
+.well-layout{gap:16px}
+.well-scene{min-height:520px;border-radius:3px;background:radial-gradient(circle at 48% 42%,#fff8d7 0 14%,transparent 50%),#a5d7c8;box-shadow:4px 4px 0 var(--teal)}
+.well-scene:before{content:none}
+.well-art{position:relative;z-index:2;display:block;width:min(80%,440px);height:auto;max-height:490px;object-fit:contain;filter:drop-shadow(4px 6px 0 #21182044)}
+.well-sign{border-radius:0;box-shadow:2px 2px 0 var(--ink)}
+.ripple{z-index:3;top:55%;left:48%;border-color:#fff9e8}
+.well-scene.tossing .ripple:nth-of-type(2){animation-delay:.14s}
+.well-scene.tossing .ripple:nth-of-type(3){animation-delay:.28s}
+.pebble{bottom:24px;left:50%}
+.rumour-card{border-radius:1px;background:repeating-linear-gradient(0deg,#21182008 0 1px,transparent 1px 5px),#fffaf0;box-shadow:3px 3px 0 var(--teal)}
+.goblin-well{background:#fff7e7}
+
+/* Post Office: the selected printed scene is the exact exported canvas image. */
+.post-layout{gap:16px}
+.scene-choice{min-height:77px;border-radius:2px;background-size:cover;background-position:center;color:#211820;text-shadow:1px 1px #fffaf0,-1px -1px #fffaf0}
+.scene-choice:first-child{background-image:linear-gradient(#fffaf03d,#fffaf0a8),url('./town-assets/postcard-moonlit-v2.webp')}
+.scene-choice:nth-child(2){background-image:linear-gradient(#fffaf03d,#fffaf0a8),url('./town-assets/postcard-cloud-v2.webp')}
+.scene-choice:nth-child(3){background-image:linear-gradient(#fffaf03d,#fffaf0a8),url('./town-assets/postcard-window-v2.webp')}
+.decor{border-radius:2px;box-shadow:2px 2px 0 #b7a3a7}
+.stamp-art{display:block;width:32px;height:32px;background-image:url('./town-assets/postcard-stamps-v2.webp');background-size:500% 200%;background-repeat:no-repeat}
+.stamp-art--mushroom{background-position:0 0}.stamp-art--moon{background-position:25% 0}.stamp-art--star{background-position:50% 0}.stamp-art--heart{background-position:75% 0}.stamp-art--key{background-position:100% 0}
+.stamp-art--leaf{background-position:0 100%}.stamp-art--eye{background-position:25% 100%}.stamp-art--letter{background-position:50% 100%}.stamp-art--bolt{background-position:75% 100%}.stamp-art--snail{background-position:100% 100%}
+.card-frame{border-radius:2px;background:#d7c7a2;box-shadow:4px 4px 0 var(--violet)}
+#postcard{border:2px solid var(--ink)}
+.postmaster{background:#fff7e7}
+
+@media(max-width:760px){.well-scene{min-height:350px}.well-art{width:min(68%,310px)}.scrap-art{width:60px;height:60px}.slot .scrap-art{width:62px;height:62px}.invention .scrap-art{width:68px;height:68px}}
+@media(max-width:390px){.street-head h1{font-size:30px}.keeper-portrait{width:60px;height:60px}.well-art{width:min(72%,280px)}.scrap-art{width:54px;height:54px}.slot .scrap-art{width:58px;height:58px}.invention .scrap-art{width:60px;height:60px}.scene-choice{min-height:59px}.post-layout,.post-controls,.post-stage,.post-controls>.panel{min-width:0}.drawer{grid-template-columns:repeat(5,minmax(0,1fr));gap:3px}.decor{min-width:0;padding:2px}.stamp-art{width:27px;height:27px}.decor small{font-size:8px}}

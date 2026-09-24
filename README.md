@@ -18,5 +18,9 @@ Cute-chaos zine series: tiny goblins, gentle reminders, acid color, and emotiona
 - `newsstand/`: the newsstand page, where each issue of *The Gobbo Weekly* (the newspaper edition of the zines) can be picked up as a PDF.
 - `tarot/`: The Goblin Oracle, a three-card sequential tarot draw with a curated 12-card Star-Eyed Charms deck.
 - `gobbo-weekly/`: the issue PDFs and cover thumbnails the newsstand serves.
+- `rummage-yard/`: eight illustrated scraps and 28 authored two-scrap inventions with a reacting workshop goblin.
+- `gossip-well/`: 40 short rumours, including a local-day featured rumour and paths into other Town stops.
+- `mushroom-post-office/`: three Town-style illustrated scenes and ten illustrated stamps drawn into a live postcard canvas, with short notes, PNG download, and device sharing where available.
+- `side-street.css` and `town-art-v2.css`: shared layout and Town-matched illustration treatment for the three places; all three work without a server-side service.
 
 This is the published-pages mirror of the Acid Goblin project. The full working project (prompts, source studies, sticker/card/animation output, production bible) lives in the private workspace, not in this repo.
