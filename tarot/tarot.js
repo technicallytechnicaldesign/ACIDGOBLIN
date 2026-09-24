@@ -1,28 +1,9 @@
 (() => {
   const deck = window.GOBLIN_DECK || [];
+  const voices = window.GOBLIN_VOICE || {};
+  const pairLines = window.GOBLIN_PAIR_LINES || {};
   const slots = ['Situation', 'Complication', 'Unreasonable Way Through'];
-  const disguises = [
-    'a calendar problem',
-    'a personality flaw with paperwork',
-    'something that needs one more tab open',
-    'a test you can pass by thinking harder',
-    'an emergency hat you have to keep wearing'
-  ];
-  const observers = [
-    'a pocket moth with a clipboard',
-    'a tiny focus group of three mushrooms',
-    'a pigeon wearing a ceremonial lanyard',
-    'a spoon that has learned to say no',
-    'one extremely calm snail'
-  ];
-  const nextMoves = [
-    'send the small message',
-    'put one useful thing where your hands can find it',
-    'take a proper pause before inventing a new obligation',
-    'choose the kindest available next step',
-    'stop polishing the doorway and walk through it'
-  ];
-  const state = { cards: [], revealed: 0, fortune: null };
+  const state = { cards: [], revealed: 0, speakingTimer: null };
   const byId = (id) => document.getElementById(id);
   const grid = byId('card-grid');
   const heading = document.querySelector('#reading-title');
@@ -37,48 +18,50 @@
     return shuffled;
   };
 
-  function cardWords(entry) {
-    return entry.card.keywords.split(',').map((word) => word.trim());
+  function voiceFor(entry) {
+    return voices[entry.card.title]?.[entry.reversed ? 'reversed' : 'upright'];
   }
 
-  function cardMessage(entry) {
-    return entry.reversed ? entry.card.reversed : entry.card.upright;
+  function speak(message) {
+    const speaker = document.querySelector('.oracle-speaker');
+    byId('oracle-bubble').textContent = message;
+    speaker.classList.remove('is-speaking');
+    void speaker.offsetWidth;
+    speaker.classList.add('is-speaking');
+    clearTimeout(state.speakingTimer);
+    state.speakingTimer = setTimeout(() => speaker.classList.remove('is-speaking'), 800);
   }
 
-  function buildFortune() {
-    return { disguise: pick(disguises), observer: pick(observers), nextMove: pick(nextMoves) };
-  }
-
-  function postureLine(entry, observer) {
-    if (entry.reversed) return pick([
-      'It has appeared upside down, which is its impolite little way of asking whether you have mistaken motion for meaning.',
-      'Upside down, it refuses to let your old habits cosplay as a compass.',
-      'It arrives backwards and wonders whether the thing you keep postponing is already trying to help you.'
-    ]);
+  function pairBeat(first, second) {
+    const special = !first.reversed && !second.reversed && (
+      pairLines[`${first.card.title}|${second.card.title}`] ||
+      pairLines[`${second.card.title}|${first.card.title}`]
+    );
+    if (special) return special;
+    const firstVoice = voiceFor(first);
+    const secondVoice = voiceFor(second);
+    const turn = second.reversed ? 'upside down' : 'upright';
     return pick([
-      `Right-way-up, it notices that ${observer} has already been guarding the answer in your quieter pocket.`,
-      `It stands very still while ${observer} demonstrates that your gentler instinct is not lost, only wearing a funny hat.`,
-      `Facing you plainly, it lets ${observer} remind you that a pause is also part of the dance.`
+      `Oh my, ${second.card.title} ${turn} beside ${first.card.title}: ${firstVoice.echo} meets ${secondVoice.echo}; ${secondVoice.bridge}.`,
+      `Interesting, interesting: ${firstVoice.echo} and ${secondVoice.echo} are speaking together; ${secondVoice.bridge}.`,
+      `I see ${firstVoice.echo} touching ${secondVoice.echo}; ${second.card.title} says to ${secondVoice.bridge}.`
     ]);
   }
 
   function makeBeat(entry, position) {
-    const fortune = state.fortune;
-    const card = entry.card;
-    const message = cardMessage(entry);
-    const messageStem = message.replace(/[.!?]+$/, '');
-    const [theme] = cardWords(entry);
-    if (position === 0) {
-      return `${card.title} reveals that you have been treating ${theme} like ${fortune.disguise}, when it is really a living thing with crumbs in its pockets. ${postureLine(entry, fortune.observer)} It rings a tiny bell for you: “${message}”`;
-    }
-    if (position === 1) {
-      const first = state.cards[0];
-      const [firstTheme] = cardWords(first);
-      return `${card.title} catches you trying to make ${firstTheme} and ${theme} agree before either has had a biscuit. ${postureLine(entry, fortune.observer)} It exchanges a knowing look with ${first.card.title} and says: “${message}”`;
-    }
-    const [firstTheme] = cardWords(state.cards[0]);
-    const [secondTheme] = cardWords(state.cards[1]);
-    return `${card.title} points to the small place where ${firstTheme}, ${secondTheme}, and ${theme} are already talking to one another. ${postureLine(entry, fortune.observer)} It says, “${messageStem},” and suggests one small move: ${fortune.nextMove}.`;
+    const voice = voiceFor(entry);
+    if (position === 0) return pick(voice.lines);
+    if (position === 1) return pairBeat(state.cards[0], entry);
+    const [first, second] = state.cards;
+    return `Shhh, ${entry.card.title} ${entry.reversed ? 'upside down' : 'upright'} answers ${voiceFor(first).echo} and ${voiceFor(second).echo}: ${voice.bridge}.`;
+  }
+
+  function makeSummary() {
+    const [first, second, third] = state.cards;
+    const a = voiceFor(first);
+    const b = voiceFor(second);
+    const c = voiceFor(third);
+    return `${first.card.title} sees that you ${a.situation}, while ${second.card.title} warns that you ${b.complication}. ${third.card.title} asks you to ${c.way}.`;
   }
 
   function imageFailed(image) {
@@ -107,16 +90,18 @@
     const chosen = shuffle(deck).slice(0, 3).map((card) => ({ card, reversed: Math.random() < 0.34 }));
     state.cards = chosen;
     state.revealed = 0;
-    state.fortune = buildFortune();
     grid.replaceChildren();
     chosen.forEach(renderCard);
     byId('reading-copy').hidden = true;
     byId('actions').hidden = true;
-    byId('setting').textContent = 'A small fortune for the creature currently holding the mouse.';
+    byId('setting').textContent = 'What the goblin told you:';
     byId('beats').replaceChildren();
+    byId('conclusion').hidden = true;
+    byId('conclusion').textContent = '';
     heading.innerHTML = 'The cards are <em>listening.</em>';
     byId('instruction').textContent = 'Turn over Situation to begin. The other cards will wait their turn.';
     live.textContent = 'Three cards dealt. Situation is ready to reveal.';
+    speak('Shhh. Three cards have landed. Turn the Situation card, my curious creature.');
   }
 
   function reveal(index) {
@@ -135,24 +120,29 @@
     byId('beats').append(beat);
     byId('reading-copy').hidden = false;
     state.revealed += 1;
-    live.textContent = `${slots[index]} revealed: ${beat.textContent}`;
+    live.textContent = `${slots[index]} revealed: ${state.cards[index].card.title}.`;
     if (state.revealed < state.cards.length) {
+      speak(beat.textContent);
       const next = grid.querySelector(`[data-index="${state.revealed}"]`);
       next.disabled = false;
       byId('instruction').textContent = `Now turn over ${slots[state.revealed]}.`;
     } else {
       heading.innerHTML = 'The oracle has <em>spoken.</em>';
       byId('instruction').textContent = 'Keep what is useful. Leave the glitter on the table.';
+      byId('conclusion').textContent = makeSummary();
+      byId('conclusion').hidden = false;
+      speak(byId('conclusion').textContent);
       byId('actions').hidden = false;
     }
   }
 
   function copyReading() {
-    const text = [heading.textContent, byId('setting').textContent, ...[...document.querySelectorAll('#beats p')].map((p) => p.textContent)].join('\n\n');
+    const text = [heading.textContent, byId('setting').textContent, ...[...document.querySelectorAll('#beats p')].map((p) => p.textContent), byId('conclusion').textContent].join('\n\n');
     navigator.clipboard?.writeText(text).then(() => { live.textContent = 'Reading copied to your clipboard.'; }).catch(() => { live.textContent = 'Copy did not work here; the reading remains visible.'; });
   }
 
   byId('shuffle').addEventListener('click', deal);
   byId('again').addEventListener('click', deal);
   byId('copy').addEventListener('click', copyReading);
+  deal();
 })();
