@@ -369,10 +369,10 @@ body.town-root > footer { display: none; }
 .map-hint span { color: var(--town-orange); font-size: 1.5rem; line-height: .4; }
 .map-stage { position: relative; isolation: isolate; width: 100%; aspect-ratio: 1200 / 780; overflow: visible; border: 4px solid var(--town-ink); border-radius: 32px 18px 37px 20px; background: #259fa7 url("./town-assets/island-desktop-v2.webp") center / cover no-repeat; box-shadow: 8px 9px 0 var(--town-ink),-4px -4px 0 var(--town-pink); }
 .map-stop { position: absolute; z-index: 3; display: flex; flex-direction: column; align-items: center; width: 18%; color: var(--town-ink); text-decoration: none; transform-origin: center bottom; }
-.map-stop--bookshop { left: 14%; top: 2%; }
-.map-stop--newsstand { right: 13%; top: 2%; }
-.map-stop--oracle { left: 18%; top: 47%; }
-.map-stop--merch { right: 17%; top: 47%; }
+.map-stop--bookshop { left: 14%; top: -8%; }
+.map-stop--newsstand { right: 13%; top: -8%; }
+.map-stop--oracle { left: 18%; top: 37%; }
+.map-stop--merch { right: 17%; top: 37%; }
 .stop-art { position: relative; display: block; width: 100%; aspect-ratio: 1; transition: transform .3s cubic-bezier(.2,1.3,.3,1),filter .3s ease; filter: drop-shadow(5px 10px 1px rgb(25 21 30 / .24)); }
 .stop-art img { display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(2px 0 0 var(--town-pink)) drop-shadow(-2px 0 0 var(--town-pink)) drop-shadow(0 2px 0 var(--town-pink)) drop-shadow(0 -2px 0 var(--town-pink)); transition: filter .25s ease; }
 .map-stop:hover .stop-art img,.map-stop:focus-visible .stop-art img { filter: drop-shadow(3px 0 0 var(--town-pink)) drop-shadow(-3px 0 0 var(--town-pink)) drop-shadow(0 3px 0 var(--town-pink)) drop-shadow(0 -3px 0 var(--town-pink)) drop-shadow(0 0 14px var(--town-pink)); }
@@ -405,10 +405,10 @@ body.town-root > footer { display: none; }
   .map-hint { font-size: .58rem; }
   .map-stage { height: 690px; aspect-ratio: auto; border-width: 3px; background-image: url("./town-assets/island-mobile-v2.webp"); }
   .map-stop { width: 43%; }
-  .map-stop--bookshop { left: 4%; top: 15%; }
-  .map-stop--newsstand { right: 4%; top: 15%; }
-  .map-stop--oracle { left: 4%; top: 51%; }
-  .map-stop--merch { right: 4%; top: 51%; }
+  .map-stop--bookshop { left: 4%; top: 10%; }
+  .map-stop--newsstand { right: 4%; top: 10%; }
+  .map-stop--oracle { left: 4%; top: 45%; }
+  .map-stop--merch { right: 4%; top: 45%; }
   .stop-callout { padding: .4rem .43rem .48rem; border-width: 2px; }
   .stop-callout small { font-size: .47rem; line-height: 1.15; }
   .stop-callout strong { font-size: clamp(.8rem,3.25vw,1.1rem); }
