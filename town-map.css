@@ -796,3 +796,25 @@ body.town-root { min-width: 0; }
   .map-scene[data-season="autumn"] .season-piece--autumn { display: none; }
   .map-scene[data-sky="night"] .terrain-mobile-autumn { filter: brightness(.54) saturate(.85) hue-rotate(8deg); }
 }
+
+/* Cloud safe area: keep the painted edges in-frame even as parallax drifts. */
+.celestial--clouds {
+  scale: .9;
+  -webkit-mask-image: radial-gradient(ellipse 64% 58% at center, #000 52%, transparent 78%);
+  mask-image: radial-gradient(ellipse 64% 58% at center, #000 52%, transparent 78%);
+}
+/* Night colour is shared by the full sky and each illustrated depth plane. */
+.map-scene[data-sky="night"] {
+  background-color: #081435;
+  background-image: linear-gradient(rgb(3 8 35 / .25), rgb(3 8 35 / .25)), url("./town-assets/sky-night-v1.webp");
+  background-position: center;
+  background-size: cover;
+}
+.map-scene[data-sky="night"] .sky-piece { filter: brightness(.47) saturate(.8) hue-rotate(10deg); }
+.map-scene[data-sky="night"] .celestial--clouds { filter: brightness(.58) saturate(.8); }
+.map-scene[data-sky="night"] .celestial--planet { filter: brightness(.72) saturate(.88); }
+.map-scene[data-sky="night"] .celestial--moon { filter: brightness(.88); }
+.map-scene[data-sky="night"] .celestial--stars { filter: brightness(.82); }
+@media (max-width: 640px) {
+  .map-scene[data-sky="night"] .terrain-mobile-autumn { filter: brightness(.48) saturate(.83) hue-rotate(8deg); }
+}
