@@ -605,31 +605,66 @@ body.town-root { background: #229da8; }
 .map-compass-rose i { display: block; color: var(--town-yellow); font-size: 1.1rem; line-height: .8; transform: rotate(var(--heading-angle, 0deg)); transition: transform .55s cubic-bezier(.2,1.4,.3,1); }
 .map-heading { max-width: 11rem; }
 
+/* Coordinates belong to the painting, independent of the outer viewport ratio. */
 @media (min-width: 641px) {
-  .map-stop--bookshop, .map-stop--newsstand,
-  .map-stop--oracle, .map-stop--merch {
-    width: clamp(18%, calc(18% + 10vw - 15svh), 30%);
+  .map-stage { background: none; }
+  .map-stage::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    content: "";
+    background: url("./town-assets/island-desktop-v3.webp") center / 100% 100% no-repeat;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent), linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent), linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent);
+    mask-composite: intersect;
   }
-  .map-stop--rummage, .map-stop--post {
-    width: clamp(12%, calc(12% + 7vw - 10.5svh), 21%);
-  }
+  .map-stop--bookshop { left: 17%; top: 10%; width: 16%; }
+  .map-stop--newsstand { right: 17%; top: 10%; width: 16%; }
+  .map-stop--oracle { left: 26%; top: 45%; width: 15%; }
+  .map-stop--merch { right: 23%; top: 45%; width: 15%; }
+  .map-stop--about { left: 57%; top: 24%; width: 8%; }
+  .map-stop--tripper { left: 43%; top: 48%; width: 8%; }
+  .map-stop--rummage { left: 8%; top: 39%; width: 10%; }
+  .map-stop--post { right: 8%; top: 39%; width: 10%; }
+  .map-stop--well { left: 53%; top: 52%; width: 8%; }
+  .stop-callout strong { font-size: clamp(.72rem, .83vw, .93rem); }
+  .map-stop--side .stop-callout strong { font-size: clamp(.65rem, .72vw, .78rem); }
+  .map-stop--side .stop-callout { max-width: 145%; }
 }
-@media (min-width: 641px) and (min-aspect-ratio: 2/1) {
-  .map-stop--bookshop { left: 10%; top: 5%; }
-  .map-stop--newsstand { right: 10%; top: 5%; }
-  .map-stop--oracle { left: 19%; top: 51%; }
-  .map-stop--merch { right: 19%; top: 51%; }
-  .map-stop--about { left: 44%; top: 7%; width: 12%; }
-  .map-stop--tripper { left: 46%; top: 54%; width: 9%; }
-  .map-stop--rummage { left: 4%; top: 37%; }
-  .map-stop--post { right: 4%; top: 37%; }
-  .map-stop--well { left: 45%; top: 74%; width: 10%; }
-  .map-stop--side .stop-callout strong { font-size: .65rem; }
+
+/* Each scenery piece has its own depth, so future skies can swap without moving shops. */
+.sky-layer { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.sky-layer--distant { z-index: 0; }
+.sky-layer--near { z-index: 1; }
+.sky-piece { position: absolute; display: block; height: auto; will-change: transform; transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0); transition: transform .3s ease-out; }
+.sky-piece--island-left { top: 18%; left: -4%; width: clamp(230px, 23vw, 440px); --depth: .22; }
+.sky-piece--island-right { top: 55%; right: -5%; width: clamp(210px, 20vw, 400px); --depth: .18; transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0) scaleX(-1); }
+.sky-piece--cloud-left { bottom: -5%; left: -8%; width: min(54vw, 880px); --depth: .55; opacity: .94; }
+.sky-piece--cloud-right { top: -4%; right: -10%; width: min(56vw, 880px); --depth: .42; opacity: .88; transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0) scaleX(-1); }
+.map-stage { z-index: 2; box-shadow: none; }
+.season-layer { position: absolute; z-index: 1; inset: 0; overflow: hidden; pointer-events: none; }
+.season-piece { position: absolute; display: none; height: auto; }
+.season-piece--autumn { top: 7%; left: 38%; width: 13%; }
+.season-piece--winter { top: 54%; left: 42%; width: 13%; }
+.map-scene[data-season="autumn"] .season-piece--autumn,
+.map-scene[data-season="winter"] .season-piece--winter { display: block; }
+.map-scene[data-sky="night"] { background-image: radial-gradient(ellipse at 50% 25%, #348396, #1a3b67 70%, #17234b); }
+.map-scene[data-sky="night"] .map-stage::before { filter: brightness(.58) saturate(1.16) hue-rotate(14deg); }
+.map-scene[data-sky="night"] .sky-piece { filter: brightness(.64) hue-rotate(13deg); }
+.map-scene[data-sky="night"] .season-layer { filter: brightness(.73) hue-rotate(13deg); }
+@media (min-width: 641px) and (max-aspect-ratio: 17/10) {
+  .sky-piece--island-left { left: -13%; top: 25%; }
+  .sky-piece--island-right { right: -13%; top: 57%; }
+  .sky-piece--cloud-left { left: -25%; bottom: -11%; }
+  .sky-piece--cloud-right { right: -25%; top: -11%; }
 }
 
 @media (max-width: 640px) {
   .map-scene { display: block; min-height: max(780px, 100svh); overflow: visible; }
   .map-stage { width: 100%; height: auto; min-height: max(780px, 100svh); aspect-ratio: auto; background-size: cover; box-shadow: none; }
+  .sky-layer { display: none; }
+  .season-layer { display: none; }
   .map-compass { right: 50%; bottom: 5.5%; min-width: 0; max-width: 13rem; transform: translateX(50%) rotate(2deg); }
   .map-heading { max-width: 8rem; }
   .map-margin-note { bottom: 1.2%; }
