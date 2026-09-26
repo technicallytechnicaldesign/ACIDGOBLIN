@@ -155,23 +155,44 @@
       .ticker.front li, .ticker.advice li { padding-block: 0.4rem; font-size: 1rem; }
     }
 </style>
-  <link rel="stylesheet" href="town-map.css?v=layered-town-0926">
+  <link rel="stylesheet" href="town-map.css?v=seasonal-town-0926">
 </head>
 <body class="town-root">
   <div class="town-map" role="main">
-    <section class="map-scene" aria-label="Explore nine places in Acid Goblin Town">
+    <section class="map-scene" data-sky="day" data-season="summer" aria-label="Explore nine places in Acid Goblin Town">
       <div class="sky-layer sky-layer--distant" aria-hidden="true">
         <img class="sky-piece sky-piece--island-left" src="./town-assets/floating-island-v1.webp" alt="" decoding="async">
         <img class="sky-piece sky-piece--island-right" src="./town-assets/floating-island-v1.webp" alt="" decoding="async">
       </div>
+        <div class="celestial-layer" aria-hidden="true">
+          <img class="celestial celestial--stars" src="./town-assets/stars-v1.webp" alt="" decoding="async">
+          <img class="celestial celestial--sun" src="./town-assets/sun-v1.webp" alt="" decoding="async">
+          <img class="celestial celestial--moon" src="./town-assets/moon-v1.webp" alt="" decoding="async">
+          <img class="celestial celestial--planet" src="./town-assets/planet-v1.webp" alt="" decoding="async">
+          <img class="celestial celestial--clouds" src="./town-assets/clouds-v1.webp" alt="" decoding="async">
+        </div>
       <div class="map-stage">
         <h1 class="map-sr-only">Acid Goblin Town</h1>
+
+        <picture class="terrain-master"><source media="(max-width: 640px)" srcset="./town-assets/terrain-mobile-v4.webp"><img src="./town-assets/terrain-master-v4.webp" alt="" width="1536" height="1024" decoding="async"></picture>
+        <img class="terrain-mobile-autumn" src="./town-assets/terrain-mobile-autumn-v1.webp" alt="" width="1024" height="1536" decoding="async" aria-hidden="true">
         <div class="season-layer" aria-hidden="true">
-          <img class="season-piece season-piece--autumn" src="./town-assets/autumn-trees-v1.webp" alt="" decoding="async">
+          <img class="season-piece season-piece--autumn" src="./town-assets/autumn-foliage-v1.webp" alt="" decoding="async">
           <img class="season-piece season-piece--winter" src="./town-assets/winter-drift-v1.webp" alt="" decoding="async">
         </div>
+        <div class="night-lights" aria-hidden="true">
+          <i style="--x:26%;--y:28%;--delay:-.4s"></i><i style="--x:73%;--y:28%;--delay:-2.1s"></i>
+          <i style="--x:61%;--y:34%;--delay:-1.5s"></i><i style="--x:13%;--y:51%;--delay:-.9s"></i>
+          <i style="--x:87%;--y:51%;--delay:-3.4s"></i><i style="--x:34%;--y:64%;--delay:-2.6s"></i>
+          <i style="--x:69%;--y:64%;--delay:-1.1s"></i><i style="--x:57%;--y:62%;--delay:-3.8s"></i>
+          <i style="--x:47%;--y:64%;--delay:-.2s"></i>
+        </div>
         <p class="map-guide">Tap a place to peek · tap again to enter</p>
-        <button class="map-sound" type="button" aria-pressed="false" aria-label="Turn town sound on"><span aria-hidden="true">♫</span> <span class="map-sound-label">Sound off</span></button>
+        <div class="map-controls">
+          <button class="map-sound" type="button" aria-pressed="false" aria-label="Turn town sound on"><span aria-hidden="true">♫</span> <span class="map-sound-label">Sound off</span></button>
+          <button class="map-sky-button" type="button" aria-label="Switch to night sky">☀ Day</button>
+          <button class="map-season-button" type="button" aria-label="Switch to autumn">✿ Summer</button>
+        </div>
         <span class="map-here" aria-label="You are here-ish, at the crossroads"><span class="map-here-icon" aria-hidden="true">▲</span><span class="map-here-label">you are here-ish</span></span>
         <div class="footprint-trail" aria-hidden="true"></div>
           <div class="map-stop map-stop--about" data-about="true">
@@ -259,8 +280,8 @@
         <div class="map-compass" role="status" aria-live="polite"><span class="map-compass-rose" aria-hidden="true"><b>N</b><i>✦</i></span><span class="map-heading">Pick a place</span></div>
       </div>
       <div class="sky-layer sky-layer--near" aria-hidden="true">
-        <img class="sky-piece sky-piece--cloud-left" src="./town-assets/cloud-bank-v1.webp" alt="" decoding="async">
-        <img class="sky-piece sky-piece--cloud-right" src="./town-assets/cloud-bank-v1.webp" alt="" decoding="async">
+        <img class="sky-piece sky-piece--cloud-left" src="./town-assets/clouds-v1.webp" alt="" decoding="async">
+        <img class="sky-piece sky-piece--cloud-right" src="./town-assets/clouds-v1.webp" alt="" decoding="async">
       </div>
     </section>
   </div>
@@ -292,12 +313,24 @@
       let audio = null;
       let audioTimer = null;
       let parallaxFrame = 0;
-      const skyPieces = [...document.querySelectorAll('.sky-piece')];
+      const skyPieces = [...document.querySelectorAll('.sky-piece, .celestial')];
       const scene = document.querySelector('.map-scene');
       const sceneParams = new URLSearchParams(window.location.search);
       if (['autumn', 'winter'].includes(sceneParams.get('season'))) scene.dataset.season = sceneParams.get('season');
       if (sceneParams.get('sky') === 'night') scene.dataset.sky = 'night';
-      const landmarkNotes = { about: 659.25, bookshop: 329.63, newsstand: 392, oracle: 523.25, merch: 587.33, tripper: 783.99, rummage: 261.63, well: 440, post: 349.23 };
+      const skyButton = document.querySelector('.map-sky-button');
+      const seasonButton = document.querySelector('.map-season-button');
+      const syncModes = () => {
+        const night = scene.dataset.sky === 'night';
+        const autumn = scene.dataset.season === 'autumn';
+        skyButton.textContent = night ? '☾ Night' : '☀ Day';
+        skyButton.setAttribute('aria-label', night ? 'Switch to day sky' : 'Switch to night sky');
+        seasonButton.textContent = autumn ? '🍂 Autumn' : scene.dataset.season === 'winter' ? '❄ Winter sketch' : '✿ Summer';
+        seasonButton.setAttribute('aria-label', autumn ? 'Switch to summer' : 'Switch to autumn');
+      };
+      skyButton.addEventListener('click', () => { scene.dataset.sky = scene.dataset.sky === 'night' ? 'day' : 'night'; syncModes(); });
+      seasonButton.addEventListener('click', () => { scene.dataset.season = scene.dataset.season === 'autumn' ? 'summer' : 'autumn'; syncModes(); });
+      syncModes();
       const directions = ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'];
 
       const pointTo = (stop) => {
@@ -312,77 +345,83 @@
         heading.textContent = `Heading ${direction}-ish · ${name}`;
       };
 
-      const chime = (frequency, level = .11) => {
-        if (!audio || audio.ctx.state !== 'running') return;
-        const { ctx, master } = audio;
-        const now = ctx.currentTime;
-        [1, 2.005].forEach((partial, index) => {
-          const voice = ctx.createOscillator();
-          const gain = ctx.createGain();
-          voice.type = index ? 'triangle' : 'sine';
-          voice.frequency.value = frequency * partial;
-          gain.gain.setValueAtTime(.0001, now);
-          gain.gain.exponentialRampToValueAtTime(level * (index ? .13 : 1), now + .025);
-          gain.gain.exponentialRampToValueAtTime(.0001, now + (index ? .55 : 1.4));
-          voice.connect(gain).connect(master);
-          voice.start(now);
-          voice.stop(now + 1.45);
-        });
-      };
-
       const placeKey = (stop) => [...stop.classList].find((name) => name.startsWith('map-stop--'))?.replace('map-stop--', '');
-      const updateHarmony = (slow = false) => {
-        if (!audio) return;
-        const { ctx, voices, filter, panner, position, place } = audio;
-        const now = ctx.currentTime;
-        const roots = [130.81, 146.83, 164.81, 196];
-        const root = place ? landmarkNotes[place] / 2 : roots[Math.min(3, Math.floor(position.x * 4))];
-        const colour = position.y < .5 ? [1, 1.2599, 1.4983] : [1, 1.1892, 1.4983];
-        voices.forEach(({ oscillator, gain }, index) => {
-          oscillator.frequency.setTargetAtTime(root * colour[index], now, slow ? 2.8 : 1.35);
-          const breathing = audio.breath === 0 ? [0.009, 0.006, 0.004] : [0.004, 0.010, 0.007];
-          gain.gain.setTargetAtTime(breathing[index], now, slow ? 2.2 : 1.5);
-        });
-        filter.frequency.setTargetAtTime(400 + (1 - position.y) * 1100, now, 1.2);
-        if (panner) panner.pan.setTargetAtTime((position.x - .5) * .8, now, .6);
-      };
+      const roots = { town: 130.81, about: 146.83, bookshop: 130.81, newsstand: 146.83, oracle: 174.61, merch: 164.81, tripper: 196, rummage: 130.81, well: 196, post: 146.83 };
+      const scale = [0, 2, 3, 7, 9];
+      const phraseLength = 5.22; // two easy bars near 92 bpm; a new touch takes the lead immediately
 
-      const streetWhisper = () => {
+      const tone = (frequency, when, level, duration, pan = 0) => {
         if (!audio || audio.ctx.state !== 'running') return;
-        const { ctx, master } = audio;
-        const length = Math.floor(ctx.sampleRate * .13);
-        const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < length; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / length);
-        const source = ctx.createBufferSource();
+        const { ctx, master, delaySend } = audio;
+        const oscillator = ctx.createOscillator();
         const filter = ctx.createBiquadFilter();
         const gain = ctx.createGain();
-        source.buffer = buffer;
-        filter.type = 'bandpass';
-        filter.frequency.value = audio.place === 'rummage' ? 1100 : 2200;
-        filter.Q.value = .7;
-        gain.gain.setValueAtTime(.0001, ctx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(.014, ctx.currentTime + .016);
-        gain.gain.exponentialRampToValueAtTime(.0001, ctx.currentTime + .14);
-        source.connect(filter).connect(gain).connect(master);
-        source.start();
+        const position = ctx.createStereoPanner ? ctx.createStereoPanner() : null;
+        oscillator.type = 'sine';
+        oscillator.frequency.value = frequency;
+        filter.type = 'lowpass';
+        filter.frequency.value = Math.min(1800, frequency * 4.2);
+        gain.gain.setValueAtTime(.0001, when);
+        gain.gain.exponentialRampToValueAtTime(level, when + .035);
+        gain.gain.exponentialRampToValueAtTime(.0001, when + duration);
+        oscillator.connect(filter).connect(gain);
+        if (position) { position.pan.value = pan; gain.connect(position).connect(master); position.connect(delaySend); }
+        else { gain.connect(master); gain.connect(delaySend); }
+        oscillator.start(when);
+        oscillator.stop(when + duration + .03);
+        oscillator.onended = () => { oscillator.disconnect(); filter.disconnect(); gain.disconnect(); position?.disconnect(); };
       };
 
-      const scheduleAmbient = () => {
-        if (!audio) return;
-        audioTimer = window.setTimeout(() => {
-          if (!audio) return;
-          audio.breath = 1 - audio.breath;
-          updateHarmony(true);
-          const root = audio.place ? landmarkNotes[audio.place] : [261.63, 293.66, 329.63, 392][Math.min(3, Math.floor(audio.position.x * 4))];
-          if (Math.random() < .3 || audio.place === 'rummage' || audio.place === 'post') streetWhisper();
-          else chime(root * [1, 1.1225, 1.2599, 1.4983][Math.floor(Math.random() * 4)], .022);
-          scheduleAmbient();
-        }, 7000 + Math.random() * 9000);
+      const chord = (root, when, level) => {
+        tone(root, when, level, 2.5, -.18);
+        tone(root * 1.5, when + .08, level * .7, 2.3, .18);
+        tone(root * 2, when + .23, level * .35, 1.9, .1);
+      };
+
+      const playPhrase = (phrase, when, level) => {
+        phrase.notes.forEach(({ frequency, offset, pan }) => tone(frequency, when + offset, level, .78, pan));
+      };
+
+      const playGesture = (place = 'town', emphatic = false) => {
+        if (!audio || audio.ctx.state !== 'running') return;
+        const now = audio.ctx.currentTime;
+        if (!emphatic && now - audio.lastGesture < .65) return;
+        audio.lastGesture = now;
+        audio.place = place;
+        const root = roots[place] || roots.town;
+        const degree = Math.min(4, Math.floor(audio.position.x * 5));
+        const steps = [degree, (degree + 2) % 5, (degree + 1) % 5, (degree + 3) % 5];
+        const notes = steps.map((step, index) => ({
+          frequency: root * 2 * Math.pow(2, scale[step] / 12),
+          offset: [0, .21, .52, .88][index],
+          pan: (audio.position.x - .5) * .65 + (index - 1.5) * .07
+        }));
+        const phrase = { place, root, notes, repeats: 0 };
+        audio.phrases = [...audio.phrases.slice(-2), phrase];
+        playPhrase(phrase, now + .01, emphatic ? .105 : .075);
+        chord(root, now + .02, emphatic ? .026 : .018);
+      };
+
+      const musicTick = () => {
+        if (!audio || audio.ctx.state !== 'running') return;
+        while (audio.nextCycle <= audio.ctx.currentTime + .2) {
+          const latest = audio.phrases.at(-1);
+          if (latest) {
+            audio.phrases.forEach((phrase, index) => {
+              const newest = index === audio.phrases.length - 1;
+              const taper = Math.max(.25, Math.pow(.7, phrase.repeats));
+              playPhrase(phrase, audio.nextCycle, (newest ? .023 : .009) * taper);
+              phrase.repeats++;
+            });
+            chord(latest.root, audio.nextCycle, .009);
+            audio.phrases = audio.phrases.filter((phrase, index) => index === audio.phrases.length - 1 || phrase.repeats < 5);
+          }
+          audio.nextCycle += phraseLength;
+        }
       };
 
       const stopSound = () => {
-        window.clearTimeout(audioTimer);
+        window.clearInterval(audioTimer);
         audioTimer = null;
         const old = audio;
         audio = null;
@@ -398,45 +437,34 @@
       soundButton.addEventListener('click', async () => {
         if (audio) { stopSound(); return; }
         const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContextClass) {
-          soundLabel.textContent = 'Sound unavailable';
-          soundButton.disabled = true;
-          return;
-        }
+        if (!AudioContextClass) { soundLabel.textContent = 'Sound unavailable'; soundButton.disabled = true; return; }
         let ctx;
-        try { ctx = new AudioContextClass({ latencyHint: 'playback' }); }
+        try { ctx = new AudioContextClass({ latencyHint: 'interactive' }); }
         catch { ctx = new AudioContextClass(); }
         try {
           const master = ctx.createGain();
           const limiter = ctx.createDynamicsCompressor();
-          master.gain.value = .26;
-          limiter.threshold.value = -18;
-          limiter.ratio.value = 3;
+          const delay = ctx.createDelay();
+          const damping = ctx.createBiquadFilter();
+          const feedback = ctx.createGain();
+          const delaySend = ctx.createGain();
+          master.gain.value = .4;
+          limiter.threshold.value = -15;
+          limiter.ratio.value = 5;
           master.connect(limiter).connect(ctx.destination);
-          const filter = ctx.createBiquadFilter();
-          filter.type = 'lowpass';
-          filter.frequency.value = 850;
-          const panner = ctx.createStereoPanner ? ctx.createStereoPanner() : null;
-          if (panner) filter.connect(panner).connect(master);
-          else filter.connect(master);
-          const voices = [0, 1, 2].map((index) => {
-            const oscillator = ctx.createOscillator();
-            const gain = ctx.createGain();
-            oscillator.type = index === 1 ? 'triangle' : 'sine';
-            oscillator.frequency.value = 164.81 * [1, 1.2599, 1.4983][index];
-            gain.gain.value = .0001;
-            oscillator.connect(gain).connect(filter);
-            oscillator.start();
-            return { oscillator, gain };
-          });
+          delay.delayTime.value = .29;
+          damping.type = 'lowpass'; damping.frequency.value = 1100;
+          feedback.gain.value = .22;
+          delaySend.gain.value = .18;
+          delaySend.connect(delay).connect(damping).connect(feedback).connect(delay);
+          delay.connect(master);
           await ctx.resume();
-          audio = { ctx, master, voices, filter, panner, position: { x: .5, y: .5 }, place: selected ? placeKey(selected) : null, breath: 0 };
-          updateHarmony(true);
+          audio = { ctx, master, delaySend, phrases: [], position: { x: .5, y: .5 }, place: selected ? placeKey(selected) : 'town', lastGesture: -Infinity, nextCycle: ctx.currentTime + phraseLength };
           soundButton.setAttribute('aria-pressed', 'true');
           soundButton.setAttribute('aria-label', 'Turn town sound off');
           soundLabel.textContent = 'Sound on';
-          chime(523.25);
-          scheduleAmbient();
+          playGesture(audio.place, true);
+          audioTimer = window.setInterval(musicTick, 100);
         } catch {
           await ctx.close().catch(() => {});
           soundLabel.textContent = 'Sound unavailable';
@@ -450,7 +478,7 @@
         selected.querySelector('.stop-trigger').setAttribute('aria-expanded', 'false');
         selected.querySelector('.stop-bubble').hidden = true;
         selected = null;
-        if (audio) { audio.place = null; updateHarmony(true); }
+        if (audio) audio.place = 'town';
       };
 
       const walkTo = (stop) => {
@@ -491,14 +519,11 @@
         const trigger = stop.querySelector('.stop-trigger');
         trigger.addEventListener('pointerenter', () => {
           if (!audio) return;
-          audio.place = placeKey(stop);
-          updateHarmony(true);
-          chime(landmarkNotes[audio.place] * .5, .022);
+          playGesture(placeKey(stop), false);
         });
         trigger.addEventListener('pointerleave', () => {
           if (!audio) return;
-          audio.place = selected ? placeKey(selected) : null;
-          updateHarmony(true);
+          audio.place = selected ? placeKey(selected) : 'town';
         });
         if (stop === aboutStop) stop.querySelector('.stop-enter').addEventListener('click', openAbout);
         trigger.addEventListener('click', () => {
@@ -515,22 +540,21 @@
           trigger.setAttribute('aria-expanded', 'true');
           stop.querySelector('.stop-bubble').hidden = false;
           pointTo(stop);
-          if (audio) { audio.place = placeKey(stop); updateHarmony(true); }
-          chime(landmarkNotes[placeKey(stop)] || 440);
+          playGesture(placeKey(stop), true);
           walkTo(stop);
         });
+      });
+
+      scene.addEventListener('pointerdown', (event) => {
+        if (event.target.closest('.map-stop, .map-controls, .map-about-panel')) return;
+        playGesture('town', true);
       });
 
       scene.addEventListener('pointermove', (event) => {
         const bounds = event.currentTarget.getBoundingClientRect();
         const x = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width));
         const y = Math.max(0, Math.min(1, (event.clientY - bounds.top) / bounds.height));
-        if (audio) {
-          const changedBand = Math.floor(audio.position.x * 4) !== Math.floor(x * 4) || (audio.position.y < .5) !== (y < .5);
-          audio.position = { x, y };
-          if (changedBand) updateHarmony();
-          else if (audio.panner) audio.panner.pan.setTargetAtTime((x - .5) * .8, audio.ctx.currentTime, .6);
-        }
+        if (audio) audio.position = { x, y };
         if (reducedMotion.matches || parallaxFrame) return;
         parallaxFrame = requestAnimationFrame(() => {
           const dx = (x - .5) * 2;

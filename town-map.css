@@ -673,3 +673,131 @@ body.town-root { background: #229da8; }
   .stop-art::after, .map-compass-rose i { animation: none !important; transition: none; }
 }
 body.town-root { min-width: 0; }
+
+/* Registered scenery atlas: one land cutout, independent skies and moving objects. */
+.map-scene { background: #36b9c3 url("./town-assets/sky-day-v1.webp") center / cover no-repeat; }
+.map-scene[data-season="autumn"][data-sky="day"] { background-image: url("./town-assets/sky-autumn-v1.webp"); }
+.map-scene[data-sky="night"] { background: #122651 url("./town-assets/sky-night-v1.webp") center / cover no-repeat; }
+.map-stage, .map-stage::before { background: none; }
+.map-stage::before { display: none; }
+.celestial-layer, .terrain-master, .night-lights { position: absolute; inset: 0; pointer-events: none; }
+.celestial-layer { z-index: 0; }
+.celestial { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0); will-change: transform; }
+.celestial--sun { --depth: .2; animation: celestial-breathe 18s ease-in-out infinite alternate; }
+.celestial--moon { --depth: .28; animation: celestial-breathe 16s ease-in-out infinite alternate-reverse; }
+.celestial--planet { --depth: .4; }
+.celestial--stars { --depth: .5; animation: star-shimmer 8s ease-in-out infinite alternate; }
+.celestial--clouds { --depth: .68; animation: cloud-drift 23s ease-in-out infinite alternate; }
+.celestial--moon, .celestial--planet, .celestial--stars { display: none; }
+.map-scene[data-sky="night"] .celestial--sun { display: none; }
+.map-scene[data-sky="night"] .celestial--moon,
+.map-scene[data-sky="night"] .celestial--planet,
+.map-scene[data-sky="night"] .celestial--stars { display: block; }
+.map-scene[data-season="autumn"][data-sky="day"] .celestial--stars { display: block; opacity: .44; }
+.map-scene[data-sky="night"] .celestial--clouds { opacity: .75; }
+.terrain-master { z-index: 1; display: block; }
+.terrain-master img { display: block; width: 100%; height: 100%; object-fit: fill; transition: filter .7s ease; }
+.map-scene[data-sky="night"] .terrain-master img { filter: brightness(.56) saturate(.85) hue-rotate(10deg); }
+.map-scene[data-season="autumn"] .terrain-master img { filter: sepia(.18) saturate(1.08) hue-rotate(-12deg); }
+.map-scene[data-sky="night"][data-season="autumn"] .terrain-master img { filter: brightness(.54) sepia(.22) saturate(.92) hue-rotate(-8deg); }
+.season-layer { z-index: 2; }
+.season-piece--autumn { top: 0; left: 0; width: 100%; height: 100%; object-fit: fill; }
+.map-scene[data-sky="night"] .season-piece--autumn { filter: brightness(.55) saturate(.86); }
+.sky-layer--near { z-index: 1; }
+.sky-piece--cloud-left, .sky-piece--cloud-right { width: clamp(450px, 48vw, 1000px); }
+.map-scene[data-sky="night"] .sky-piece { filter: brightness(.7) saturate(.85); }
+
+.night-lights { z-index: 6; display: none; }
+.map-scene[data-sky="night"] .night-lights { display: block; }
+.night-lights i { position: absolute; top: var(--y); left: var(--x); display: block; width: 18px; height: 20px; border-radius: 50%; background: radial-gradient(circle, #fff8ba 0 7%, #ffe57b 13%, #ff8a37a6 30%, transparent 72%); filter: drop-shadow(0 0 8px #ffd271); transform: translate(-50%,-50%); animation: town-flame 2.3s ease-in-out infinite alternate; animation-delay: var(--delay); }
+.night-lights i::before { position: absolute; top: 6px; left: 8px; width: 4px; height: 9px; content: ""; border-radius: 60% 60% 50% 50%; background: #fff7bd; box-shadow: 0 0 8px 3px #ffd259; transform: rotate(10deg); }
+.night-lights i::after { position: absolute; top: 14px; left: 8px; width: 4px; height: 5px; content: ""; background: #852c54; border-radius: 1px; }
+.map-scene[data-sky="night"] .stop-art img { filter: brightness(.78) saturate(1.1) drop-shadow(0 0 5px #ffcd75); }
+
+.map-controls { position: absolute; z-index: 12; top: 2%; left: 2%; display: flex; align-items: flex-start; gap: .55rem; }
+.map-controls button { position: relative; top: auto; left: auto; padding: .42rem .7rem; border: 2px solid var(--town-ink); border-radius: 10px 7px 12px 8px; color: var(--town-ink); background: var(--town-paper); box-shadow: 3px 3px 0 var(--town-pink); cursor: pointer; font: 900 .65rem/1 ui-monospace, Consolas, monospace; text-transform: uppercase; white-space: nowrap; }
+.map-controls button:hover, .map-controls button:focus-visible { background: var(--town-yellow); outline: 2px solid var(--town-violet); outline-offset: 3px; }
+.map-controls .map-sound { transform: rotate(-3deg); }
+.map-controls .map-sky-button { transform: rotate(2deg); box-shadow: 3px 3px 0 var(--town-teal); }
+.map-controls .map-season-button { transform: rotate(-2deg); box-shadow: 3px 3px 0 var(--town-orange); }
+.map-scene[data-sky="night"] .map-sky-button { background: #cdbdf2; }
+.map-scene[data-season="autumn"] .map-season-button { background: #ffbc6f; }
+@keyframes town-flame { 0%, 100% { opacity: .55; scale: .8 1; } 35% { opacity: 1; scale: 1.1 1.2; } 62% { opacity: .78; scale: .9 .95; } }
+@keyframes cloud-drift { to { translate: 18px -5px; } }
+@keyframes star-shimmer { to { opacity: .68; } }
+@keyframes celestial-breathe { to { scale: 1.012; } }
+
+@media (max-width: 640px) {
+  .map-stage { background: none; }
+  .terrain-master img { object-fit: cover; }
+  .celestial { width: 100%; height: auto; object-fit: contain; }
+  .map-controls { flex-direction: column; gap: .3rem; top: 1.5%; }
+  .map-controls button { padding: .35rem .48rem; font-size: .55rem; }
+  .season-layer { display: block; }
+  .season-piece--autumn { object-fit: cover; opacity: .78; }
+  .map-stop--bookshop, .map-stop--newsstand { top: 25%; }
+  .map-stop--about { top: 39%; }
+  .map-stop--rummage, .map-stop--post { top: 49%; }
+  .map-stop--oracle, .map-stop--merch { top: 60%; }
+  .map-stop--tripper { top: 63%; }
+  .map-stop--well { top: 75%; }
+  .map-here { top: 55%; }
+  .night-lights i:nth-child(1) { --x:23%;--y:39%; }
+  .night-lights i:nth-child(2) { --x:76%;--y:39%; }
+  .night-lights i:nth-child(3) { --x:50%;--y:47%; }
+  .night-lights i:nth-child(4) { --x:19%;--y:57%; }
+  .night-lights i:nth-child(5) { --x:81%;--y:57%; }
+  .night-lights i:nth-child(6) { --x:23%;--y:73%; }
+  .night-lights i:nth-child(7) { --x:77%;--y:73%; }
+  .night-lights i:nth-child(8) { --x:50%;--y:82%; }
+  .night-lights i:nth-child(9) { --x:50%;--y:70%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .celestial, .night-lights i { animation: none !important; transition: none !important; }
+}
+
+
+
+
+/* Celestial objects belong to the scene, so the moon remains in the wide sky. */
+.celestial-layer { z-index: 1; overflow: hidden; }
+.celestial--stars { object-fit: cover; }
+.celestial--sun, .celestial--moon, .celestial--planet { inset: auto; height: auto; object-fit: contain; }
+.celestial--sun { top: -5%; left: calc(9% - 19vw); width: 45vw; }
+.celestial--moon { top: -1%; left: calc(8% - 40vw); width: 50vw; }
+.celestial--planet { top: 10%; left: 82%; width: 50vw; }
+.celestial--clouds { object-fit: cover; -webkit-mask-image: radial-gradient(ellipse 83% 80% at 50% 46%, #000 64%, transparent 100%); mask-image: radial-gradient(ellipse 83% 80% at 50% 46%, #000 64%, transparent 100%); }
+.sky-layer--near { display: none; }
+.map-scene[data-sky="night"] .map-stage::after {
+  position: absolute; z-index: 2; inset: 0; content: ""; pointer-events: none;
+  background: linear-gradient(160deg, #17205c42, #081e6170 74%, #0a24504d);
+  mix-blend-mode: multiply;
+}
+@media (max-width: 640px) {
+  .celestial-layer { z-index: 5; }
+  .celestial--sun { width: 390px; left: -170px; top: -32px; }
+  .celestial--moon { width: 350px; left: 25px; top: 30px; }
+  .celestial--planet { display: none !important; }
+  .celestial--clouds { display: none; }
+  .map-stop--bookshop, .map-stop--newsstand, .map-stop--oracle, .map-stop--merch { width: 36%; }
+  .map-stop--bookshop, .map-stop--oracle { left: 7%; }
+  .map-stop--newsstand, .map-stop--merch { right: 7%; }
+  .map-stop--rummage, .map-stop--post { width: 22%; }
+  .map-stop--well { width: 16%; left: 42%; }
+  .map-stop--tripper { width: 14%; left: 43%; }
+}
+
+
+.terrain-mobile-autumn { display: none; }
+@media (max-width: 640px) {
+  .map-scene[data-season="autumn"] .terrain-mobile-autumn { position: absolute; z-index: 1; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+  .map-scene[data-season="autumn"] .season-piece--autumn { display: none; }
+  .map-scene[data-sky="night"] .terrain-mobile-autumn { filter: brightness(.54) saturate(.85) hue-rotate(8deg); }
+}
+
+.terrain-mobile-autumn { display: none; }
+@media (max-width: 640px) {
+  .map-scene[data-season="autumn"] .terrain-mobile-autumn { position: absolute; z-index: 1; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+  .map-scene[data-season="autumn"] .season-piece--autumn { display: none; }
+  .map-scene[data-sky="night"] .terrain-mobile-autumn { filter: brightness(.54) saturate(.85) hue-rotate(8deg); }
+}
