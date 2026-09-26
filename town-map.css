@@ -697,9 +697,9 @@ body.town-root { min-width: 0; }
 .map-scene[data-sky="night"] .celestial--clouds { opacity: .75; }
 .terrain-master { z-index: 1; display: block; }
 .terrain-master img { display: block; width: 100%; height: 100%; object-fit: fill; transition: filter .7s ease; }
-.map-scene[data-sky="night"] .terrain-master img { filter: brightness(.56) saturate(.85) hue-rotate(10deg); }
+.map-scene[data-sky="night"] .terrain-master img { filter: brightness(.46) saturate(.82) hue-rotate(10deg); }
 .map-scene[data-season="autumn"] .terrain-master img { filter: sepia(.18) saturate(1.08) hue-rotate(-12deg); }
-.map-scene[data-sky="night"][data-season="autumn"] .terrain-master img { filter: brightness(.54) sepia(.22) saturate(.92) hue-rotate(-8deg); }
+.map-scene[data-sky="night"][data-season="autumn"] .terrain-master img { filter: brightness(.46) sepia(.22) saturate(.92) hue-rotate(-8deg); }
 .season-layer { z-index: 2; }
 .season-piece--autumn { top: 0; left: 0; width: 100%; height: 100%; object-fit: fill; }
 .map-scene[data-sky="night"] .season-piece--autumn { filter: brightness(.55) saturate(.86); }
@@ -768,11 +768,6 @@ body.town-root { min-width: 0; }
 .celestial--planet { top: 10%; left: 82%; width: 50vw; }
 .celestial--clouds { object-fit: cover; -webkit-mask-image: radial-gradient(ellipse 83% 80% at 50% 46%, #000 64%, transparent 100%); mask-image: radial-gradient(ellipse 83% 80% at 50% 46%, #000 64%, transparent 100%); }
 .sky-layer--near { display: none; }
-.map-scene[data-sky="night"] .map-stage::after {
-  position: absolute; z-index: 2; inset: 0; content: ""; pointer-events: none;
-  background: linear-gradient(160deg, #17205c42, #081e6170 74%, #0a24504d);
-  mix-blend-mode: multiply;
-}
 @media (max-width: 640px) {
   .celestial-layer { z-index: 5; }
   .celestial--sun { width: 390px; left: -170px; top: -32px; }
