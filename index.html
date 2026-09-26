@@ -155,7 +155,7 @@
       .ticker.front li, .ticker.advice li { padding-block: 0.4rem; font-size: 1rem; }
     }
 </style>
-  <link rel="stylesheet" href="town-map.css?v=style-matched-side-streets-0924">
+  <link rel="stylesheet" href="town-map.css?v=responsive-magic-0926">
 </head>
 <body class="town-root">
   <div class="town-map" role="main">
@@ -163,6 +163,7 @@
       <div class="map-stage">
         <h1 class="map-sr-only">Acid Goblin Town</h1>
         <p class="map-guide">Tap a place to peek · tap again to enter</p>
+        <button class="map-sound" type="button" aria-pressed="false" aria-label="Turn town sound on"><span aria-hidden="true">♫</span> <span class="map-sound-label">Sound off</span></button>
         <span class="map-here" aria-label="You are here-ish, at the crossroads"><span class="map-here-icon" aria-hidden="true">▲</span><span class="map-here-label">you are here-ish</span></span>
         <div class="footprint-trail" aria-hidden="true"></div>
           <div class="map-stop map-stop--about" data-about="true">
@@ -247,7 +248,7 @@
             <div class="stop-bubble" id="bubble-post" hidden><p>Make a postcard for anywhere-ish.</p><a class="stop-enter" href="./mushroom-post-office/">Make a card ↗</a></div>
           </div>
         <p class="map-margin-note">Roads approximate · curiosity encouraged</p>
-        <span class="map-compass" aria-label="North-ish">N <i>✦</i></span>
+        <div class="map-compass" role="status" aria-live="polite"><span class="map-compass-rose" aria-hidden="true"><b>N</b><i>✦</i></span><span class="map-heading">Pick a place</span></div>
       </div>
     </section>
   </div>
@@ -268,10 +269,116 @@
       const stops = [...document.querySelectorAll('.map-stop')];
       const trail = document.querySelector('.footprint-trail');
       const marker = document.querySelector('.map-here');
+      const compass = document.querySelector('.map-compass');
+      const heading = document.querySelector('.map-heading');
+      const soundButton = document.querySelector('.map-sound');
+      const soundLabel = document.querySelector('.map-sound-label');
       const about = document.querySelector('.map-about-panel');
       const aboutStop = document.querySelector('.map-stop--about');
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       let selected = null;
+      let audio = null;
+      let audioTimer = null;
+      const landmarkNotes = { about: 659.25, bookshop: 329.63, newsstand: 392, oracle: 523.25, merch: 587.33, tripper: 783.99, rummage: 261.63, well: 440, post: 349.23 };
+      const directions = ['north', 'northeast', 'east', 'southeast', 'south', 'southwest', 'west', 'northwest'];
+
+      const pointTo = (stop) => {
+        const here = marker.getBoundingClientRect();
+        const art = stop.querySelector('.stop-art').getBoundingClientRect();
+        const dx = art.left + art.width / 2 - (here.left + here.width / 2);
+        const dy = art.top + art.height * .7 - (here.top + here.height / 2);
+        const angle = Math.atan2(dx, -dy) * 180 / Math.PI;
+        const direction = directions[(Math.round(angle / 45) + 8) % 8];
+        const name = stop.querySelector('.stop-callout strong').textContent.trim();
+        compass.style.setProperty('--heading-angle', `${angle}deg`);
+        heading.textContent = `Heading ${direction}-ish · ${name}`;
+      };
+
+      const chime = (frequency, level = .13) => {
+        if (!audio || audio.ctx.state !== 'running') return;
+        const { ctx, master } = audio;
+        const now = ctx.currentTime;
+        [1, 2.01].forEach((partial, index) => {
+          const voice = ctx.createOscillator();
+          const gain = ctx.createGain();
+          voice.type = index ? 'triangle' : 'sine';
+          voice.frequency.value = frequency * partial;
+          gain.gain.setValueAtTime(.0001, now);
+          gain.gain.exponentialRampToValueAtTime(level * (index ? .19 : 1), now + .018);
+          gain.gain.exponentialRampToValueAtTime(.0001, now + (index ? .55 : 1.25));
+          voice.connect(gain).connect(master);
+          voice.start(now);
+          voice.stop(now + 1.3);
+        });
+      };
+
+      const scheduleAmbient = () => {
+        if (!audio) return;
+        audioTimer = window.setTimeout(() => {
+          const notes = [220, 261.63, 293.66, 329.63, 392, 440];
+          chime(notes[Math.floor(Math.random() * notes.length)], .035);
+          scheduleAmbient();
+        }, 7000 + Math.random() * 6500);
+      };
+
+      const stopSound = () => {
+        window.clearTimeout(audioTimer);
+        audioTimer = null;
+        const old = audio;
+        audio = null;
+        if (old) {
+          old.master.gain.setTargetAtTime(0, old.ctx.currentTime, .08);
+          window.setTimeout(() => old.ctx.close().catch(() => {}), 350);
+        }
+        soundButton.setAttribute('aria-pressed', 'false');
+        soundButton.setAttribute('aria-label', 'Turn town sound on');
+        soundLabel.textContent = 'Sound off';
+      };
+
+      soundButton.addEventListener('click', async () => {
+        if (audio) { stopSound(); return; }
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) {
+          soundLabel.textContent = 'Sound unavailable';
+          soundButton.disabled = true;
+          return;
+        }
+        let ctx;
+        try { ctx = new AudioContextClass({ latencyHint: 'playback' }); }
+        catch { ctx = new AudioContextClass(); }
+        try {
+          const master = ctx.createGain();
+          const limiter = ctx.createDynamicsCompressor();
+          master.gain.value = .32;
+          limiter.threshold.value = -18;
+          limiter.ratio.value = 3;
+          master.connect(limiter).connect(ctx.destination);
+          const droneFilter = ctx.createBiquadFilter();
+          droneFilter.type = 'lowpass';
+          droneFilter.frequency.value = 420;
+          droneFilter.connect(master);
+          [110, 164.81].forEach((frequency, index) => {
+            const voice = ctx.createOscillator();
+            const gain = ctx.createGain();
+            voice.type = 'sine';
+            voice.frequency.value = frequency;
+            gain.gain.value = index ? .018 : .025;
+            voice.connect(gain).connect(droneFilter);
+            voice.start();
+          });
+          await ctx.resume();
+          audio = { ctx, master };
+          soundButton.setAttribute('aria-pressed', 'true');
+          soundButton.setAttribute('aria-label', 'Turn town sound off');
+          soundLabel.textContent = 'Sound on';
+          chime(523.25);
+          scheduleAmbient();
+        } catch {
+          await ctx.close().catch(() => {});
+          soundLabel.textContent = 'Sound unavailable';
+        }
+      });
+      window.addEventListener('pagehide', stopSound);
 
       const closeStop = () => {
         if (!selected) return;
@@ -331,6 +438,8 @@
           stop.classList.add('is-selected');
           trigger.setAttribute('aria-expanded', 'true');
           stop.querySelector('.stop-bubble').hidden = false;
+          pointTo(stop);
+          chime(landmarkNotes[[...stop.classList].find((name) => name.startsWith('map-stop--'))?.replace('map-stop--', '')] || 440);
           walkTo(stop);
         });
       });
