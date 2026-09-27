@@ -514,8 +514,8 @@ body.town-root { background: #229da8; }
     linear-gradient(130deg, #227f9d, #249fa8 45%, #207a9b);
 }
 .map-stage {
-  width: min(100vw, 150svh);
-  height: min(100svh, 66.6667vw);
+  width: min(100vw, 138svh);
+  height: min(92svh, 66.6667vw);
   min-height: 0;
   aspect-ratio: 3 / 2;
   background-size: cover;
@@ -625,7 +625,7 @@ body.town-root { background: #229da8; }
   .map-stop--merch { right: 23%; top: 45%; width: 15%; }
   .map-stop--about { left: 57%; top: 24%; width: 8%; }
   .map-stop--tripper { left: 43%; top: 48%; width: 8%; }
-  .map-stop--rummage { left: 8%; top: 39%; width: 10%; }
+  .map-stop--rummage { left: 12%; top: 39%; width: 10%; }
   .map-stop--post { right: 8%; top: 39%; width: 10%; }
   .map-stop--well { left: 53%; top: 52%; width: 8%; }
   .stop-callout strong { font-size: clamp(.72rem, .83vw, .93rem); }
@@ -661,8 +661,8 @@ body.town-root { background: #229da8; }
 }
 
 @media (max-width: 640px) {
-  .map-scene { display: block; min-height: max(780px, 100svh); overflow: visible; }
-  .map-stage { width: 100%; height: auto; min-height: max(780px, 100svh); aspect-ratio: auto; background-size: cover; box-shadow: none; }
+  .map-scene { display: block; height: 100dvh; min-height: 0; overflow: hidden; }
+  .map-stage { width: 100%; height: 100%; min-height: 0; aspect-ratio: auto; background-size: cover; box-shadow: none; }
   .sky-layer { display: none; }
   .season-layer { display: none; }
   .map-compass { right: 50%; bottom: 5.5%; min-width: 0; max-width: 13rem; transform: translateX(50%) rotate(2deg); }
@@ -817,4 +817,138 @@ body.town-root { min-width: 0; }
 .map-scene[data-sky="night"] .celestial--stars { filter: brightness(.82); }
 @media (max-width: 640px) {
   .map-scene[data-sky="night"] .terrain-mobile-autumn { filter: brightness(.48) saturate(.83) hue-rotate(8deg); }
+}
+
+
+/* The town scene is one viewport, including short phone viewports. */
+body.town-root, .town-map, .map-scene { height: 100svh; min-height: 0; overflow: hidden; }
+@supports (height: 100dvh) {
+  body.town-root, .town-map, .map-scene { height: 100dvh; }
+}
+.map-stop--rummage .side-art img { transform: scaleX(-1); }
+
+/* Celestial artwork is framed within its transparent source canvas and kept in the sky. */
+.celestial--sun, .celestial--moon {
+  inset: auto;
+  display: block;
+  width: clamp(90px, 8.5vw, 142px);
+  height: clamp(90px, 8.5vw, 142px);
+  overflow: hidden;
+  border-radius: 50%;
+  opacity: .58;
+  filter: saturate(.72);
+}
+.celestial--sun { top: 5%; left: 8%; }
+.celestial--moon { display: none; top: 5%; left: auto; right: 8%; }
+.map-scene[data-sky="night"] .celestial--moon { display: block; }
+.celestial--planet { opacity: .58; filter: saturate(.75); }
+.celestial--sun img, .celestial--moon img { position: absolute; display: block; height: auto; max-width: none; }
+.celestial--sun img { width: 440%; left: -15%; top: -10%; }
+.celestial--moon img { width: 430%; left: -309%; top: -10%; }
+.map-scene[data-sky="night"] .celestial--moon { filter: saturate(.65) brightness(.85); }
+
+/* Each star owns its own pulse; the old full-sky star sheet is no longer moved as one piece. */
+.starfield { position: absolute; inset: 0; display: none; pointer-events: none; }
+.map-scene[data-sky="night"] .starfield,
+.map-scene[data-season="autumn"][data-sky="day"] .starfield { display: block; }
+.map-scene[data-season="autumn"][data-sky="day"] .starfield { opacity: .42; }
+.starfield .star {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  color: var(--color);
+  background: currentColor;
+  box-shadow: 0 0 5px currentColor;
+  animation: star-twinkle var(--duration) ease-in-out var(--delay) infinite alternate;
+}
+.starfield .star:nth-child(7n)::before,
+.starfield .star:nth-child(7n)::after {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 1px; height: 13px;
+  content: "";
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+.starfield .star:nth-child(7n)::after { transform: translate(-50%, -50%) rotate(90deg); }
+@keyframes star-twinkle {
+  0%, 100% { opacity: .12; scale: .7; }
+  44% { opacity: var(--peak); scale: 1.18; }
+  72% { opacity: .25; scale: .88; }
+}
+
+@media (max-width: 640px) {
+  .map-stage { height: 100%; min-height: 0; }
+  .celestial-layer { z-index: 5; }
+  .starfield { -webkit-mask-image: linear-gradient(#000 0 20%, transparent 39%); mask-image: linear-gradient(#000 0 20%, transparent 39%); }
+  .celestial--sun, .celestial--moon { width: 78px; height: 78px; top: 6%; left: auto; right: 14%; opacity: .38; }
+  .celestial--moon { right: 9%; }
+  .map-stop--well .side-art img { transform: scaleX(-1); }
+  .map-guide { max-width: 125px; }
+}
+@media (max-width: 640px) and (max-height: 730px) {
+  .map-controls { top: 1%; }
+  .map-guide { top: 1%; }
+  .map-compass { bottom: 3%; }
+  .map-margin-note { bottom: 1%; }
+  .map-stop--bookshop, .map-stop--newsstand { top: 23%; }
+  .map-stop--about { top: 37%; }
+  .map-stop--rummage, .map-stop--post { top: 44%; }
+  .map-stop--oracle, .map-stop--merch { top: 58%; }
+  .map-stop--tripper { top: 61%; }
+  .map-stop--well { top: 73%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .starfield .star { animation: none; opacity: .38; scale: 1; }
+}
+
+/* The loading portal covers the town until its first view has decoded. */
+.town-portal {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: #fff6d2;
+  background:
+    radial-gradient(circle at 50% 48%, #5be5d5 0, #6554a1 19%, #2a184f 40%, #100b27 74%);
+  text-align: center;
+  transition: opacity .75s ease, visibility .75s ease;
+}
+.town-portal::before {
+  position: absolute; inset: 0; content: "";
+  background: repeating-radial-gradient(circle at center, transparent 0 42px, #f8df8b17 43px 45px, transparent 47px 89px);
+  animation: portal-drift 7s linear infinite;
+}
+.town-portal-ring {
+  position: absolute;
+  width: min(70vmin, 550px);
+  aspect-ratio: 1;
+  border: clamp(9px, 2vmin, 18px) solid #fde689;
+  border-radius: 50%;
+  box-shadow: 0 0 0 15px #f551ad7a, 0 0 0 33px #74f0dc55, 0 0 70px 32px #f551ad99, inset 0 0 45px 8px #fef4b5a8;
+  animation: portal-arrive 1.8s cubic-bezier(.15,.85,.3,1) both, portal-breathe 3s ease-in-out 1.8s infinite alternate;
+}
+.town-portal-ring i { position: absolute; inset: 9%; border: 2px dashed #fdf1beaa; border-radius: 50%; animation: portal-spin 12s linear infinite; }
+.town-portal-ring i:nth-child(2) { inset: 19%; border-color: #ff82c3bb; animation-direction: reverse; animation-duration: 17s; }
+.town-portal-ring i:nth-child(3) { inset: 31%; border-color: #90fff0aa; animation-duration: 9s; }
+.town-portal-copy { position: relative; z-index: 1; width: min(90vw, 580px); padding: 1rem; text-shadow: 0 3px 18px #11072c; }
+.town-portal-kicker, .town-portal-note { display: block; font: 900 clamp(.65rem, 1.2vw, .85rem)/1.2 ui-monospace, Consolas, monospace; letter-spacing: .2em; text-transform: uppercase; }
+.town-portal-kicker { margin-bottom: 1rem; color: #9bf7e2; }
+.town-portal-copy strong { display: block; font: 900 clamp(1.7rem, 5.8vw, 4.3rem)/.94 "Arial Black", Impact, sans-serif; letter-spacing: -.055em; text-transform: uppercase; }
+.town-portal-copy em { color: #ffe888; font-style: normal; -webkit-text-stroke: 1px #4e245e; }
+.town-portal-note { margin-top: 1.35rem; color: #ffd4ec; }
+.town-ready .town-portal { opacity: 0; visibility: hidden; pointer-events: none; }
+.town-ready .town-portal-ring { animation: none; scale: 5; opacity: 0; transition: scale .9s cubic-bezier(.15,.8,.25,1), opacity .8s ease; }
+.town-ready .town-portal-copy { opacity: 0; scale: 1.2; transition: opacity .45s ease, scale .7s ease; }
+@keyframes portal-arrive { from { opacity: .5; scale: .75; rotate: -15deg; } to { opacity: 1; scale: 1; rotate: 0; } }
+@keyframes portal-breathe { to { scale: 1.07; filter: hue-rotate(18deg); } }
+@keyframes portal-spin { to { rotate: 360deg; } }
+@keyframes portal-drift { to { scale: 1.2; opacity: .5; } }
+@media (prefers-reduced-motion: reduce) {
+  .town-portal, .town-portal::before, .town-portal-ring, .town-portal-ring i { animation: none; transition-duration: .15s; }
 }
