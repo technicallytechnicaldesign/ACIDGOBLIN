@@ -156,7 +156,7 @@
     }
 </style>
   <noscript><style>.town-portal{display:none}</style></noscript>
-  <link rel="stylesheet" href="town-map.css?v=town-portal-fit-20260927">
+  <link rel="stylesheet" href="town-map.css?v=town-wandering-stars-20260927">
 </head>
 <body class="town-root">
   <div class="town-portal" role="status" aria-live="polite" aria-label="Entering Acid Goblin Township">
@@ -339,7 +339,7 @@
       let starSeed = 72931;
       const starRandom = () => ((starSeed = (starSeed * 1664525 + 1013904223) >>> 0) / 4294967296);
       const starColors = ['#fff5c7', '#b6f1e6', '#ffd3ea', '#e6dcff'];
-      for (let i = 0; i < 62; i++) {
+      for (let i = 0; i < 145; i++) {
         const star = document.createElement('i');
         star.className = 'star';
         star.style.setProperty('--x', `${(3 + starRandom() * 94).toFixed(2)}%`);
@@ -350,6 +350,15 @@
         star.style.setProperty('--delay', `${(-starRandom() * 9).toFixed(2)}s`);
         star.style.setProperty('--peak', `${(.37 + starRandom() * .4).toFixed(2)}`);
         starfield.append(star);
+      }
+      for (const [x, y, delay, duration] of [[8, 12, -4, 19], [48, 7, -13, 27], [72, 20, -9, 23]]) {
+        const meteor = document.createElement('i');
+        meteor.className = 'shooting-star';
+        meteor.style.setProperty('--x', `${x}%`);
+        meteor.style.setProperty('--y', `${y}%`);
+        meteor.style.setProperty('--delay', `${delay}s`);
+        meteor.style.setProperty('--duration', `${duration}s`);
+        starfield.append(meteor);
       }
       let selected = null;
       let audio = null;

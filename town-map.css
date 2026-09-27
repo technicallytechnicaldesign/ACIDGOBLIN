@@ -952,3 +952,89 @@ body.town-root, .town-map, .map-scene { height: 100svh; min-height: 0; overflow:
 @media (prefers-reduced-motion: reduce) {
   .town-portal, .town-portal::before, .town-portal-ring, .town-portal-ring i { animation: none; transition-duration: .15s; }
 }
+
+
+/* Phone clearings: smaller stands, their lower labels, and an inland Well. */
+@media (max-width: 640px) {
+  .map-stop--bookshop, .map-stop--newsstand, .map-stop--oracle, .map-stop--merch { width: 29%; }
+  .map-stop--bookshop, .map-stop--oracle { left: 8%; }
+  .map-stop--newsstand, .map-stop--merch { right: 8%; }
+  .map-stop--oracle .stop-callout,
+  .map-stop--merch .stop-callout { top: calc(100% - 3px); max-width: 135%; }
+  .map-stop--well { left: 43%; top: 63%; width: 14%; }
+  .map-stop--tripper { left: 44%; top: 50%; width: 12%; }
+}
+@media (max-width: 380px) {
+  .map-stop--bookshop, .map-stop--newsstand, .map-stop--oracle, .map-stop--merch { width: 30%; }
+  .map-stop--oracle .stop-callout,
+  .map-stop--merch .stop-callout { font-size: .52rem; }
+}
+
+/* The crossroads text stays readable when Trippa wanders past. */
+.map-here { z-index: 5; pointer-events: none; }
+
+/* Trippa's whole stop travels slowly; selection pauses the route for easy tapping. */
+.map-stop--tripper { animation: trippa-wander 42s ease-in-out infinite; }
+.map-stop--tripper:hover,
+.map-stop--tripper:focus-within,
+.map-stop--tripper.is-selected { animation-play-state: paused; }
+@keyframes trippa-wander {
+  0%, 100% { left: 43%; top: 48%; rotate: -5deg; }
+  17% { left: 39%; top: 46%; rotate: 7deg; }
+  34% { left: 46%; top: 44%; rotate: -8deg; }
+  51% { left: 48%; top: 49%; rotate: 6deg; }
+  68% { left: 43%; top: 53%; rotate: -10deg; }
+  84% { left: 40%; top: 50%; rotate: 8deg; }
+}
+@media (max-width: 640px) {
+  .map-stop--tripper { animation-name: trippa-wander-phone; }
+  @keyframes trippa-wander-phone {
+    0%, 100% { left: 44%; top: 50%; rotate: -5deg; }
+    17% { left: 32%; top: 52%; rotate: 9deg; }
+    34% { left: 40%; top: 48%; rotate: -8deg; }
+    51% { left: 55%; top: 49%; rotate: 7deg; }
+    68% { left: 59%; top: 54%; rotate: -10deg; }
+    84% { left: 40%; top: 55%; rotate: 6deg; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-stop--tripper { animation: none; }
+}
+
+/* Denser independent stars, with brief, widely spaced passes across the upper sky. */
+.starfield .shooting-star {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: clamp(52px, 6vw, 112px);
+  height: 2px;
+  border-radius: 50%;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, #fff4c5a8 55%, #fffdf1);
+  box-shadow: 0 0 8px #ccefff;
+  rotate: -23deg;
+  animation: shooting-star var(--duration) linear var(--delay) infinite;
+}
+.starfield .shooting-star::after {
+  position: absolute;
+  top: -2px; right: 0;
+  width: 5px; height: 5px;
+  content: "";
+  border-radius: 50%;
+  background: #fffdf1;
+  box-shadow: 0 0 9px #fff5c2;
+}
+@keyframes shooting-star {
+  0%, 69% { opacity: 0; translate: 0 0; }
+  70% { opacity: 0; translate: 0 0; }
+  71% { opacity: .82; }
+  76% { opacity: 0; translate: 24vw 10vh; }
+  100% { opacity: 0; translate: 24vw 10vh; }
+}
+.map-scene[data-season="autumn"][data-sky="day"] .shooting-star { display: none; }
+@media (max-width: 640px) {
+  .starfield .shooting-star { width: 54px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .starfield .shooting-star { display: none; animation: none; }
+}
