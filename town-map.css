@@ -401,8 +401,9 @@ body.town-root { background: #229da8; }
 .map-here-icon { color: var(--town-yellow); font: 900 1.35rem/1 ui-monospace,Consolas,monospace; -webkit-text-stroke: 2px var(--town-ink); filter: drop-shadow(2px 2px 0 var(--town-pink)); }
 .map-here-label { padding: .2rem .3rem; border: 2px solid var(--town-ink); background: var(--town-paper); box-shadow: 2px 2px 0 var(--town-pink); font: 900 .48rem/1 ui-monospace,Consolas,monospace; text-transform: uppercase; white-space: nowrap; }
 .footprint-trail { position: absolute; z-index: 6; inset: 0; overflow: hidden; pointer-events: none; }
-.goblin-print { position: absolute; width: 8px; height: 13px; border: 1px solid #fff4d6; border-radius: 45% 55% 60% 50%; background: var(--town-yellow); box-shadow: 0 0 0 2px var(--town-pink); opacity: 0; transform: rotate(var(--turn)) scale(.2); animation: footstep 2.2s ease-out both; }
-.goblin-print::before { position: absolute; top: -5px; left: -3px; width: 4px; height: 4px; content: ''; border-radius: 50%; background: var(--town-ink); box-shadow: 5px -2px 0 var(--town-ink),9px 1px 0 var(--town-ink); }
+.goblin-print { position: absolute; width: 16px; height: 23px; opacity: 0; transform: rotate(var(--turn)) scale(.2); filter: drop-shadow(1px 2px 0 #44224d) drop-shadow(0 0 3px #fff2a1); animation: footstep 2.2s ease-out both; }
+.goblin-print svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.goblin-print:nth-child(even) svg { scale: -1 1; }
 @keyframes footstep { 0% { opacity: 0; transform: rotate(var(--turn)) scale(.2); } 12%,72% { opacity: .85; transform: rotate(var(--turn)) scale(1); } 100% { opacity: 0; transform: rotate(var(--turn)) scale(1); } }
 .map-about-panel { width: min(92vw,590px); max-height: min(86svh,650px); padding: 0; overflow: auto; color: var(--town-ink); border: 4px solid var(--town-ink); border-radius: 14px 10px 17px 9px; background: var(--town-paper); box-shadow: 10px 11px 0 var(--town-pink); }
 .map-about-panel::backdrop { background: rgb(20 17 27 / .7); backdrop-filter: blur(3px); }
@@ -741,7 +742,7 @@ body.town-root { min-width: 0; }
   .map-stop--oracle, .map-stop--merch { top: 60%; }
   .map-stop--tripper { top: 63%; }
   .map-stop--well { top: 75%; }
-  .map-here { top: 55%; }
+  .map-here { top: 48%; left: 50%; }
   .night-lights i:nth-child(1) { --x:23%;--y:39%; }
   .night-lights i:nth-child(2) { --x:76%;--y:39%; }
   .night-lights i:nth-child(3) { --x:50%;--y:47%; }
@@ -769,7 +770,7 @@ body.town-root { min-width: 0; }
 .celestial--clouds { object-fit: cover; -webkit-mask-image: radial-gradient(ellipse 83% 80% at 50% 46%, #000 64%, transparent 100%); mask-image: radial-gradient(ellipse 83% 80% at 50% 46%, #000 64%, transparent 100%); }
 .sky-layer--near { display: none; }
 @media (max-width: 640px) {
-  .celestial-layer { z-index: 5; }
+  .celestial-layer { z-index: 0; }
   .celestial--sun { width: 390px; left: -170px; top: -32px; }
   .celestial--moon { width: 350px; left: 25px; top: 30px; }
   .celestial--planet { display: none !important; }
@@ -882,7 +883,7 @@ body.town-root, .town-map, .map-scene { height: 100svh; min-height: 0; overflow:
 
 @media (max-width: 640px) {
   .map-stage { height: 100%; min-height: 0; }
-  .celestial-layer { z-index: 5; }
+  .celestial-layer { z-index: 0; }
   .starfield { -webkit-mask-image: linear-gradient(#000 0 20%, transparent 39%); mask-image: linear-gradient(#000 0 20%, transparent 39%); }
   .celestial--sun, .celestial--moon { width: 78px; height: 78px; top: 6%; left: auto; right: 14%; opacity: .38; }
   .celestial--moon { right: 9%; }
@@ -962,7 +963,7 @@ body.town-root, .town-map, .map-scene { height: 100svh; min-height: 0; overflow:
   .map-stop--oracle .stop-callout,
   .map-stop--merch .stop-callout { top: calc(100% - 3px); max-width: 135%; }
   .map-stop--well { left: 43%; top: 63%; width: 14%; }
-  .map-stop--tripper { left: 44%; top: 50%; width: 12%; }
+  .map-stop--tripper { left: 44%; top: 54%; width: 10%; }
 }
 @media (max-width: 380px) {
   .map-stop--bookshop, .map-stop--newsstand, .map-stop--oracle, .map-stop--merch { width: 30%; }
@@ -989,12 +990,12 @@ body.town-root, .town-map, .map-scene { height: 100svh; min-height: 0; overflow:
 @media (max-width: 640px) {
   .map-stop--tripper { animation-name: trippa-wander-phone; }
   @keyframes trippa-wander-phone {
-    0%, 100% { left: 44%; top: 50%; rotate: -5deg; }
-    17% { left: 32%; top: 52%; rotate: 9deg; }
-    34% { left: 40%; top: 48%; rotate: -8deg; }
-    51% { left: 55%; top: 49%; rotate: 7deg; }
-    68% { left: 59%; top: 54%; rotate: -10deg; }
-    84% { left: 40%; top: 55%; rotate: 6deg; }
+    0%, 100% { left: 44%; top: 54%; rotate: -5deg; }
+    17% { left: 32%; top: 55%; rotate: 9deg; }
+    34% { left: 40%; top: 54%; rotate: -8deg; }
+    51% { left: 55%; top: 54%; rotate: 7deg; }
+    68% { left: 59%; top: 55%; rotate: -10deg; }
+    84% { left: 40%; top: 54%; rotate: 6deg; }
   }
 }
 @media (prefers-reduced-motion: reduce) {
