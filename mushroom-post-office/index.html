@@ -15,7 +15,7 @@
     <a class="street-home" href="../">← Back to Town</a>
     <p class="street-kicker">Side street 08 / messages to anywhere-ish</p>
     <h1>Mushroom <em>Post Office</em></h1>
-    <p class="street-dek">A little piece of here, for someone somewhere else. Make the view. Write the other side. Send some magic.</p>
+    <p class="street-dek">A little piece of here, for someone somewhere else. Build a tiny scene. Cause a small incident. Send someone the evidence.</p>
   </div><span class="tag">Two sides to every little story</span></header>
   <main class="post-layout">
     <section class="post-controls" aria-label="Card controls">
@@ -28,26 +28,47 @@
       </div>
       <div class="panel">
         <span class="eyebrow">02 / a view worth keeping</span><h2>Greetings from…</h2>
-        <label for="scene">Town scenes & landmarks</label>
-        <select id="scene">
-          <optgroup label="Somewhere dreamy">
-            <option value="0">Moonlit mushrooms</option><option value="1">Cloud courier</option><option value="2">Mossy window</option>
-          </optgroup>
-          <optgroup label="Around town">
-            <option value="3">Mushroom Post Office</option><option value="4">The Bookshop</option><option value="5">The Newsstand</option><option value="6">The Oracle</option><option value="7">The Gossip Well</option><option value="8">The Rummage Yard</option><option value="9">The Merch Stall</option>
-          </optgroup>
-        </select>
-        <label for="occasion">A moment in town</label>
-        <select id="occasion"><option value="everyday">An ordinary magical day</option><option value="market">Market day</option><option value="moon">Moon festival</option><option value="wish">A wish for you</option></select>
+        <label for="scene">Keep a backdrop</label>
+        <select id="scene"><option value="0">Moonlit mushrooms</option><option value="1">Cloud courier</option><option value="2">Mossy window</option></select>
         <label for="headline">Words on the front</label>
         <input id="headline" maxlength="64" value="Wish you were here!" placeholder="Or let the picture do the talking">
-        <p class="post-help">Choose a place, add a little occasion, make it yours.</p>
+        <label for="front-font">Front lettering</label><select id="front-font"><option value="story">Storybook serif</option><option value="book">Old book</option><option value="bold">Big goblin letters</option><option value="type">Town typewriter</option><option value="hand">Pocket handwriting</option></select>
+        <div class="post-actions"><button class="small-action" id="select-words" type="button">Move the words</button><button class="small-action" id="chaos" type="button">Goblin arranged it ↻</button></div>
+        <p class="post-help">Your backdrop. Your tiny unreasonable world. Add things below, then drag them around the picture.</p>
+      </div>
+      <div class="panel scene-workbench">
+        <span class="eyebrow">Scene supplies / help yourself</span><h2>Empty your pockets</h2>
+        <div class="supply-tabs" role="group" aria-label="Scene supplies"><button type="button" data-supply="town" aria-pressed="true">Town</button><button type="button" data-supply="goblins" aria-pressed="false">Goblins</button><button type="button" data-supply="rummage" aria-pressed="false">Rummage</button><button type="button" data-supply="magic" aria-pressed="false">Little magic</button><button type="button" data-supply="autumn" aria-pressed="false">Autumn gathering</button></div>
+        <div id="supplies" class="supplies" aria-label="Add an illustrated object"></div>
+        <p class="post-help">Tap an object to bring it in. Multiples encouraged. The boot has no qualifications.</p>
+        <div class="object-tools" id="object-tools">
+          <p id="selected-name" role="status">Pick something on your card.</p>
+          <fieldset id="transform-tools" disabled><legend>Arrange the selected thing</legend>
+            <div class="address-fields"><div><label for="object-x">Across</label><input id="object-x" type="range" min="30" max="1170" value="600"></div><div><label for="object-y">Down</label><input id="object-y" type="range" min="30" max="770" value="400"></div></div>
+            <label for="object-size">Size</label><input id="object-size" type="range" min="40" max="1000" value="250">
+            <label for="object-angle">A little wonky</label><input id="object-angle" type="range" min="-180" max="180" value="0">
+            <div class="post-actions"><button class="small-action" id="object-flip" type="button">Flip ↔</button><button class="small-action" id="object-back" type="button">Further back</button><button class="small-action" id="object-forward" type="button">Up front</button><button class="small-action" id="object-copy" type="button">Another one +</button><button class="small-action" id="object-remove" type="button">Lift it off ×</button></div>
+          </fieldset>
+          <label for="word-color">Lettering ink</label><select id="word-color"><option value="#fff3bd">Moon cream</option><option value="#f4479a">Goblin pink</option><option value="#c6db49">Moss lime</option><option value="#211820">Inky plum</option></select>
+        </div>
+        <div class="post-actions"><button class="small-action" id="scene-undo" type="button">Undo</button><button class="small-action" id="scene-redo" type="button">Redo</button><button class="small-action" id="scene-clear" type="button">Clear objects</button></div>
+        <p class="post-help">Arrow keys nudge the selected thing; Shift moves further. Your draft stays on this browser.</p>
       </div>
       <div class="panel">
         <span class="eyebrow">03 / on the other side</span><h2>One little note</h2>
         <div class="address-fields"><div><label for="recipient">To</label><input id="recipient" maxlength="40" placeholder="Someone lovely"></div><div><label for="sender">From</label><input id="sender" maxlength="40" placeholder="Your name, or a mystery"></div></div>
+        <label for="back-font">Note & inside lettering</label><select id="back-font"><option value="story">Storybook serif</option><option value="book">Old book</option><option value="bold">Big goblin letters</option><option value="type">Town typewriter</option><option value="hand">Pocket handwriting</option></select>
+        <label for="note-kind">A note from…</label><select id="note-kind"><option value="goblin">A friend in town</option><option value="fortune">The fortune teller</option><option value="invention">The invention bench</option><option value="memory">A day worth keeping</option></select>
         <label for="message">Message</label><textarea id="message" maxlength="240" rows="5" placeholder="Dear whoever finds this…"></textarea>
         <div class="message-row"><button id="suggest" type="button">Shuffle goblin note ↻</button><span id="counter">0 / 240</span></div>
+      </div>
+      <div class="panel" id="keepsake-controls" hidden>
+        <span class="eyebrow">Inside left / a pocket-sized souvenir</span><h2>Bring a bit of town home</h2>
+        <label for="keepsake-kind">What goes inside?</label><select id="keepsake-kind"><option value="plain">A little town note</option><option value="fortune">An Oracle card</option><option value="invention">A Rummage invention</option><option value="memory">A town memento</option></select>
+        <div id="keepsake-choice-wrap" hidden><label for="keepsake-choice" id="keepsake-choice-label">Your keepsake</label><select id="keepsake-choice"></select></div>
+        <button class="small-action" id="keepsake-shuffle" type="button">Let the town choose ↻</button>
+        <label for="keepsake-caption">A little inscription</label><textarea id="keepsake-caption" maxlength="140" rows="2" placeholder="Kept this for you. It felt like our kind of strange."></textarea>
+        <p class="post-help">A souvenir on the left, your own words on the right. Oracle cards and inventions come from the actual town collections.</p>
       </div>
       <div class="panel">
         <span class="eyebrow">04 / questionable postage</span><h2>Stamp the writing side</h2>
@@ -64,7 +85,7 @@
         <div class="card-viewer" id="viewer" data-format="postcard">
           <div class="card-body">
             <div class="card-face writing-face"><canvas id="writing" width="1200" height="800" role="img" aria-label="Writing side" tabindex="-1"></canvas></div>
-            <div class="card-face cover-face"><canvas id="postcard" width="1200" height="800" role="img" aria-label="Picture side"></canvas><div class="cover-inside" aria-hidden="true"><span>A little piece<br>of Goblin Town.<i>✳</i>Kept just for you.</span></div></div>
+            <div class="card-face cover-face"><canvas id="postcard" width="1200" height="800" role="img" aria-label="Picture side" tabindex="0"></canvas><div class="cover-inside" aria-hidden="true"><canvas id="keepsake" width="1200" height="800" role="img" aria-label="Inside keepsake"></canvas></div></div>
           </div>
         </div>
       </div>
@@ -77,4 +98,4 @@
     </section>
   </main>
   <footer class="street-foot"><a href="../gossip-well/">Ask the Well for news →</a><a href="../rummage-yard/">Find a souvenir →</a></footer>
-</div><script src="./post.js"></script></body></html>
+</div><script src="../tarot/deck.js"></script><script src="./keepsakes.js"></script><script src="./post.js"></script></body></html>
