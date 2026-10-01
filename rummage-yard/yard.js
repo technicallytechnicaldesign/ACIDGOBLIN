@@ -3,7 +3,7 @@
     ['spoon','Bent Spoon'],['boot','Left Boot'],['bell','Tiny Bell'],['key','Wrong Key'],
     ['teacup','Teacup'],['mushroom','Mushroom'],['clock','Clock'],['lantern','Lantern']
   ];
-  // Every unordered pair is authored; the two icon layers supply the picture.
+  // Every unordered pair is authored and has one distinct hybrid illustration.
   const recipeLines = [
     '0,1|Puddle Ladle|A boot that serves soup only when it rains.|A dinner shoe. Finally, formal wear I understand.|slosh',
     '0,2|Supper Alarm|Rings whenever somebody says they are not hungry.|Keep it by the kettle. It knows.|clang',
@@ -41,6 +41,7 @@
   const lever = document.getElementById('lever');
   const invention = document.getElementById('invention');
   const picked = [null,null];
+  let artReady=false;
   const art = id => `<span class="scrap-art scrap-art--${id}" aria-hidden="true"></span>`;
   const say = line => { document.getElementById('goblin-line').textContent = line; };
   function renderSlots() {
@@ -51,7 +52,7 @@
       slot.setAttribute('aria-label',index === null ? `${i ? 'Second' : 'First'} scrap, empty` : `${scraps[index][1]} in ${i ? 'second' : 'first'} slot; click to clear`);
     });
     tray.querySelectorAll('.scrap').forEach((button,i) => button.setAttribute('aria-pressed',String(picked.includes(i))));
-    lever.disabled = picked.includes(null);
+    lever.disabled = picked.includes(null)||!artReady;
   }
   function choose(index, preferred = -1) {
     if (picked.includes(index)) { say('We already have that scrap. Two different mistakes, please.'); return; }
@@ -94,7 +95,7 @@
     const key = [...picked].sort((a,b)=>a-b).join(',');
     const result = recipes.get(key); if (!result) return;
     last = result;
-    invention.innerHTML = art(scraps[picked[0]][0]) + art(scraps[picked[1]][0]); invention.disabled = false;
+    const index=[...recipes.keys()].indexOf(key),canvas=document.createElement('canvas');canvas.width=canvas.height=480;canvas.className='invention-art';canvas.setAttribute('aria-hidden','true');window.GOBLIN_INVENTION_ART.draw(canvas.getContext('2d'),index,12,12,456,456);invention.replaceChildren(canvas);invention.disabled=false;invention.dataset.recipe=String(index);invention.setAttribute('aria-label',`${result.name}: ${result.line} Click to ${result.verb} again.`);
     document.getElementById('result-tag').textContent = `Invention no. ${[...recipes.keys()].indexOf(key)+1} / 28`;
     document.getElementById('result-name').textContent = result.name;
     document.getElementById('result-line').textContent = result.line;
@@ -105,4 +106,5 @@
   function wobble() { invention.classList.remove('misbehave'); void invention.offsetWidth; invention.classList.add('misbehave'); }
   invention.addEventListener('click',() => { if (!last) return; wobble(); say(`${last.opinion} Again!`); });
   renderSlots();
+  window.GOBLIN_INVENTION_ART.ready.then(()=>{artReady=true;renderSlots();say('All 28 bad ideas have their own proper bodies. Pick two scraps.');}).catch(error=>{console.error(error);say('The invention pictures wandered off. Please reload before pulling the lever.');});
 })();
