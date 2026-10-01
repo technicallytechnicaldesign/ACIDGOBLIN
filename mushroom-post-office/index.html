@@ -1,3 +1,80 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7edcf"><meta name="description" content="Arrange a goblin postcard, write a short note, and save it as an image."><title>Mushroom Post Office · Acid Goblin Town</title><link rel="stylesheet" href="../side-street.css"><style>
-.post-layout{display:grid;grid-template-columns:minmax(280px,.7fr) minmax(390px,1.3fr);gap:20px;margin-top:20px}.post-controls{display:flex;flex-direction:column;gap:12px}.post-controls>.panel{padding:13px}.post-controls h2{margin:6px 0 10px;font:900 20px/.95 'Arial Black',Impact,sans-serif;text-transform:uppercase;letter-spacing:-.04em}.scene-options{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.scene-choice{min-height:69px;padding:7px 5px;border:3px solid var(--ink);border-radius:9px;background:var(--paper);font:900 11px/1.15 ui-monospace,Consolas,monospace;text-transform:uppercase}.scene-choice:first-child{background:#f4c6bb}.scene-choice:nth-child(2){background:#a7d8d4}.scene-choice:nth-child(3){background:#b9ce8d}.scene-choice[aria-pressed=true]{outline:3px solid var(--pink);outline-offset:2px}.drawer{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.decor{display:grid;place-items:center;min-height:53px;padding:5px;border:2px solid var(--ink);border-radius:9px;background:#fff7dc;box-shadow:2px 2px 0 var(--teal);font-size:24px;touch-action:none}.decor:hover,.decor[aria-pressed=true]{background:var(--yellow);transform:rotate(-5deg)}.decor small{font:900 9px ui-monospace,Consolas,monospace;text-transform:uppercase}.message{display:block;width:100%;min-height:94px;resize:vertical;padding:9px;border:3px solid var(--ink);border-radius:7px;background:#fffaf0;font-size:14px;line-height:1.3}.message-row{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:7px;font:900 10px ui-monospace,Consolas,monospace;text-transform:uppercase}.message-row button{padding:5px 8px;border:2px solid var(--ink);background:var(--lime);font:inherit;cursor:pointer}.post-stage{display:flex;flex-direction:column;gap:12px}.card-frame{padding:12px;border:3px solid var(--ink);border-radius:9px;background:#d7c7a2;box-shadow:6px 7px 0 var(--pink)}#postcard{display:block;width:100%;height:auto;aspect-ratio:3/2;border:3px solid var(--ink);background:#fff8e9;touch-action:none;cursor:crosshair}.post-actions{display:flex;flex-wrap:wrap;gap:9px}.post-actions .action{flex:1}.post-help{margin:0;font:800 11px/1.3 ui-monospace,Consolas,monospace;text-transform:uppercase}.post-actions .action:disabled{display:none}.postmaster{background:#f7d6a5}@media(max-width:850px){.post-layout{grid-template-columns:1fr}.post-controls{display:grid;grid-template-columns:1fr 1fr}.post-controls>.panel:nth-child(3),.post-controls>.keeper{grid-column:1/-1}}@media(max-width:560px){.post-controls{display:flex}.scene-options{gap:5px}.scene-choice{min-height:54px;font-size:10px}.decor{min-height:49px}.card-frame{padding:5px}}
-</style><link rel="stylesheet" href="../town-art-v2.css"></head><body><div class="street"><header class="street-head"><div><a class="street-home" href="../">← Back to Town</a><p class="street-kicker">Side street 08 / messages to anywhere-ish</p><h1>Mushroom <em>Post Office</em></h1><p class="street-dek">Choose a view, place some questionable postage, and send a tiny note into the world.</p></div><span class="tag">No address required</span></header><main class="post-layout"><section class="post-controls" aria-label="Postcard controls"><div class="panel"><span class="eyebrow">01 / choose a view</span><h2>Town scenes</h2><div class="scene-options"><button class="scene-choice" data-scene="0" type="button" aria-pressed="true">Moonlit<br>mushrooms</button><button class="scene-choice" data-scene="1" type="button" aria-pressed="false">Cloud<br>courier</button><button class="scene-choice" data-scene="2" type="button" aria-pressed="false">Mossy<br>window</button></div></div><div class="panel"><span class="eyebrow">02 / dress the card</span><h2>Stamps & doodles</h2><div class="drawer" id="drawer"></div><button class="action alt" id="add-stamp" type="button" style="margin-top:10px">Place selected stamp +</button><p class="post-help">Tap an icon, then tap the card to place it. Drag placed icons to rearrange.</p></div><div class="panel"><span class="eyebrow">03 / write one little thing</span><h2>Message</h2><label class="sr-only" for="message">Postcard message, up to 110 characters</label><textarea class="message" id="message" maxlength="110" placeholder="Dear whoever finds this…"></textarea><div class="message-row"><button id="suggest" type="button">Shuffle goblin note ↻</button><span id="counter">0 / 110</span></div></div><div class="keeper postmaster"><span class="keeper-portrait keeper-dot" aria-hidden="true"></span><p><strong>Postmaster · Dot</strong><span id="postmaster-line" aria-live="polite">All destinations are accepted, including “somewhere nicer.”</span></p></div></section><section class="post-stage" aria-label="Live postcard preview"><div class="card-frame"><canvas id="postcard" width="1200" height="800" role="img" aria-label="Live postcard preview showing the chosen scene, decorations, and note"></canvas></div><p class="post-help">The preview is the image that gets saved. Drag a placed icon to move it; Undo Last Mark removes the most recent one.</p><div class="post-actions"><button class="action alt" id="undo" type="button">Undo last mark</button><button class="action alt" id="clear" type="button">Clear marks</button><button class="action" id="download" type="button">Post it · save PNG ↓</button><button class="action" id="share" type="button" hidden>Share card ↗</button></div></section></main><footer class="street-foot"><a href="../gossip-well/">Ask the Well for news →</a><a href="../rummage-yard/">Find a souvenir →</a></footer></div><script src="./post.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f7edcf">
+  <meta name="description" content="Make a two-sided postcard or folding card from Goblin Town, then download a print or an interactive gift.">
+  <title>Mushroom Post Office · Acid Goblin Town</title>
+  <link rel="stylesheet" href="../side-street.css">
+  <link rel="stylesheet" href="../town-art-v2.css">
+  <link rel="stylesheet" href="./post.css">
+</head>
+<body><div class="street">
+  <header class="street-head"><div>
+    <a class="street-home" href="../">← Back to Town</a>
+    <p class="street-kicker">Side street 08 / messages to anywhere-ish</p>
+    <h1>Mushroom <em>Post Office</em></h1>
+    <p class="street-dek">A little piece of here, for someone somewhere else. Make the view. Write the other side. Send some magic.</p>
+  </div><span class="tag">Two sides to every little story</span></header>
+  <main class="post-layout">
+    <section class="post-controls" aria-label="Card controls">
+      <div class="panel">
+        <span class="eyebrow">01 / pick your paper</span><h2>A postcard or a card?</h2>
+        <div class="choice-row" aria-label="Card format">
+          <button class="choice" data-format="postcard" aria-pressed="true" type="button">Postcard <small>Turn it over</small></button>
+          <button class="choice" data-format="fold" aria-pressed="false" type="button">Folding card <small>Open it up</small></button>
+        </div>
+      </div>
+      <div class="panel">
+        <span class="eyebrow">02 / a view worth keeping</span><h2>Greetings from…</h2>
+        <label for="scene">Town scenes & landmarks</label>
+        <select id="scene">
+          <optgroup label="Somewhere dreamy">
+            <option value="0">Moonlit mushrooms</option><option value="1">Cloud courier</option><option value="2">Mossy window</option>
+          </optgroup>
+          <optgroup label="Around town">
+            <option value="3">Mushroom Post Office</option><option value="4">The Bookshop</option><option value="5">The Newsstand</option><option value="6">The Oracle</option><option value="7">The Gossip Well</option><option value="8">The Rummage Yard</option><option value="9">The Merch Stall</option>
+          </optgroup>
+        </select>
+        <label for="occasion">A moment in town</label>
+        <select id="occasion"><option value="everyday">An ordinary magical day</option><option value="market">Market day</option><option value="moon">Moon festival</option><option value="wish">A wish for you</option></select>
+        <label for="headline">Words on the front</label>
+        <input id="headline" maxlength="64" value="Wish you were here!" placeholder="Or let the picture do the talking">
+        <p class="post-help">Choose a place, add a little occasion, make it yours.</p>
+      </div>
+      <div class="panel">
+        <span class="eyebrow">03 / on the other side</span><h2>One little note</h2>
+        <div class="address-fields"><div><label for="recipient">To</label><input id="recipient" maxlength="40" placeholder="Someone lovely"></div><div><label for="sender">From</label><input id="sender" maxlength="40" placeholder="Your name, or a mystery"></div></div>
+        <label for="message">Message</label><textarea id="message" maxlength="240" rows="5" placeholder="Dear whoever finds this…"></textarea>
+        <div class="message-row"><button id="suggest" type="button">Shuffle goblin note ↻</button><span id="counter">0 / 240</span></div>
+      </div>
+      <div class="panel">
+        <span class="eyebrow">04 / questionable postage</span><h2>Stamp the writing side</h2>
+        <div class="drawer" id="drawer"></div>
+        <button class="action alt" id="add-stamp" type="button">Place selected stamp +</button>
+        <p class="post-help">Stamps live in the postage strip. Drag to rearrange, or use this button to place one.</p>
+        <div class="post-actions"><button class="small-action" id="undo" type="button">Undo last stamp</button><button class="small-action" id="clear" type="button">Clear stamps</button></div>
+      </div>
+      <div class="keeper postmaster"><span class="keeper-portrait keeper-dot" aria-hidden="true"></span><p><strong>Postmaster · Dot</strong><span id="postmaster-line" role="status">Gathering the pictures for your postbag…</span></p></div>
+    </section>
+    <section class="post-stage" aria-label="Live card preview">
+      <div class="preview-top"><span class="eyebrow" id="side-label">The picture side</span><button class="small-action" id="turn" type="button" aria-expanded="false">Turn it over ↻</button></div>
+      <div class="card-frame">
+        <div class="card-viewer" id="viewer" data-format="postcard">
+          <div class="card-body">
+            <div class="card-face writing-face"><canvas id="writing" width="1200" height="800" role="img" aria-label="Writing side" tabindex="-1"></canvas></div>
+            <div class="card-face cover-face"><canvas id="postcard" width="1200" height="800" role="img" aria-label="Picture side"></canvas><div class="cover-inside" aria-hidden="true"><span>A little piece<br>of Goblin Town.<i>✳</i>Kept just for you.</span></div></div>
+          </div>
+        </div>
+      </div>
+      <p class="post-help" id="preview-help">Two sides, one tiny journey. Turn it over to see your note.</p>
+      <div class="export-panel panel"><span class="eyebrow">05 / off into the world</span><h2>Something to keep</h2>
+        <label for="flat-layout">Flat PNG download</label><select id="flat-layout"><option value="both">Both sides, side by side</option><option value="front">Picture side only</option><option value="back">Writing side only</option></select>
+        <div class="post-actions"><button class="action" id="download" type="button" disabled>Save flat PNG ↓</button><button class="action alt" id="gift" type="button" disabled>Save interactive gift ↓</button><button class="action alt" id="share" type="button" hidden>Share flat image ↗</button></div>
+        <p class="post-help">The gift is a self-contained HTML card: send the file, then open it in a browser to flip or unfold it. All artwork travels with it.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="street-foot"><a href="../gossip-well/">Ask the Well for news →</a><a href="../rummage-yard/">Find a souvenir →</a></footer>
+</div><script src="./post.js"></script></body></html>
