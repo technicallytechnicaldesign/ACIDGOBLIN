@@ -339,7 +339,7 @@
       });
       const entryAssets = [entrySky, entryTerrain].map((name) => `./town-assets/${name}`);
       entryAssets.push(...[...document.querySelectorAll('.map-stop .stop-art img')].map((image) => image.src));
-      const minCrossing = new Promise((resolve) => setTimeout(resolve, crossingReduce ? 100 : returning ? 1000 : 3600));
+      const minCrossing = new Promise((resolve) => setTimeout(resolve, crossingReduce ? 100 : returning ? 2000 : 3600));
       const loaded = Promise.race([Promise.allSettled(entryAssets.map(preloadImage)), new Promise((resolve) => setTimeout(resolve, 5000))]);
       Promise.all([minCrossing, loaded]).then(finishCrossing);
       const stage = document.querySelector('.map-stage');
