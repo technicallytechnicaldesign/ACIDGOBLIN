@@ -50,12 +50,14 @@
   const toss = document.getElementById('toss');
   const wellHit = document.getElementById('well-hit');
   const hear = document.getElementById('hear');
-  const now = new Date();
-  const day = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
-  let hash = 17; for (const char of day) hash = ((hash * 31) + char.charCodeAt(0)) >>> 0;
-  const daily = [0,5,34][hash % 3];
-  let current = daily; let shown = 0;
-  const queue = rumours.map((_,i)=>i).filter(i=>i!==daily);
+  // Each visit gets a fresh whisper, without immediately repeating the last opener.
+  let previous=-1;
+  try { previous=Number(sessionStorage.getItem('goblin-well-last-opener') ?? -1); } catch {}
+  const openers=rumours.map((_,i)=>i).filter(i=>i!==previous);
+  const opening=openers[Math.floor(Math.random()*openers.length)];
+  try { sessionStorage.setItem('goblin-well-last-opener',String(opening)); } catch {}
+  let current = opening; let shown = 0;
+  const queue = rumours.map((_,i)=>i).filter(i=>i!==opening);
   for (let i=queue.length-1;i>0;i--) {const j=Math.floor(Math.random()*(i+1));[queue[i],queue[j]]=[queue[j],queue[i]];}
   const keeperLines = [
     'I was not supposed to tell you that one.',
@@ -68,17 +70,17 @@
   function show(index, featured=false) {
     const [rumour,href,label,secret] = rumours[index]; current=index;if(secret)window.TownJourney.hear(secret);
     text.textContent = `“${rumour}”`;
-    count.textContent = featured ? 'Featured rumour · today' : `Pebble ${shown} · from the deep`;
+    count.textContent = featured ? 'A whisper from below' : `Pebble ${shown} · from the deep`;
     if (href) {link.hidden=false;link.href=href.startsWith('https:')?window.TownJourney.url(href):href;link.textContent=`Follow this path ↗ ${label}`;if (href.startsWith('https:')) {link.target='_blank';link.rel='noopener';} else {link.removeAttribute('target');link.removeAttribute('rel');}}
     else {link.hidden=true;link.removeAttribute('href');}
     keeper.textContent=secret?(window.TownJourney.has(secret)?'Oh! You found it. I knew that rumour had a true bit.':'That one might be true. Take it with you; the keeper will know what you mean.'):featured?'I was not supposed to tell you any of these.':keeperLines[(shown-1)%keeperLines.length];
   }
-  show(daily,true);
+  show(opening,true);
   function throwPebble() {
     if (toss.disabled) return;
     toss.disabled=true; wellHit.disabled=true; scene.classList.remove('tossing'); void scene.offsetWidth; scene.classList.add('tossing');
     if ('speechSynthesis' in window) speechSynthesis.cancel();
-    window.setTimeout(() => {if (!queue.length) {for(let i=0;i<rumours.length;i++) if(i!==daily) queue.push(i);for(let i=queue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[queue[i],queue[j]]=[queue[j],queue[i]];}}shown++;show(queue.pop());toss.disabled=false;wellHit.disabled=false;},window.matchMedia('(prefers-reduced-motion: reduce)').matches?100:900);
+    window.setTimeout(() => {if (!queue.length) {for(let i=0;i<rumours.length;i++) if(i!==current) queue.push(i);for(let i=queue.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[queue[i],queue[j]]=[queue[j],queue[i]];}}shown++;show(queue.pop());toss.disabled=false;wellHit.disabled=false;},window.matchMedia('(prefers-reduced-motion: reduce)').matches?100:900);
   }
   toss.addEventListener('click',throwPebble);
   wellHit.addEventListener('click',throwPebble);

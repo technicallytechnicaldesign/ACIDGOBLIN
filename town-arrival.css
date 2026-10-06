@@ -8,7 +8,7 @@
 .town-portal-copy strong{font:900 clamp(28px,5vw,48px)/1 Georgia,serif;letter-spacing:-.04em;text-transform:none}.town-portal-copy em{color:#f6dc91;-webkit-text-stroke:0}
 .town-portal-kicker,.town-portal-note{font:700 11px/1.4 monospace;letter-spacing:.08em;color:#d8e7bf;margin:5px 0}
 .crossing-skip{position:absolute;right:20px;bottom:20px;z-index:5;padding:12px 16px;border:1px solid #cfe9d5;background:#20352f;color:#cfe9d5;font:700 12px monospace;cursor:pointer}
-.town-return .town-portal-copy{display:none}.town-return .crossing-lantern{animation-duration:.5s}.town-return .town-portal::before,.town-return .town-portal::after{animation-duration:.5s}
+.town-return .town-portal-copy{display:none}.town-return .crossing-lantern{animation-duration:1s}.town-return .town-portal::before,.town-return .town-portal::after{animation-duration:1s}
 @keyframes mist-part{from{transform:translateX(0);opacity:1}to{transform:translateX(-25%);opacity:.15}}
 @keyframes mist-part-other{from{transform:translateX(0);opacity:1}to{transform:translateX(25%);opacity:0}}
 @keyframes light-guides{0%{left:25%;top:72%;transform:rotate(-9deg) scale(1.1)}45%{left:44%;top:53%;transform:rotate(7deg)}100%{left:50%;top:40%;transform:rotate(-5deg) scale(.5)}}
