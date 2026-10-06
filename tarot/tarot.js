@@ -133,6 +133,7 @@
       byId('conclusion').hidden = false;
       speak(byId('conclusion').textContent);
       byId('actions').hidden = false;
+      window.TownJourney?.keepReading({summary:byId('conclusion').textContent,card:state.cards[2].card.title});
     }
   }
 

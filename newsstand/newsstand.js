@@ -39,7 +39,7 @@
   const rotation = byId('rotation');
   let selected = 0;
   let pipThought = 0;
-  let playing = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let playing = false;
   let pausedForFocus = false;
   let pausedForHover = false;
   let timer;

@@ -1,0 +1,121 @@
+/* One navigation grammar; each place chooses its own materials. */
+.town-nav{--nav-paper:#d9efdc;--nav-ink:#233a32;position:relative;z-index:20;display:flex;align-items:center;flex-wrap:wrap;gap:8px;max-width:1280px;margin:0 auto;padding:12px 20px;color:var(--nav-ink);font:800 11px/1.4 ui-monospace,Consolas,monospace;letter-spacing:.03em;text-transform:uppercase}
+.town-nav a,.town-nav button,.town-nav summary{display:inline-block;min-height:36px;padding:9px 12px;color:inherit;background:var(--nav-paper);border:1px solid currentColor;text-decoration:none;cursor:pointer;font:inherit;letter-spacing:inherit;border-radius:2px}
+.town-nav a:hover,.town-nav button:hover,.town-nav summary:hover{filter:brightness(1.08)}
+.town-nav button{margin-left:auto}.town-nav summary::marker{content:''}.town-doors{position:relative}.town-door-list{position:absolute;left:0;top:calc(100% + 8px);width:min(280px,75vw);display:grid;gap:5px;padding:10px;background:var(--nav-paper);color:var(--nav-ink);border:2px solid currentColor;box-shadow:5px 7px #21182040}.town-door-list a{white-space:normal}
+.town-nav :focus-visible,.town-secret:focus-visible{outline:3px solid #f4479a;outline-offset:4px}
+[data-town-place=town] .town-nav{position:fixed;bottom:15px;left:14px;padding:0;z-index:25}[data-town-place=town] .town-doors{display:none}
+[data-town-place=town] .map-fineprint{bottom:72px}
+[data-town-place=bookshop] .town-nav,[data-town-place=newsstand] .town-nav{padding:0;--nav-paper:#f3deac;--nav-ink:#302039;flex:1}
+.pressline>.town-nav,.door-line>.town-nav{width:100%}.pressline-note,.door-note{display:none}
+[data-town-place=tarot] .town-nav{--nav-paper:#452a53;--nav-ink:#ffecb6;max-width:1170px;border-bottom:1px solid #ffecb64a}
+[data-town-place=rummage-yard] .town-nav{--nav-paper:#e8b85c;--nav-ink:#292619}
+[data-town-place=gossip-well] .town-nav{--nav-paper:#b4e5d5;--nav-ink:#143d44}
+[data-town-place=mushroom-post-office] .town-nav{--nav-paper:#e8cdf3;--nav-ink:#422750}
+[data-town-place=free-chaos-merch] .town-nav{--nav-paper:#ec6c97;--nav-ink:#301828}
+.town-dialog{box-sizing:border-box;width:min(490px,calc(100vw - 32px));max-height:80svh;overflow:auto;padding:26px;border:3px solid #211820;border-radius:8px 16px 4px 12px;color:#243c37;background:#d6eddd;box-shadow:7px 9px #f4479a66;text-align:left;font:16px/1.5 Georgia,serif}
+.town-dialog::backdrop{background:#152534b3;backdrop-filter:blur(3px)}
+.town-dialog h2{clear:both;margin:20px 0 12px;font:900 30px/1.05 Georgia,serif;letter-spacing:-.04em;text-transform:none}
+.town-dialog a{display:block;margin:12px 0;padding:10px;border-bottom:1px dashed currentColor;color:inherit;font:bold 13px/1.5 monospace;text-decoration:none}.town-dialog small{display:block;margin-top:15px}
+.town-dialog-close{display:block;margin-left:auto;padding:8px;color:inherit;background:none;border:1px solid currentColor;cursor:pointer;font:700 11px monospace}
+.town-dialog :focus-visible{outline:3px solid #74439a;outline-offset:3px}
+.town-secret{position:absolute;z-index:8;width:50px;height:50px;padding:0;border:0;background-color:transparent;background-image:url('./town-assets/rummage-objects-v2.webp');background-size:400% 200%;background-repeat:no-repeat;cursor:pointer}
+.secret-mushroom{left:51%;top:45%;background-position:33.333% 100%;width:44px;height:44px}
+.secret-bookmark{left:36%;bottom:-4px;background-image:none;background-color:#e9d08a;border:2px solid #292619;transform:rotate(12deg);width:22px;height:48px;box-shadow:2px 3px #21182055}.secret-bookmark:before{content:'B';display:block;border-top:5px solid #078c8c;margin:5px 3px;color:#292619;font:900 21px Georgia,serif}
+.secret-lantern{right:17px;top:8px;background-position:100% 100%;transform:rotate(-7deg)}
+.town-secret:hover{filter:brightness(1.15);transform:rotate(-5deg)}.secret-mutter{position:absolute;left:50%;bottom:calc(100% + 6px);width:180px;transform:translateX(-50%);color:#21392f;background:#e2ecb1;border:2px solid #21392f;padding:8px;font:700 11px/1.35 monospace;pointer-events:none}
+.secret-mutter:empty{display:none}.work,.book-display{position:relative}
+@media(max-width:640px){.town-nav{padding:9px 0;gap:5px}.town-nav a,.town-nav button,.town-nav summary{padding:9px 8px;font-size:10px}[data-town-place=town] .town-nav{left:10px;bottom:12px}.secret-mushroom{left:30%;top:52%;width:44px;height:44px}.secret-mutter{width:150px}}
+/* The three side streets have different materials, not a shared cream page. */
+[data-town-place=rummage-yard]{background:#435645}
+[data-town-place=rummage-yard] .street{background:radial-gradient(ellipse at 10% 30%,#73937a66,transparent 45%),repeating-linear-gradient(0deg,#132f2510 0 1px,transparent 1px 5px),#b8c6a0}
+[data-town-place=rummage-yard] .street-head{display:block;padding:10px 0 16px;border:0}
+[data-town-place=rummage-yard] .street-head h1{display:inline-block;font:900 clamp(27px,4vw,43px)/1.05 'Arial Black',sans-serif;letter-spacing:-.05em;color:#ead293;background:#384636;padding:12px 19px;border:3px solid #253025;transform:rotate(-1deg);box-shadow:4px 5px #8e7958}
+[data-town-place=rummage-yard] .street-head h1 em{color:#ead293}
+[data-town-place=rummage-yard] .street-head>.tag{display:none}
+[data-town-place=rummage-yard] .tray{background:repeating-linear-gradient(90deg,#30271915 0 1px,transparent 1px 45px),#a39873;border:3px solid #413929}
+[data-town-place=rummage-yard] .scrap{background:#e4d69b;border:1px solid #51452f;box-shadow:2px 3px #51452f55;transform:rotate(-1deg)}
+[data-town-place=rummage-yard] .scrap:nth-child(2n){transform:rotate(2deg)}
+[data-town-place=rummage-yard] .work{background:repeating-linear-gradient(90deg,#e2c59212 0 2px,transparent 2px 24px),#685140;color:#fff0c5;padding-top:26px}
+[data-town-place=rummage-yard] .slot{background:#4b4031;border-color:#cab681;color:#ffe9ad}
+[data-town-place=rummage-yard] .slot.filled{background:#cfbb8a;color:#292619}
+[data-town-place=rummage-yard] .output{color:#28251c;background:#e8dba4;grid-template-columns:minmax(120px,190px) minmax(0,1fr)}
+[data-town-place=rummage-yard] .keeper{background:#d3d59c;border-color:#51452f;box-shadow:none}
+[data-town-place=rummage-yard] .invention{background:#e8dba4;border:0}
+.share-invention{display:inline-block;margin-top:14px;padding:11px 14px;background:#c7db77;color:#213323;border:2px solid #213323;text-decoration:none;font:bold 12px/1.4 monospace;box-shadow:3px 4px #776648}
+[data-town-place=gossip-well]{background:#113946;color:#d1efe0}
+[data-town-place=gossip-well] .street{background:radial-gradient(ellipse at 20% 45%,#286c70,transparent 65%),repeating-linear-gradient(0deg,#c6db4910 0 1px,transparent 1px 9px),#153e49;color:#d1efe0}
+[data-town-place=gossip-well] .street-head{border-bottom:1px solid #b4e5d54a;padding-top:10px}
+[data-town-place=gossip-well] .street-head h1{font-size:clamp(32px,4vw,49px);text-transform:none;letter-spacing:-.04em;color:#c6db49}
+[data-town-place=gossip-well] .street-head h1 em{color:#b4e5d5}
+[data-town-place=gossip-well] .street-head>.tag{display:none}
+[data-town-place=gossip-well] .well-scene{border:0;background:radial-gradient(ellipse at 50% 50%,#81a99688,transparent 65%);box-shadow:none}
+[data-town-place=gossip-well] .well-copy{background:none;border:0;box-shadow:none}
+[data-town-place=gossip-well] .well-copy>.eyebrow{color:#b4e5d5}
+[data-town-place=gossip-well] .well-copy h2{font:italic 700 clamp(26px,3vw,35px)/1.1 Georgia,serif;text-transform:none;letter-spacing:-.03em}
+[data-town-place=gossip-well] .rumour-card{background:#d1e4c9;color:#143d44;border:0;box-shadow:4px 5px #091f2955;clip-path:polygon(1% 0,99% 2%,100% 97%,2% 100%)}
+[data-town-place=gossip-well] .keeper{background:#20535b;border:1px solid #b4e5d566;color:#d1efe0;box-shadow:none}
+[data-town-place=gossip-well] .keeper strong{color:#c6db49}
+[data-town-place=gossip-well] .action{background:#b9d388;color:#153e49;border-color:#091f29}
+[data-town-place=gossip-well] .well-note{opacity:.7}
+[data-town-place=mushroom-post-office]{background:#533657}
+[data-town-place=mushroom-post-office] .street{background:radial-gradient(ellipse at 85% 20%,#98678550,transparent 60%),repeating-linear-gradient(90deg,#e8cdf308 0 1px,transparent 1px 18px),#533657;color:#f4def0}
+[data-town-place=mushroom-post-office] .street-head{padding-top:10px;border-bottom:1px dashed #e8cdf37a}
+[data-town-place=mushroom-post-office] .street-head h1{font:700 clamp(30px,4vw,48px)/1.05 Georgia,serif;letter-spacing:-.04em;text-transform:none;color:#f4cf94}
+[data-town-place=mushroom-post-office] .street-head h1 em{color:#f4def0}
+[data-town-place=mushroom-post-office] .street-head>.tag{display:none}
+[data-town-place=mushroom-post-office] .post-controls>.panel{background:#d9c5dc;color:#422750;border:1px solid #301c37;box-shadow:3px 4px #28152f66;border-radius:4px}
+[data-town-place=mushroom-post-office] .post-controls .panel h2{font:700 23px/1.1 Georgia,serif;text-transform:none;letter-spacing:-.025em}
+[data-town-place=mushroom-post-office] .post-controls input,[data-town-place=mushroom-post-office] .post-controls select,[data-town-place=mushroom-post-office] .post-controls textarea{background:#f1e4ee}
+[data-town-place=mushroom-post-office] .post-stage .export-panel{background:transparent;color:#f4def0;border:1px dashed #e8cdf37a;box-shadow:none}
+[data-town-place=mushroom-post-office] .card-frame{background:#a47d83;border-color:#321c3a;box-shadow:5px 6px #301c3766}
+[data-town-place=mushroom-post-office] .postmaster{background:#d9c5dc;color:#422750}
+.post-controls>details{padding:15px;background:#d9c5dc;color:#422750;border:1px solid #301c37}
+.post-controls>details>summary{cursor:pointer;font:700 16px Georgia,serif;padding:5px}
+.post-controls>details>.panel{border:0;background:transparent;box-shadow:none;padding:15px 0 0}
+.post-controls>details:has(#keepsake-controls[hidden]){display:none}
+.post-welcome{margin:0;padding:12px;color:#f4def0;font:italic 17px/1.4 Georgia,serif}
+[data-town-place=free-chaos-merch]{background:repeating-linear-gradient(0deg,#47222b12 0 1px,transparent 1px 6px),#d98ea0;color:#301828}
+[data-town-place=free-chaos-merch] .hero{padding:24px 0 28px;gap:24px;grid-template-columns:1.1fr .9fr;color:#301828;align-items:center}
+[data-town-place=free-chaos-merch] h1{font-size:clamp(40px,6vw,75px);line-height:.9}
+[data-town-place=free-chaos-merch] h1 em{color:#301828;-webkit-text-stroke:0}
+[data-town-place=free-chaos-merch] .hero-copy>p:not(.eyebrow){font-size:17px}
+[data-town-place=free-chaos-merch] .how-to{border-color:#301828;background:#d7c760}
+[data-town-place=free-chaos-merch] .hero-art{max-width:315px;background:#e5bf70;box-shadow:5px 6px #71314a}
+[data-town-place=free-chaos-merch] .collection{margin-top:25px;padding:22px!important;color:#301828;background:repeating-linear-gradient(90deg,#41202a12 0 1px,transparent 1px 20px),#c99883!important;border-color:#71314a!important;box-shadow:4px 5px #71314a66}
+[data-town-place=free-chaos-merch] .collection-heading{color:#301828}
+[data-town-place=free-chaos-merch] .artifact{transform:rotate(-1deg)}[data-town-place=free-chaos-merch] .artifact:nth-child(2n){transform:rotate(1deg)}
+[data-town-place=free-chaos-merch] footer{color:#301828}
+@media(max-width:760px){[data-town-place=rummage-yard] .output{grid-template-columns:1fr}[data-town-place=free-chaos-merch] .hero{grid-template-columns:1fr}[data-town-place=free-chaos-merch] .hero-art{max-width:240px}[data-town-place=gossip-well] .well-scene{min-height:300px}}
+@media(prefers-reduced-motion:reduce){.town-secret{transition:none}.secret-mutter{transform:translateX(-50%)}}
+
+
+.discovery-relic{display:block;width:110px;height:110px;margin:18px auto;background:url('./town-assets/rummage-objects-v2.webp') 33.333% 100%/400% 200%}
+.relic-star{background:url('./town-assets/postcard-autumn-sprites-v1.png') 50% 0/300% 300%}
+.relic-bookmark{background:#e9d08a;width:50px;height:110px;border:3px solid #292619;transform:rotate(-5deg);box-shadow:4px 5px #21182033}.relic-bookmark:before{content:'B';display:block;border-top:8px solid #078c8c;margin:9px;color:#292619;font:900 35px Georgia,serif;text-align:center}
+.invention.behave-glow{animation:invention-glow 1.2s ease-in-out 2}.invention.behave-sprout{animation:invention-sprout .9s ease-in-out 2}.invention.behave-tick{animation:invention-tick .65s steps(4) 3}.invention.behave-slosh{animation:invention-slosh .9s ease-in-out 2}
+@keyframes invention-glow{50%{filter:drop-shadow(0 0 16px #f5c928) saturate(1.6)}}@keyframes invention-sprout{50%{transform:translateY(-12px) scale(1.06)}}@keyframes invention-tick{50%{transform:rotate(10deg)}}@keyframes invention-slosh{25%{transform:rotate(-9deg)}75%{transform:rotate(9deg)}}
+[data-town-place=wavy-days] .town-nav{padding:6px 12px;--nav-paper:#eddeb7;--nav-ink:#302039}[data-town-place=fire-guide] .town-nav{padding:8px 14px;--nav-paper:#53333c;--nav-ink:#f5dbb8}
+@media(prefers-reduced-motion:reduce){.invention.behave-glow,.invention.behave-sprout,.invention.behave-tick,.invention.behave-slosh{animation:none}}
+
+[hidden]{display:none!important}
+.post-layout>.post-welcome{grid-column:1/-1;padding:0 4px}
+@media(max-width:760px){.post-layout>.post-welcome{grid-row:1}.post-layout>.post-stage{grid-row:2}.post-layout>.post-controls{grid-row:3}}
+@media print{.town-nav,.town-dialog{display:none!important}}
+
+[data-town-place=free-chaos-merch] h1{max-width:none;font-size:clamp(29px,4vw,48px);line-height:1;letter-spacing:-.05em}
+.print-pull{display:inline-block;margin-top:16px;padding:14px 17px;border:2px solid #301828;background:#cdd673;color:#301828;box-shadow:3px 4px #71314a;font:bold 13px/1.3 monospace;cursor:pointer}
+.print-pull:disabled{opacity:.65;cursor:wait}.print-pull:focus-visible{outline:3px solid #74439a;outline-offset:4px}
+.stall-status{font:italic 14px/1.4 Georgia,serif!important;margin:14px 0 0}
+[data-town-place=free-chaos-merch] .print-counter{margin:0;max-width:310px}
+[data-town-place=free-chaos-merch] .print-counter img{aspect-ratio:4/5;object-fit:contain;background:#f4d9b4}
+.print-counter figcaption{padding:12px 5px 5px;font:700 13px/1.4 Georgia,serif}
+.print-counter figcaption strong{display:block}.print-counter figcaption a{display:block;margin-top:8px;padding:9px;background:#cdd673;border:1px solid #301828;text-decoration:none;font:700 11px monospace}
+[data-town-place=free-chaos-merch] .how-to{font:700 12px/1.5 monospace;margin-top:16px}
+[data-town-place=free-chaos-merch] .hero{padding-top:16px}
+@media(max-width:760px){[data-town-place=free-chaos-merch] .print-counter{max-width:250px}.print-counter figcaption{font-size:12px}}
+
+[data-town-place=fire-guide] .utility-bar{height:auto;min-height:80px;display:grid;grid-template-columns:1fr auto;gap:5px}
+[data-town-place=fire-guide] .utility-bar>.town-nav{grid-column:1/-1;width:100%;max-width:none;padding:0}
+[data-town-place=fire-guide] .page{padding-top:calc(105px + env(safe-area-inset-top))}
+@media print{[data-town-place=fire-guide] .utility-bar{display:none}}

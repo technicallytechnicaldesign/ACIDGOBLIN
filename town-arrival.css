@@ -1,0 +1,16 @@
+/* Follow a small lantern along an illustrated path into the crossroads. */
+.town-portal{background:linear-gradient(#153e4966,#203c4688),url('./town-assets/postcard-misty-path-v1.png') center/cover no-repeat;isolation:isolate;transition:opacity .65s,visibility .65s}
+.town-portal::before,.town-portal::after{content:'';position:absolute;inset:-25%;background:radial-gradient(ellipse at 25% 55%,#d1e4dae6,transparent 55%),radial-gradient(ellipse at 75% 40%,#c2dcd9e6,transparent 55%);filter:blur(18px);animation:mist-part 3.6s ease-in-out both;z-index:0}
+.town-portal::after{background:radial-gradient(ellipse at 50% 80%,#e3ede4cc,transparent 55%);animation:mist-part-other 3.6s ease-in-out both}
+.crossing-lantern{position:absolute;left:25%;top:72%;width:90px;height:90px;background:url('./town-assets/rummage-objects-v2.webp') 100% 100%/400% 200%;filter:drop-shadow(0 0 16px #f9d474);animation:light-guides 3.6s cubic-bezier(.35,.1,.3,1) both;z-index:2}
+.crossing-lantern:before{content:'';position:absolute;inset:-30%;background:radial-gradient(ellipse,#ffde7780,transparent 65%);z-index:-1}
+.town-portal-copy{position:absolute;top:16%;left:50%;transform:translateX(-50%) rotate(-3deg);width:min(80vw,430px);padding:18px;color:#d8e7bf;background:repeating-linear-gradient(90deg,#d8e7bf12 0 1px,transparent 1px 14px),#344a3b;border:3px solid #20352f;box-shadow:5px 6px #20352f66;text-shadow:none}
+.town-portal-copy strong{font:900 clamp(28px,5vw,48px)/1 Georgia,serif;letter-spacing:-.04em;text-transform:none}.town-portal-copy em{color:#f6dc91;-webkit-text-stroke:0}
+.town-portal-kicker,.town-portal-note{font:700 11px/1.4 monospace;letter-spacing:.08em;color:#d8e7bf;margin:5px 0}
+.crossing-skip{position:absolute;right:20px;bottom:20px;z-index:5;padding:12px 16px;border:1px solid #cfe9d5;background:#20352f;color:#cfe9d5;font:700 12px monospace;cursor:pointer}
+.town-return .town-portal-copy{display:none}.town-return .crossing-lantern{animation-duration:.5s}.town-return .town-portal::before,.town-return .town-portal::after{animation-duration:.5s}
+@keyframes mist-part{from{transform:translateX(0);opacity:1}to{transform:translateX(-25%);opacity:.15}}
+@keyframes mist-part-other{from{transform:translateX(0);opacity:1}to{transform:translateX(25%);opacity:0}}
+@keyframes light-guides{0%{left:25%;top:72%;transform:rotate(-9deg) scale(1.1)}45%{left:44%;top:53%;transform:rotate(7deg)}100%{left:50%;top:40%;transform:rotate(-5deg) scale(.5)}}
+@media(prefers-reduced-motion:reduce){.town-portal::before,.town-portal::after,.crossing-lantern{animation:none}.crossing-lantern{left:48%;top:50%}.town-portal{transition:none}}
+

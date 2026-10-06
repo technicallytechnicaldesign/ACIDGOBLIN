@@ -100,11 +100,20 @@
     document.getElementById('result-name').textContent = result.name;
     document.getElementById('result-line').textContent = result.line;
     document.getElementById('result-action').textContent = `Tap it to ${result.verb} again.`;
-    say(result.opinion);
+    const send=document.getElementById('post-invention');
+    send.hidden=false;send.href='../mushroom-post-office/?invention='+index;
+    window.TownJourney?.keepInvention(index,result.name);
+    say(result.opinion+' Oooh, that should be shared. Dot has a card for it.');
     wobble();
   });
-  function wobble() { invention.classList.remove('misbehave'); void invention.offsetWidth; invention.classList.add('misbehave'); }
+  function wobble() {
+    if(!last)return;
+    invention.classList.remove('misbehave','behave-glow','behave-sprout','behave-tick','behave-slosh');
+    const verb=last.verb;
+    const type=verb==='glow'?'glow':verb==='sprout'?'sprout':verb==='tick'?'tick':['slosh','swirl'].includes(verb)?'slosh':'shake';
+    void invention.offsetWidth;invention.classList.add(type==='shake'?'misbehave':'behave-'+type);
+  }
   invention.addEventListener('click',() => { if (!last) return; wobble(); say(`${last.opinion} Again!`); });
   renderSlots();
-  window.GOBLIN_INVENTION_ART.ready.then(()=>{artReady=true;renderSlots();say('All 28 bad ideas have their own proper bodies. Pick two scraps.');}).catch(error=>{console.error(error);say('The invention pictures wandered off. Please reload before pulling the lever.');});
+  window.GOBLIN_INVENTION_ART.ready.then(()=>{artReady=true;renderSlots();say(window.TownJourney?.greeting('rummage-yard').replace(/^.*? says: /,'')||'Pick two scraps. We are making a different kind of problem.');}).catch(error=>{console.error(error);say('The invention pictures wandered off. Please reload before pulling the lever.');});
 })();

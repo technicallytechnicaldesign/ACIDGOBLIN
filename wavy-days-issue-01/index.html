@@ -1607,8 +1607,9 @@
       .page { position: relative; visibility: visible; min-height: 100vh; break-after: page; opacity: 1; transform: none; }
     }
   </style>
+<link rel="stylesheet" href="../town-journey.css?v=20261006">
 </head>
-<body>
+<body data-town-place="wavy-days">
   <main class="stage">
     <span class="ambient-stamp one" aria-hidden="true">✦</span>
     <span class="ambient-stamp two" aria-hidden="true">☾</span>
@@ -1851,7 +1852,8 @@
     </section>
   </main>
 
-  <script>
+  <script src="../town-journey.js?v=20261006"></script>
+<script>
     const pages = Array.from(document.querySelectorAll('.page'));
     const previousButton = document.getElementById('previousButton');
     const nextButton = document.getElementById('nextButton');

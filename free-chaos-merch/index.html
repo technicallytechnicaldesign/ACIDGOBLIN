@@ -223,8 +223,9 @@
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; } }
   </style>
   <link rel="stylesheet" href="../shopkeeper.css?v=1">
+<link rel="stylesheet" href="../town-journey.css?v=20261006">
 </head>
-<body class="merch-page">
+<body data-town-place="free-chaos-merch" class="merch-page">
   <header class="topbar">
     <a class="mark" href="../">Acid <b>Goblin</b> / free chaos merch</a>
     <nav class="pathways" aria-label="Acid Goblin pathways">
@@ -238,37 +239,23 @@
   <main>
     <section class="hero" aria-labelledby="merch-title">
       <div class="hero-copy">
-        <p class="eyebrow">No checkout / all omen</p>
-        <h1 id="merch-title">Free <em>chaos</em> merch.</h1>
-        <p>A loud little public pile of posters, workplace hexes, and friendly cosmic instructions from the Acid Goblin cupboard.</p>
+        <p class="eyebrow">Free chaos merch / no checkout</p>
+        <h1 id="merch-title">Dot’s <em>print stall.</em></h1>
+        <p>Pull something from the pile. Every print is yours to take.</p>
         <aside class="shopkeeper shopkeeper--prints" data-shopkeeper="prints" aria-label="A goblin shopkeeper speaks">
       <div class="keeper-portrait"><img src="../town-assets/merch-keeper-v1.webp" alt="A winking goblin printmaker with a magenta beret, fresh poster, and ink squeegee" width="620" height="620" decoding="async"></div>
       <div class="keeper-copy"><strong class="keeper-name">Dot, printmaker of dubious miracles says</strong><p class="keeper-bubble" aria-live="polite" aria-atomic="true">Fresh ink! Please keep your elbows, omens, and expectations inside the stall.</p></div>
       <button class="keeper-again" type="button" aria-label="Hear another little goblin remark" title="Another little remark">↻</button>
     </aside>
-        <p class="how-to">Tap a thing to see the full image. Use “take it” to save the original, then furnish a desktop, a wall, or a deeply overcommitted group chat.</p>
+        <button class="print-pull" id="pull-print" type="button">Pull a print from the pile ↻</button><p class="stall-status" id="stall-status" role="status">Fresh ink. Questionable wisdom. Yours.</p><p class="how-to">Browse the drying lines: <a href="#omens-title">tiny prophecies</a> · <a href="#work-title">workplace hexes</a>.</p>
       </div>
-      <div class="hero-art" aria-hidden="true">
-        <img src="assets/solve-the-wave-v1.png" alt="">
-        <span>1 free scream</span>
-      </div>
+      <figure class="hero-art print-counter"><a id="counter-open" href="assets/solve-the-wave-v1.png" target="_blank" rel="noopener" aria-label="Open You Do Not Need To Solve The Wave at full size"><img id="counter-image" src="assets/solve-the-wave-v1.png" alt="You do not need to solve the wave."></a><figcaption><strong id="counter-title">You do not need to solve the wave.</strong><a id="counter-take" href="assets/solve-the-wave-v1.png" download>Take this print ↓</a></figcaption></figure>
     </section>
 
 
 
     <div class="manifest">
-      <section class="collection" aria-labelledby="single-title">
-        <div class="collection-heading">
-          <div><p class="collection-kicker">Single plate</p><h2 id="single-title">Wave apparatus</h2></div>
-          <p>The first public print, promoted from a lonely shelf card to its own properly noisy department.</p>
-        </div>
-        <div class="poster-grid">
-          <article class="artifact">
-            <a class="poster" href="assets/solve-the-wave-v1.png" target="_blank" rel="noopener" aria-label="Open You Do Not Need To Solve The Wave at full size"><img src="assets/solve-the-wave-v1.png" alt="Cosmic acid poster of a green goblin holding a heart-shaped teacup that overflows into waves; lettering reads You do not need to solve the wave."></a>
-            <div class="artifact-meta"><p class="type">Cosmic acid / print 01</p><h3>You do not need to solve the wave.</h3><p>One goblin, one teacup, one perfectly uncooperative ocean.</p><div class="actions"><a class="mini-action" href="assets/solve-the-wave-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/solve-the-wave-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div>
-          </article>
-        </div>
-      </section>
+
 
       <section class="collection" aria-labelledby="omens-title">
         <div class="collection-heading">
@@ -309,10 +296,23 @@
         </div>
       </section>
 
-      <section class="closing-note" aria-label="More artifacts on the way"><h2>Cabinet remains open.</h2><p>More zines, little print artefacts, and creatures with well-meaning advice will continue to leak out of town. The newsstand has the newspapers; the bookshop has the reading material; this is the bit where you take the strange picture home.</p></section>
+      <section class="collection" aria-labelledby="single-title">
+        <div class="collection-heading">
+          <div><p class="collection-kicker">Single plate</p><h2 id="single-title">Wave apparatus</h2></div>
+          <p>The first public print, promoted from a lonely shelf card to its own properly noisy department.</p>
+        </div>
+        <div class="poster-grid">
+          <article class="artifact">
+            <a class="poster" href="assets/solve-the-wave-v1.png" target="_blank" rel="noopener" aria-label="Open You Do Not Need To Solve The Wave at full size"><img src="assets/solve-the-wave-v1.png" alt="Cosmic acid poster of a green goblin holding a heart-shaped teacup that overflows into waves; lettering reads You do not need to solve the wave."></a>
+            <div class="artifact-meta"><p class="type">Cosmic acid / print 01</p><h3>You do not need to solve the wave.</h3><p>One goblin, one teacup, one perfectly uncooperative ocean.</p><div class="actions"><a class="mini-action" href="assets/solve-the-wave-v1.png" download>take it ↓</a><a class="mini-action secondary" href="assets/solve-the-wave-v1.png" target="_blank" rel="noopener">full scream ↗</a></div></div>
+          </article>
+        </div>
+      </section>
+<section class="closing-note" aria-label="More artifacts on the way"><h2>Cabinet remains open.</h2><p>More zines, little print artefacts, and creatures with well-meaning advice will continue to leak out of town. The newsstand has the newspapers; the bookshop has the reading material; this is the bit where you take the strange picture home.</p></section>
     </div>
   </main>
   <footer>ACID GOBLIN / FREE CHAOS MERCH / <a href="../">RETURN TO TOWN MAP</a></footer>
-  <script src="../shopkeeper.js?v=1" defer></script>
+  <script src="../town-journey.js?v=20261006"></script>
+<script src="../shopkeeper.js?v=1" defer></script><script src="./stall.js?v=20261006"></script>
 </body>
 </html>

@@ -1,11 +1,11 @@
 (() => {
   const rumours = [
-    ['Moss alphabetised the rain and says the letter B is still missing.','../bookshop/','Ask Moss at the Bookshop'],
+    [window.TownJourney.secrets.bookmark.clue,'../bookshop/?rumour=bookmark','Ask Moss about the rain','bookmark'],
     ['Pip printed tomorrow’s headline on yesterday’s wrapping paper.','../newsstand/','Inspect the Newsstand'],
     ['The Oracle knows which card you nearly chose, but is being polite.','../tarot/','Visit the Oracle'],
     ['A poster left the Merch stall and came back with a different slogan.','../free-chaos-merch/','Browse Chaos Merch'],
     ['Trippa taught a streetlamp three new colours and one bad habit.','https://technicallytechnicaldesign.github.io/acidgoblin-tripper/','Meet Trippa'],
-    ['Bix built a clock from a boot and now every Tuesday limps.','../rummage-yard/','See Bix’s workbench'],
+    [window.TownJourney.secrets.star.clue,'../rummage-yard/?rumour=star','Ask Bix about his lantern','star'],
     ['The Post Office has a stamp for letters that have not been written yet.','../mushroom-post-office/','Find the Post Office'],
     ['Moss keeps a tiny index of all the books that are secretly doors.','../bookshop/','Ask Moss'],
     ['Pip’s next issue contains an interview with a very shy spoon.','../newsstand/','Check the paper'],
@@ -34,7 +34,7 @@
     ['A pair of socks has been named cultural attaché to the moon.'],
     ['The well is certain it heard a secret from a silent stone.'],
     ['A window is practising how to be a doorway, slowly.'],
-    ['The mushroom choir has cancelled practice to hear the wind.'],
+    [window.TownJourney.secrets.mushroom.clue,'../?return=1&rumour=mushroom','Find the crossroads mushroom','mushroom'],
     ['A lantern gave directions to a firefly and got corrected.'],
     ['The bakery sells “almost yesterday” in a paper bag.'],
     ['Someone has been leaving compliments under the wrong doormat.'],
@@ -53,7 +53,7 @@
   const now = new Date();
   const day = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
   let hash = 17; for (const char of day) hash = ((hash * 31) + char.charCodeAt(0)) >>> 0;
-  const daily = hash % rumours.length;
+  const daily = [0,5,34][hash % 3];
   let current = daily; let shown = 0;
   const queue = rumours.map((_,i)=>i).filter(i=>i!==daily);
   for (let i=queue.length-1;i>0;i--) {const j=Math.floor(Math.random()*(i+1));[queue[i],queue[j]]=[queue[j],queue[i]];}
@@ -66,12 +66,12 @@
     'If anyone asks, the well is closed.'
   ];
   function show(index, featured=false) {
-    const [rumour,href,label] = rumours[index]; current=index;
+    const [rumour,href,label,secret] = rumours[index]; current=index;if(secret)window.TownJourney.hear(secret);
     text.textContent = `“${rumour}”`;
     count.textContent = featured ? 'Featured rumour · today' : `Pebble ${shown} · from the deep`;
-    if (href) {link.hidden=false;link.href=href;link.textContent=`Follow this path ↗ ${label}`;if (href.startsWith('https:')) {link.target='_blank';link.rel='noopener';} else {link.removeAttribute('target');link.removeAttribute('rel');}}
+    if (href) {link.hidden=false;link.href=href.startsWith('https:')?window.TownJourney.url(href):href;link.textContent=`Follow this path ↗ ${label}`;if (href.startsWith('https:')) {link.target='_blank';link.rel='noopener';} else {link.removeAttribute('target');link.removeAttribute('rel');}}
     else {link.hidden=true;link.removeAttribute('href');}
-    keeper.textContent=featured?'I was not supposed to tell you any of these.':keeperLines[(shown-1)%keeperLines.length];
+    keeper.textContent=secret?(window.TownJourney.has(secret)?'Oh! You found it. I knew that rumour had a true bit.':'That one might be true. Take it with you; the keeper will know what you mean.'):featured?'I was not supposed to tell you any of these.':keeperLines[(shown-1)%keeperLines.length];
   }
   show(daily,true);
   function throwPebble() {

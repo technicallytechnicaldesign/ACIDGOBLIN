@@ -42,7 +42,7 @@
   let selected = 0;
   let thought = 0;
   let peek = 0;
-  let playing = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let playing = false;
   let pausedForFocus = false;
   let pausedForHover = false;
   let timer;

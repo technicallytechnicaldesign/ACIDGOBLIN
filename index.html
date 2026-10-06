@@ -157,11 +157,14 @@
 </style>
   <noscript><style>.town-portal{display:none}</style></noscript>
   <link rel="stylesheet" href="town-map.css?v=town-sky-depth-footprints-20260927">
+<link rel="stylesheet" href="./town-journey.css?v=20261006">
+<link rel="stylesheet" href="./town-arrival.css?v=20261006">
 </head>
-<body class="town-root">
+<body data-town-place="town" class="town-root">
   <div class="town-portal" role="status" aria-live="polite" aria-label="Entering Acid Goblin Township">
-    <div class="town-portal-ring" aria-hidden="true"><i></i><i></i><i></i></div>
-    <div class="town-portal-copy"><span class="town-portal-kicker">A crossing is opening</span><strong>Entering<br><em>ACID GOBLIN<br>TOWNSHIP</em></strong><span class="town-portal-note">follow the strange little light ✦</span></div>
+    <span class="crossing-lantern" aria-hidden="true"></span>
+    <div class="town-portal-copy"><span class="town-portal-kicker">The path knows the way</span><strong>Acid Goblin<br><em>Township</em></strong><span class="town-portal-note">follow the strange little light</span></div>
+    <button class="crossing-skip" type="button">Straight to the crossroads →</button>
   </div>
   <div class="town-map" role="main">
     <section class="map-scene" data-sky="day" data-season="summer" aria-label="Explore nine places in Acid Goblin Town">
@@ -301,9 +304,28 @@
         <a href="https://github.com/technicallytechnicaldesign/ACIDGOBLIN" target="_blank" rel="noopener">See the source ↗</a>
       </div>
     </dialog>
-  <script>
+  <script src="./town-journey.js?v=20261006"></script>
+<script>
     (() => {
       const portal = document.querySelector('.town-portal');
+      const crossingReduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let returning=new URLSearchParams(location.search).get('return')==='1';
+      try{returning=returning||sessionStorage.getItem('goblin-crossing-seen')==='yes';sessionStorage.setItem('goblin-crossing-seen','yes');}catch{}
+      if(new URLSearchParams(location.search).get('arrival')==='1')returning=false;
+      document.body.classList.toggle('town-return',returning);
+      const mapForEntry=document.querySelector('.town-map'),navForEntry=document.querySelector('.town-nav');
+      mapForEntry.inert=true; if(navForEntry)navForEntry.inert=true;
+      let crossed=false;
+      function finishCrossing(){
+        if(crossed)return;crossed=true;
+        const wasSkip=document.activeElement===portal.querySelector('.crossing-skip');
+        document.body.classList.add('town-ready');mapForEntry.inert=false;if(navForEntry)navForEntry.inert=false;
+        portal.setAttribute('aria-hidden','true');portal.inert=true;
+        if(wasSkip){const marker=document.querySelector('.map-here');marker.tabIndex=-1;marker.focus({preventScroll:true});}
+        setTimeout(()=>portal.remove(),crossingReduce?0:700);
+        if(new URLSearchParams(location.search).get('pocket')==='open')window.TownJourney.openPocket();
+      }
+      portal.querySelector('.crossing-skip').addEventListener('click',finishCrossing);
       const entryQuery = new URLSearchParams(window.location.search);
       const entrySky = entryQuery.get('sky') === 'night' ? 'sky-night-v1.webp' : entryQuery.get('season') === 'autumn' ? 'sky-autumn-v1.webp' : 'sky-day-v1.webp';
       const entryTerrain = window.matchMedia('(max-width: 640px)').matches
@@ -317,13 +339,9 @@
       });
       const entryAssets = [entrySky, entryTerrain].map((name) => `./town-assets/${name}`);
       entryAssets.push(...[...document.querySelectorAll('.map-stop .stop-art img')].map((image) => image.src));
-      const minCrossing = new Promise((resolve) => setTimeout(resolve, window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 150 : 1100));
+      const minCrossing = new Promise((resolve) => setTimeout(resolve, crossingReduce ? 100 : returning ? 450 : 3600));
       const loaded = Promise.race([Promise.allSettled(entryAssets.map(preloadImage)), new Promise((resolve) => setTimeout(resolve, 5000))]);
-      Promise.all([minCrossing, loaded]).then(() => {
-        document.body.classList.add('town-ready');
-        portal.setAttribute('aria-hidden', 'true');
-        setTimeout(() => portal.remove(), 950);
-      });
+      Promise.all([minCrossing, loaded]).then(finishCrossing);
       const stage = document.querySelector('.map-stage');
       const stops = [...document.querySelectorAll('.map-stop')];
       const trail = document.querySelector('.footprint-trail');
