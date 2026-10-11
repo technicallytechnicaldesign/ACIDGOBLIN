@@ -1,26 +1,22 @@
 # Acid Goblin
 
-Cute-chaos zine series: tiny goblins, gentle reminders, acid color, and emotionally useful absurdity.
+[Enter Goblin Town](https://technicallytechnicaldesign.github.io/ACIDGOBLIN/)
 
-**Read it live:** https://technicallytechnicaldesign.github.io/ACIDGOBLIN/
+Goblins, gossip, a rummage yard, postcards, zines, an Oracle, and free prints. Start at the Town map and follow whichever door looks suspicious.
 
-## What's here
+## Source layout
 
-- `index.html` — Acid Goblin Town, the navigable public landing map.
-- `wavy-days-issue-01/` — Issue 01, *Wavy Days: The Weather Is Participating*, a nine-page offline-friendly Riso field guide for mixed weather and hard weeks.
+- `index.html`: the Town map and entry point.
+- `places/`: the Bookshop, Newsstand, Oracle, Yard, Well, Post Office, Merch, and zines; each place owns its page and local assets.
+- `assets/`: shared styles, scripts, Town artwork, and newspapers.
+- `tools/`: publishing, checks, and development notes.
 
-- `not-my-fucking-fire-zine/`: Field Note 02, *Not My Fucking Fire*, an eight-page Riso guide to centered intern work inside workplace chaos.
+The workspace checkout uses this same layout. Source studies, prompts, and print masters stay in the workspace project.
 
-- `free-chaos-merch/`: a separate, linked free-pickup cabinet for *Solve the Wave*, all 15 Gentle Omens posters, and both three-poster workplace families.
+## Run and publish
 
-- `bookshop/`: a warm reading-room shelf for the interactive zines, *Wavy Days* and *Not My Fucking Fire*.
-- The town map routes readers to a **Newsstand** with a two-row scrolling ticker of headlines and small advice from *The Gobbo Weekly* issues 01 to 05.
-- `newsstand/`: the newsstand page, where each issue of *The Gobbo Weekly* (the newspaper edition of the zines) can be picked up as a PDF.
-- `tarot/`: The Goblin Oracle, a three-card sequential tarot draw with a curated 12-card Star-Eyed Charms deck.
-- `gobbo-weekly/`: the issue PDFs and cover thumbnails the newsstand serves.
-- `rummage-yard/`: eight illustrated scraps and 28 authored two-scrap inventions with a reacting workshop goblin.
-- `gossip-well/`: 40 short rumours, including a local-day featured rumour and paths into other Town stops.
-- `mushroom-post-office/`: three Town-style illustrated scenes and ten illustrated stamps drawn into a live postcard canvas, with short notes, PNG download, and device sharing where available.
-- `side-street.css` and `town-art-v2.css`: shared layout and Town-matched illustration treatment for the three places; all three work without a server-side service.
+Serve this folder with any static web server to preview the source. There are no runtime packages to install.
 
-This is the published-pages mirror of the Acid Goblin project. The full working project (prompts, source studies, sticker/card/animation output, production bible) lives in the private workspace, not in this repo.
+For publishing, run `npm ci --prefix tools`, then `node tools/build-site.cjs _site`. The output directory must be empty. Run `python tools/tests/check_town.py` to check the source, or pass `_site` to check the built site.
+
+GitHub Actions builds and deploys on each push to `main`. The published pages retain their original URLs, including `/bookshop/`, `/mushroom-post-office/`, artwork, and PDF downloads. Source paths are organized for editing; the build restores the public layout.

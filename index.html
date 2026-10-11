@@ -156,9 +156,9 @@
     }
 </style>
   <noscript><style>.town-portal{display:none}</style></noscript>
-  <link rel="stylesheet" href="town-map.css?v=town-sky-depth-footprints-20260927">
-<link rel="stylesheet" href="./town-journey.css?v=20261006">
-<link rel="stylesheet" href="./town-arrival.css?v=20261006">
+  <link rel="stylesheet" href="assets/styles/town-map.css?v=town-sky-depth-footprints-20260927">
+<link rel="stylesheet" href="assets/styles/town-journey.css?v=20261006">
+<link rel="stylesheet" href="assets/styles/town-arrival.css?v=20261006">
 </head>
 <body data-town-place="town" class="town-root">
   <div class="town-portal" role="status" aria-live="polite" aria-label="Entering Acid Goblin Township">
@@ -169,24 +169,24 @@
   <div class="town-map" role="main">
     <section class="map-scene" data-sky="day" data-season="summer" aria-label="Explore nine places in Acid Goblin Town">
       <div class="sky-layer sky-layer--distant" aria-hidden="true">
-        <img class="sky-piece sky-piece--island-left" src="./town-assets/floating-island-v1.webp" alt="" decoding="async">
-        <img class="sky-piece sky-piece--island-right" src="./town-assets/floating-island-v1.webp" alt="" decoding="async">
+        <img class="sky-piece sky-piece--island-left" src="assets/town/floating-island-v1.webp" alt="" decoding="async">
+        <img class="sky-piece sky-piece--island-right" src="assets/town/floating-island-v1.webp" alt="" decoding="async">
       </div>
         <div class="celestial-layer" aria-hidden="true">
           <div class="starfield" aria-hidden="true"></div>
-          <span class="celestial celestial--sun"><img src="./town-assets/sun-v1.webp" alt="" decoding="async"></span>
-          <span class="celestial celestial--moon"><img src="./town-assets/moon-v1.webp" alt="" decoding="async"></span>
-          <img class="celestial celestial--planet" src="./town-assets/planet-v1.webp" alt="" decoding="async">
-          <img class="celestial celestial--clouds" src="./town-assets/clouds-v1.webp" alt="" decoding="async">
+          <span class="celestial celestial--sun"><img src="assets/town/sun-v1.webp" alt="" decoding="async"></span>
+          <span class="celestial celestial--moon"><img src="assets/town/moon-v1.webp" alt="" decoding="async"></span>
+          <img class="celestial celestial--planet" src="assets/town/planet-v1.webp" alt="" decoding="async">
+          <img class="celestial celestial--clouds" src="assets/town/clouds-v1.webp" alt="" decoding="async">
         </div>
       <div class="map-stage">
         <h1 class="map-sr-only">Acid Goblin Town</h1>
 
-        <picture class="terrain-master"><source media="(max-width: 640px)" srcset="./town-assets/terrain-mobile-v4.webp"><img src="./town-assets/terrain-master-v4.webp" alt="" width="1536" height="1024" decoding="async"></picture>
-        <img class="terrain-mobile-autumn" src="./town-assets/terrain-mobile-autumn-v1.webp" alt="" width="1024" height="1536" decoding="async" aria-hidden="true">
+        <picture class="terrain-master"><source media="(max-width: 640px)" srcset="./town-assets/terrain-mobile-v4.webp"><img src="assets/town/terrain-master-v4.webp" alt="" width="1536" height="1024" decoding="async"></picture>
+        <img class="terrain-mobile-autumn" src="assets/town/terrain-mobile-autumn-v1.webp" alt="" width="1024" height="1536" decoding="async" aria-hidden="true">
         <div class="season-layer" aria-hidden="true">
-          <img class="season-piece season-piece--autumn" src="./town-assets/autumn-foliage-v1.webp" alt="" decoding="async">
-          <img class="season-piece season-piece--winter" src="./town-assets/winter-drift-v1.webp" alt="" decoding="async">
+          <img class="season-piece season-piece--autumn" src="assets/town/autumn-foliage-v1.webp" alt="" decoding="async">
+          <img class="season-piece season-piece--winter" src="assets/town/winter-drift-v1.webp" alt="" decoding="async">
         </div>
         <div class="night-lights" aria-hidden="true">
           <i style="--x:26%;--y:28%;--delay:-.4s"></i><i style="--x:73%;--y:28%;--delay:-2.1s"></i>
@@ -205,7 +205,7 @@
         <div class="footprint-trail" aria-hidden="true"></div>
           <div class="map-stop map-stop--about" data-about="true">
             <button class="stop-trigger" type="button" aria-expanded="false" aria-controls="bubble-about" aria-label="Explore the About info booth; press again to read the town note">
-              <span class="stop-art"><img src="./town-assets/info-booth-v1.webp" alt="" width="1122" height="1402" decoding="async"></span>
+              <span class="stop-art"><img src="assets/town/info-booth-v1.webp" alt="" width="1122" height="1402" decoding="async"></span>
               <span class="stop-callout"><strong>Info Booth</strong></span>
             </button>
             <div class="stop-bubble" id="bubble-about" hidden>
@@ -215,47 +215,47 @@
           </div>
           <div class="map-stop map-stop--bookshop" data-destination="./bookshop/">
             <button class="stop-trigger" type="button" aria-expanded="false" aria-controls="bubble-bookshop" aria-label="Explore Goblin Bookshop; press again to enter">
-              <span class="stop-art"><img src="./town-assets/bookshop.webp" alt="" width="700" height="700" decoding="async"></span>
+              <span class="stop-art"><img src="assets/town/bookshop.webp" alt="" width="700" height="700" decoding="async"></span>
               <span class="stop-callout"><small>01 / mossy reading lane</small><strong>Goblin Bookshop</strong></span>
             </button>
             <div class="stop-bubble" id="bubble-bookshop" hidden>
               <p>Field guides, zines and a very patient teacup.</p>
-              <a class="stop-enter" href="./bookshop/">Enter Bookshop ↗</a>
+              <a class="stop-enter" href="places/bookshop/">Enter Bookshop ↗</a>
             </div>
           </div>
           <div class="map-stop map-stop--newsstand" data-destination="./newsstand/">
             <button class="stop-trigger" type="button" aria-expanded="false" aria-controls="bubble-newsstand" aria-label="Explore Gobbo Newsstand; press again to enter">
-              <span class="stop-art"><img src="./town-assets/newsstand.webp" alt="" width="700" height="700" decoding="async"></span>
+              <span class="stop-art"><img src="assets/town/newsstand.webp" alt="" width="700" height="700" decoding="async"></span>
               <span class="stop-callout"><small>02 / fire exit row</small><strong>Gobbo Newsstand</strong></span>
             </button>
             <div class="stop-bubble" id="bubble-newsstand" hidden>
               <p>Fresh pocket papers and improbable headlines.</p>
-              <a class="stop-enter" href="./newsstand/">Enter Newsstand ↗</a>
+              <a class="stop-enter" href="places/newsstand/">Enter Newsstand ↗</a>
             </div>
           </div>
           <div class="map-stop map-stop--oracle" data-destination="./tarot/">
             <button class="stop-trigger" type="button" aria-expanded="false" aria-controls="bubble-oracle" aria-label="Explore Goblin Oracle; press again to enter">
-              <span class="stop-art"><img src="./town-assets/oracle.webp" alt="" width="700" height="700" decoding="async"></span>
+              <span class="stop-art"><img src="assets/town/oracle.webp" alt="" width="700" height="700" decoding="async"></span>
               <span class="stop-callout"><small>03 / moon-puddle court</small><strong>Goblin Oracle</strong></span>
             </button>
             <div class="stop-bubble" id="bubble-oracle" hidden>
               <p>Three cards, one chatty seer, a way through.</p>
-              <a class="stop-enter" href="./tarot/">Enter Oracle ↗</a>
+              <a class="stop-enter" href="places/tarot/">Enter Oracle ↗</a>
             </div>
           </div>
           <div class="map-stop map-stop--merch" data-destination="./free-chaos-merch/">
             <button class="stop-trigger" type="button" aria-expanded="false" aria-controls="bubble-merch" aria-label="Explore Chaos Merch; press again to enter">
-              <span class="stop-art"><img src="./town-assets/merch.webp" alt="" width="700" height="700" decoding="async"></span>
+              <span class="stop-art"><img src="assets/town/merch.webp" alt="" width="700" height="700" decoding="async"></span>
               <span class="stop-callout"><small>04 / printmaker's square</small><strong>Chaos Merch</strong></span>
             </button>
             <div class="stop-bubble" id="bubble-merch" hidden>
               <p>Free posters for the wall, window or void.</p>
-              <a class="stop-enter" href="./free-chaos-merch/">Enter Merch ↗</a>
+              <a class="stop-enter" href="places/free-chaos-merch/">Enter Merch ↗</a>
             </div>
           </div>
           <div class="map-stop map-stop--tripper" data-destination="https://technicallytechnicaldesign.github.io/acidgoblin-tripper/" data-external="true">
             <button class="stop-trigger" type="button" aria-expanded="false" aria-controls="bubble-tripper" aria-label="Explore Trippa; press again to enter">
-              <span class="stop-art"><img src="./town-assets/tripper-goblin-v1.webp" alt="" width="480" height="799" decoding="async"></span>
+              <span class="stop-art"><img src="assets/town/tripper-goblin-v1.webp" alt="" width="480" height="799" decoding="async"></span>
               <span class="stop-callout"><small>05 / side quest</small><strong>Trippa</strong></span>
             </button>
             <div class="stop-bubble" id="bubble-tripper" hidden>
@@ -265,31 +265,31 @@
           </div>
           <div class="map-stop map-stop--rummage map-stop--side" data-destination="./rummage-yard/">
             <button class="stop-trigger" type="button" aria-expanded="false" aria-controls="bubble-rummage" aria-label="Explore Goblin Rummage Yard; press again to enter">
-              <span class="stop-art side-art" aria-hidden="true"><img src="./town-assets/rummage-yard-v2.webp" alt="" width="675" height="700" decoding="async"></span>
+              <span class="stop-art side-art" aria-hidden="true"><img src="assets/town/rummage-yard-v2.webp" alt="" width="675" height="700" decoding="async"></span>
               <span class="stop-callout"><strong>Rummage Yard</strong></span>
             </button>
-            <div class="stop-bubble" id="bubble-rummage" hidden><p>Two scraps. One very unsafe lever.</p><a class="stop-enter" href="./rummage-yard/">Enter Yard ↗</a></div>
+            <div class="stop-bubble" id="bubble-rummage" hidden><p>Two scraps. One very unsafe lever.</p><a class="stop-enter" href="places/rummage-yard/">Enter Yard ↗</a></div>
           </div>
           <div class="map-stop map-stop--well map-stop--side" data-destination="./gossip-well/">
             <button class="stop-trigger" type="button" aria-expanded="false" aria-controls="bubble-well" aria-label="Explore Gossip Well; press again to enter">
-              <span class="stop-art side-art" aria-hidden="true"><img src="./town-assets/gossip-well-v2.webp" alt="" width="779" height="700" decoding="async"></span>
+              <span class="stop-art side-art" aria-hidden="true"><img src="assets/town/gossip-well-v2.webp" alt="" width="779" height="700" decoding="async"></span>
               <span class="stop-callout"><strong>Gossip Well</strong></span>
             </button>
-            <div class="stop-bubble" id="bubble-well" hidden><p>One pebble buys one dubious secret.</p><a class="stop-enter" href="./gossip-well/">Toss a pebble ↗</a></div>
+            <div class="stop-bubble" id="bubble-well" hidden><p>One pebble buys one dubious secret.</p><a class="stop-enter" href="places/gossip-well/">Toss a pebble ↗</a></div>
           </div>
           <div class="map-stop map-stop--post map-stop--side" data-destination="./mushroom-post-office/">
             <button class="stop-trigger" type="button" aria-expanded="false" aria-controls="bubble-post" aria-label="Explore Mushroom Post Office; press again to enter">
-              <span class="stop-art side-art" aria-hidden="true"><img src="./town-assets/post-office-v2.webp" alt="" width="754" height="700" decoding="async"></span>
+              <span class="stop-art side-art" aria-hidden="true"><img src="assets/town/post-office-v2.webp" alt="" width="754" height="700" decoding="async"></span>
               <span class="stop-callout"><strong>Post Office</strong></span>
             </button>
-            <div class="stop-bubble" id="bubble-post" hidden><p>Make a postcard for anywhere-ish.</p><a class="stop-enter" href="./mushroom-post-office/">Make a card ↗</a></div>
+            <div class="stop-bubble" id="bubble-post" hidden><p>Make a postcard for anywhere-ish.</p><a class="stop-enter" href="places/mushroom-post-office/">Make a card ↗</a></div>
           </div>
         <p class="map-margin-note">Roads approximate · curiosity encouraged</p>
         <div class="map-compass" role="status" aria-live="polite"><span class="map-compass-rose" aria-hidden="true"><b>N</b><i>✦</i></span><span class="map-heading">Pick a place</span></div>
       </div>
       <div class="sky-layer sky-layer--near" aria-hidden="true">
-        <img class="sky-piece sky-piece--cloud-left" src="./town-assets/clouds-v1.webp" alt="" decoding="async">
-        <img class="sky-piece sky-piece--cloud-right" src="./town-assets/clouds-v1.webp" alt="" decoding="async">
+        <img class="sky-piece sky-piece--cloud-left" src="assets/town/clouds-v1.webp" alt="" decoding="async">
+        <img class="sky-piece sky-piece--cloud-right" src="assets/town/clouds-v1.webp" alt="" decoding="async">
       </div>
     </section>
   </div>
@@ -304,7 +304,7 @@
         <a href="https://github.com/technicallytechnicaldesign/ACIDGOBLIN" target="_blank" rel="noopener">See the source ↗</a>
       </div>
     </dialog>
-  <script src="./town-journey.js?v=20261006"></script>
+  <script src="assets/scripts/town-journey.js?v=20261006"></script>
 <script>
     (() => {
       const portal = document.querySelector('.town-portal');
@@ -337,7 +337,7 @@
         image.src = url;
         if (image.complete) resolve();
       });
-      const entryAssets = [entrySky, entryTerrain].map((name) => `./town-assets/${name}`);
+      const entryAssets = [entrySky, entryTerrain].map((name) => `assets/town/${name}`);
       entryAssets.push(...[...document.querySelectorAll('.map-stop .stop-art img')].map((image) => image.src));
       const minCrossing = new Promise((resolve) => setTimeout(resolve, crossingReduce ? 100 : returning ? 2000 : 3600));
       const loaded = Promise.race([Promise.allSettled(entryAssets.map(preloadImage)), new Promise((resolve) => setTimeout(resolve, 5000))]);
@@ -673,16 +673,16 @@
     <section class="shelf-section">
       <h2>Zines</h2>
       <div class="shelf">
-        <a class="issue" href="./wavy-days-issue-01/index.html">
-          <div class="cover" style="background-image:url('./wavy-days-issue-01/assets/wavy-days-cover-riso-v1.png');"></div>
+        <a class="issue" href="places/wavy-days-issue-01/index.html">
+          <div class="cover" style="background-image:url('places/wavy-days-issue-01/assets/wavy-days-cover-riso-v1.png');"></div>
           <div class="meta">
             <span class="tag">Issue 01</span>
             <h2>Wavy Days</h2>
             <p>The weather is participating. A nine-page Riso field guide for mixed weather and hard weeks.</p>
           </div>
         </a>
-        <a class="issue" href="./not-my-fucking-fire-zine/index.html">
-          <div class="cover" style="background-image:url('./not-my-fucking-fire-zine/assets/acidgoblin-center-sheet-v1.png'); background-size:400% 200%; background-position:0 0; background-color:#f2c62d;"></div>
+        <a class="issue" href="places/not-my-fucking-fire-zine/index.html">
+          <div class="cover" style="background-image:url('places/not-my-fucking-fire-zine/assets/acidgoblin-center-sheet-v1.png'); background-size:400% 200%; background-position:0 0; background-color:#f2c62d;"></div>
           <div class="meta">
             <span class="tag" style="background:var(--pink);">Field Note 02</span>
             <h2>Not My Fucking Fire</h2>
@@ -695,7 +695,7 @@
     <section class="shelf-section newspaper">
       <h2>The Newspaper</h2>
       <p class="paper-dek">The Gobbo Weekly, all the news that fits inside a coat pocket. Tap the ticker to visit the newsstand and pick up an issue.</p>
-      <a class="tickers" href="./newsstand/" aria-label="Visit the newsstand and pick up an issue of The Gobbo Weekly">
+      <a class="tickers" href="places/newsstand/" aria-label="Visit the newsstand and pick up an issue of The Gobbo Weekly">
         <span class="ticker-cta" aria-hidden="true">To the newsstand &rarr;</span>
         <div class="ticker front">
           <div class="ticker-track">
@@ -799,8 +799,8 @@
     <section class="shelf-section">
       <h2>Free chaos merch</h2>
       <div class="shelf">
-        <a class="issue" href="./free-chaos-merch/">
-          <div class="cover" style="background-image:url('./free-chaos-merch/assets/solve-the-wave-v1.png'); background-color:#0b0512;"></div>
+        <a class="issue" href="places/free-chaos-merch/">
+          <div class="cover" style="background-image:url('places/free-chaos-merch/assets/solve-the-wave-v1.png'); background-color:#0b0512;"></div>
           <div class="meta">
             <span class="tag" style="background:var(--pink);">Free pickup</span>
             <h2>The merch cupboard</h2>
