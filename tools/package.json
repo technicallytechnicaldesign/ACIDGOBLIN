@@ -1,1 +1,10 @@
-{"private":true,"scripts":{"build":"node build-site.cjs","check":"python tests/check_town.py"},"devDependencies":{"acorn":"8.19.0"}}
+{
+  "private": true,
+  "scripts": {
+    "build": "node build-site.cjs",
+    "check": "python tests/check_town.py"
+  },
+  "devDependencies": {
+    "acorn": "8.19.0"
+  }
+}
