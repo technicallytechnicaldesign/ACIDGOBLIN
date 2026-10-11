@@ -2,18 +2,17 @@
 
 [Enter Goblin Town](https://technicallytechnicaldesign.github.io/ACIDGOBLIN/)
 
-Goblins, gossip, a rummage yard, postcards, zines, an Oracle, and free prints. Start at the Town map and follow whichever door looks suspicious.
+A questionable goblin platform for testing some proc-gen ideas / scripts for actual projects (not goblin related). 
+It contains of: goblins, gossip, a rummage yard, postcards, zines, and a fortune telling Oracle. Follow whichever path looks the most suspicious.
 
 ## Source layout
 
 - `index.html`: the Town map and entry point.
-- `places/`: the Bookshop, Newsstand, Oracle, Yard, Well, Post Office, Merch, and zines; each place owns its page and local assets.
+- `places/`: the Bookshop, Newsstand, Oracle, Yard, Well, Post Office, and zines.
 - `assets/`: shared styles, scripts, Town artwork, and newspapers.
 - `tools/`: publishing, checks, and development notes.
 
-The workspace checkout uses this same layout. Source studies, prompts, and print masters stay in the workspace project.
-
-## Run and publish
+## Run and publish notes
 
 Serve this folder with any static web server to preview the source. There are no runtime packages to install.
 
