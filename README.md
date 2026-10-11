@@ -3,7 +3,7 @@
 [Enter Goblin Town](https://technicallytechnicaldesign.github.io/ACIDGOBLIN/)
 
 A questionable goblin platform for testing some proc-gen ideas / scripts for actual projects (not goblin related). 
-It contains of: goblins, gossip, a rummage yard, postcards, zines, and a fortune telling Oracle. Follow whichever path looks the most suspicious.
+It contains: goblins, gossip, a rummage yard, postcards, zines, and a fortune telling Oracle. Follow whichever path looks the most suspicious.
 
 ## Source layout
 
